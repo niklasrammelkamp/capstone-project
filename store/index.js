@@ -1,7 +1,7 @@
 const initialPictures = [
   {
     id: 1,
-    image: "https://source.unsplash.com/random/?forrest,mountain",
+    image: "https://source.unsplash.com/random/?forrest",
     describtion:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
     date: "2022.05.06",
@@ -17,7 +17,7 @@ const initialPictures = [
 
   {
     id: 2,
-    image: "https://source.unsplash.com/random/?forrest,mountain",
+    image: "https://source.unsplash.com/random/?mountain",
     describtion:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
     date: "2022.05.26",
