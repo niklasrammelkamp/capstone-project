@@ -1,9 +1,14 @@
 import styled from "styled-components";
 import Image from "next/image";
+import Link from "next/link";
+import { useRouter } from "next/router";
 
 export default function PostingDetails({ picture }) {
+  const router = useRouter();
+
   return (
     <>
+      <button onClick={() => router.back()}>back</button>
       <Image
         src={picture.image}
         width={200}
@@ -17,6 +22,7 @@ export default function PostingDetails({ picture }) {
           return <li key={category}>{category}</li>;
         })}
       </ul>
+
       <h2>Settings</h2>
       <StyledSettings>
         <div>
@@ -32,6 +38,7 @@ export default function PostingDetails({ picture }) {
               fill="#A6A2A2"
             />
           </svg>
+
           <p>Film</p>
         </div>
         <p>{picture.settings.film}</p>
@@ -41,12 +48,9 @@ export default function PostingDetails({ picture }) {
             width="13"
             height="13"
             viewBox="0 0 13 13"
-            fill="none"
             xmlns="http://www.w3.org/2000/svg"
           >
             <path
-              fill-rule="evenodd"
-              clip-rule="evenodd"
               d="M6.5 0C10.0875 0 13 2.91254 13 6.5C13 10.0875 10.0875 13 6.5 13C2.91254 13 0 10.0875 0 6.5C0 2.91254 2.91254 0 6.5 0ZM2.51171 10.1638C3.50188 11.2412 4.92267 11.9167 6.5 11.9167H6.50217L4.00075 7.58442L2.51171 10.1638ZM11.1908 9.20833H6.18963L7.67867 11.7878C9.17746 11.4546 10.4433 10.4997 11.1908 9.20833ZM1.33196 4.875C1.17054 5.38796 1.08333 5.93396 1.08333 6.5C1.08333 7.48746 1.34821 8.41371 1.81079 9.21104L3.37567 6.50108L3.37513 6.5L3.37675 6.49892L4.31438 4.875H1.33196ZM11.1919 3.79329L8.69104 8.125H11.668C11.8295 7.61204 11.9167 7.06604 11.9167 6.5C11.9167 5.51417 11.6529 4.59008 11.1919 3.79329ZM7.43979 4.875H5.56508L4.62638 6.50108L5.564 8.125H7.44033L8.37796 6.50054L7.43979 4.875ZM9.00358 5.41721L10.4915 2.83996C9.50138 1.76096 8.08004 1.08388 6.50163 1.08333L9.00358 5.41721ZM5.32458 1.21171C3.82471 1.54375 2.55721 2.49925 1.80917 3.79167H6.81417L5.32458 1.21171Z"
               fill="#A6A2A2"
             />
@@ -60,7 +64,6 @@ export default function PostingDetails({ picture }) {
             width="13"
             height="13"
             viewBox="0 0 13 13"
-            fill="none"
             xmlns="http://www.w3.org/2000/svg"
           >
             <path
@@ -77,7 +80,6 @@ export default function PostingDetails({ picture }) {
             width="13"
             height="13"
             viewBox="0 0 13 13"
-            fill="none"
             xmlns="http://www.w3.org/2000/svg"
           >
             <path
@@ -94,7 +96,6 @@ export default function PostingDetails({ picture }) {
             width="15"
             height="13"
             viewBox="0 0 15 13"
-            fill="none"
             xmlns="http://www.w3.org/2000/svg"
           >
             <path

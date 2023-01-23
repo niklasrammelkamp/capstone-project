@@ -5,21 +5,12 @@ import { useRouter } from "next/router";
 export default function PostDetailsPage() {
   const router = useRouter();
   const { id } = router.query;
-  console.log(typeof id);
 
   const picture = initialPictures.find((picture) => {
-    console.log(picture.id);
     return picture.id === id;
   });
 
-  console.log(picture);
-
-  if (!picture) {
-    return <p>is loading</p>;
+  if (picture) {
+    return <PostingDetails picture={picture} />;
   }
-
-  return <PostingDetails picture={picture} />;
-}
-{
-  /* <PostingDetails picture={picture} />; */
 }
