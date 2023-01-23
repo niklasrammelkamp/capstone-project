@@ -10,8 +10,8 @@ const GlobalStyle = createGlobalStyle`
   body {
     margin: 0;
     font-family: system-ui;
-    
   }
+
 `;
 
 export default GlobalStyle;
