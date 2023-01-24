@@ -74,7 +74,7 @@ export default function HomePage() {
 
   // console.log("actualFilter", actualFilter);
   console.log("filterActive", filterActive);
-  console.log("filteredPictures", filteredPictures);
+  console.log("filteredPictures", filteredPictures.length < 1);
 
   // --------------------------------------------------------------------------------
   return (
@@ -96,7 +96,11 @@ export default function HomePage() {
           </button>
         );
       })}
-      <PostingList pictures={filteredPictures} />
+      {filteredPictures.length >= 1 ? (
+        <PostingList pictures={filteredPictures} />
+      ) : (
+        <p>there are no pictures, fitting to your filters</p>
+      )}
     </>
   );
 }
