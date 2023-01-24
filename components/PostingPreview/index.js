@@ -14,7 +14,7 @@ export default function PostingPreview({ picture }) {
         <p>{picture.date}</p>
         <p>{picture.describtion.substring(0, 100)} …</p>
         <ul>
-          {picture.catagories.map((category) => {
+          {picture.categories.map((category) => {
             return <li key={category}>{category}</li>;
           })}
         </ul>
