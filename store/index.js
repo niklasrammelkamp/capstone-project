@@ -5,7 +5,7 @@ const initialPictures = [
     describtion:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
     date: "2022.05.06",
-    catagories: ["landscape", "portrait"],
+    categories: ["forest"],
     settings: {
       film: "Kodak Gold 200",
       aperture: "f 1/4",
@@ -14,14 +14,28 @@ const initialPictures = [
       camera: "Canon AE-1",
     },
   },
-
+  {
+    id: "4",
+    image: "https://source.unsplash.com/random/?portrait,sunset",
+    describtion:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+    date: "2022.06.06",
+    categories: ["portrait", "sunset"],
+    settings: {
+      film: "Kodak Gold 200",
+      aperture: "f 1/4",
+      time: "1/200",
+      lens: "50",
+      camera: "Canon AE-1",
+    },
+  },
   {
     id: "2",
     image: "https://source.unsplash.com/random/?mountain",
     describtion:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
     date: "2022.05.26",
-    catagories: ["landscape", "portrait"],
+    categories: ["landscape", "mountain"],
     settings: {
       film: "Kodak Gold 200",
       aperture: "f 1/4",
@@ -36,7 +50,22 @@ const initialPictures = [
     describtion:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
     date: "2022.06.06",
-    catagories: ["landscape", "portrait, mountain"],
+    categories: ["landscape", "portrait", "mountain"],
+    settings: {
+      film: "Kodak Gold 200",
+      aperture: "f 1/4",
+      time: "1/200",
+      lens: "50",
+      camera: "Canon AE-1",
+    },
+  },
+  {
+    id: "5",
+    image: "https://source.unsplash.com/random/?mountain,portrait",
+    describtion:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+    date: "2022.06.06",
+    categories: ["landscape", "portrait", "mountain"],
     settings: {
       film: "Kodak Gold 200",
       aperture: "f 1/4",
