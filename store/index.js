@@ -5,7 +5,7 @@ const initialPictures = [
     describtion:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
     date: "2022.05.06",
-    categories: ["forrest"],
+    categories: ["forest"],
     settings: {
       film: "Kodak Gold 200",
       aperture: "f 1/4",
