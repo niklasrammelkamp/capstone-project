@@ -72,10 +72,6 @@ export default function HomePage() {
     return areCategoriesInFilter(picture.categories);
   });
 
-  // console.log("actualFilter", actualFilter);
-  console.log("filterActive", filterActive);
-  console.log("filteredPictures", filteredPictures.length < 1);
-
   // --------------------------------------------------------------------------------
   return (
     <>
