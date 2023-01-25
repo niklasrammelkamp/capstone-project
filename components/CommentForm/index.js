@@ -6,6 +6,8 @@ export default function CommentForm({ onAddComment }) {
     event.preventDefault();
 
     onAddComment(event.target.elements.comment.value);
+
+    event.target.reset();
   }
 
   return (
