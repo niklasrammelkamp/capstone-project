@@ -13,6 +13,7 @@ const initialPictures = [
       lens: "50",
       camera: "Canon AE-1",
     },
+    comments: [{ commentId: "1", commentContent: "voll schön" }],
   },
   {
     id: "4",
@@ -28,6 +29,7 @@ const initialPictures = [
       lens: "50",
       camera: "Canon AE-1",
     },
+    comments: [],
   },
   {
     id: "2",
@@ -43,6 +45,7 @@ const initialPictures = [
       lens: "50",
       camera: "Canon AE-1",
     },
+    comments: [],
   },
   {
     id: "3",
@@ -58,6 +61,7 @@ const initialPictures = [
       lens: "50",
       camera: "Canon AE-1",
     },
+    comments: [],
   },
   {
     id: "5",
@@ -73,6 +77,7 @@ const initialPictures = [
       lens: "50",
       camera: "Canon AE-1",
     },
+    comments: [],
   },
 ];
 
