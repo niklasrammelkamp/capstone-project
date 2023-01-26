@@ -14,7 +14,7 @@ export default function CommentForm({ onAddComment }) {
     <>
       <h2>Comments</h2>
       <form onSubmit={handleSubmit}>
-        <Textarea id="comment" name="comment" label={"comment"} />
+        <Textarea id="comment" name="comment" label="comment" />
         <button type="submit">
           <SVGIcon variant="send" color="black" width="24" />
         </button>

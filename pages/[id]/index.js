@@ -21,7 +21,13 @@ export default function PostDetailsPage() {
     setPictures(
       pictures.map((picture) => {
         if (selectedPicture.id === picture.id) {
-          picture.comments.push({ commentId: uid(), commentContent: comment });
+          return {
+            ...picture,
+            comments: [
+              ...picture.comments,
+              { commentId: uid(), commentContent: comment },
+            ],
+          };
         }
         return picture;
       })
