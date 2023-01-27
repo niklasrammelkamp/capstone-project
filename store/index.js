@@ -15,7 +15,7 @@ const initialPictures = [
       lens: "50",
       camera: "Canon AE-1",
     },
-    comments: [{ commentId: "1", commentContent: "voll schön" }],
+    comments: [{ id: "1", content: "voll schön" }],
   },
   {
     id: "4",

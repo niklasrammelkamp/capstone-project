@@ -75,8 +75,7 @@ export default function HomePage() {
               handleFilterClick(filter);
             }}
             style={{
-              backgroundColor: activeFilters.includes(filter) ? "black" : "",
-              color: activeFilters.includes(filter) ? "white" : "black",
+              backgroundColor: activeFilters.includes(filter) && "hotpink",
             }}
           >
             {filter}

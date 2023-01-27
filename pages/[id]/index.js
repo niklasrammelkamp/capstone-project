@@ -23,7 +23,7 @@ export default function PostDetailsPage() {
           return {
             ...picture,
             comments: [
-              { commentId: crypto.randomUUID(), commentContent: comment },
+              { id: crypto.randomUUID(), content: comment },
               ...picture.comments,
             ],
           };
@@ -34,12 +34,12 @@ export default function PostDetailsPage() {
   }
 
   // delete comment
-  function handleDeleteComment(deleteComment) {
+  function handleDeleteComment(id) {
     setPictures(
       pictures.map((picture) => {
         if (selectedPicture.id === picture.id) {
           const filteredComments = picture.comments.filter((comment) => {
-            return comment.commentId !== deleteComment.commentId;
+            return comment.id !== id;
           });
           return { ...picture, comments: filteredComments };
         }

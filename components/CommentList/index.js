@@ -6,9 +6,9 @@ export default function CommentList({ comments, onDeleteComment }) {
       {comments.length ? (
         comments.map((comment) => {
           return (
-            <article key={comment.commentId}>
-              <p>{comment.commentContent}</p>
-              <button type="button" onClick={() => onDeleteComment(comment)}>
+            <article key={comment.id}>
+              <p>{comment.content}</p>
+              <button type="button" onClick={() => onDeleteComment(comment.id)}>
                 <SVGIcon variant="bin" width="13" />
               </button>
             </article>
