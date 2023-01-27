@@ -1,3 +1,5 @@
+import styled from "styled-components";
+
 export default function Textarea({ id, label }) {
   // didn't write this autoResize function by my own but I don't know anymore where I got this from
   function autoResize(event) {
@@ -8,7 +10,11 @@ export default function Textarea({ id, label }) {
   return (
     <>
       <label htmlFor={id}>{label}</label>
-      <textarea id={id} name={id} onInput={autoResize} rows={1} />
+      <StyledTextarea id={id} name={id} onInput={autoResize} rows={1} />
     </>
   );
 }
+
+const StyledTextarea = styled.textarea`
+  resize: none;
+`;
