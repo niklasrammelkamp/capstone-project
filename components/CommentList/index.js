@@ -3,7 +3,7 @@ import SVGIcon from "@/components/SVGIcon";
 export default function CommentList({ comments, onDeleteComment }) {
   return (
     <section>
-      {comments.length >= 1 ? (
+      {comments.length ? (
         comments.map((comment) => {
           return (
             <article key={comment.commentId}>

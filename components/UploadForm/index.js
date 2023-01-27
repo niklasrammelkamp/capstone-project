@@ -1,6 +1,5 @@
 import { Fragment, useState } from "react";
 import SVGIcon from "@/components/SVGIcon";
-import { uid } from "uid";
 
 export default function UploadForm({ initialCategories, onSubmit }) {
   const [categories, setCategories] = useState(initialCategories); // a list of all possible categories depending on users selection
@@ -53,7 +52,7 @@ export default function UploadForm({ initialCategories, onSubmit }) {
     });
 
     const uploadObject = {
-      id: uid(),
+      id: crypto.randomUUID(),
       image: data.image,
       describtion: data.describtion,
       date: currentDate,
@@ -65,6 +64,7 @@ export default function UploadForm({ initialCategories, onSubmit }) {
         lens: data.lens,
         camera: data.camera,
       },
+      comments: [],
     };
 
     event.target.reset();

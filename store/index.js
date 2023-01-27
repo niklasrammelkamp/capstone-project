@@ -1,3 +1,5 @@
+import { atom } from "jotai";
+
 const initialPictures = [
   {
     id: "1",
@@ -81,4 +83,6 @@ const initialPictures = [
   },
 ];
 
-export default initialPictures;
+export const globalPictures = atom(initialPictures);
+
+export const globalActiveFilters = atom([]);

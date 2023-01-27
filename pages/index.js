@@ -1,6 +1,7 @@
 import PostingList from "@/components/PostingList";
-import initialPictures from "@/store";
+import { globalPictures, globalActiveFilters } from "@/store";
 import { atom, useAtom } from "jotai";
+import { useState } from "react";
 
 // sort array function from https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort
 function sortArray(array) {
@@ -18,57 +19,48 @@ function sortArray(array) {
   return array;
 }
 
-// getting all used categories
-const usedCategories = initialPictures
-  .map((picture) => {
-    return picture.categories;
-  })
-  .flatMap((category) => category); // makes a single array from nested arrays
-
-//removing duplicates
-const filtersStrings = [...new Set(usedCategories)]; // https://dev.to/soyleninjs/3-ways-to-remove-duplicates-in-an-array-in-javascript-259o
-sortArray(filtersStrings);
-
-//create objects for each filter
-const filters = filtersStrings.map((filter) => {
-  return { filterName: filter, isClicked: false };
-});
-
-const globalFilters = atom(filters);
-
 // ###################################################################################################################
 // ###################################################################################################################
 
 export default function HomePage() {
-  const [possibleFilters, setPossibleFilters] = useAtom(globalFilters);
+  const [pictures] = useAtom(globalPictures);
+  const [activeFilters, setActiveFilters] = useAtom(globalActiveFilters);
 
+  // getting all used categories
+  const usedCategories = pictures
+    .map((picture) => {
+      return picture.categories;
+    })
+    .flatMap((category) => category); // makes a single array from nested arrays
+
+  //removing duplicates
+  const possibleFilters = [...new Set(usedCategories)]; // https://dev.to/soyleninjs/3-ways-to-remove-duplicates-in-an-array-in-javascript-259o
+  sortArray(possibleFilters);
+
+  // adding or removing filters from activteFilters
   function handleFilterClick(clickedFilter) {
-    setPossibleFilters(
-      possibleFilters.map((filter) => {
-        if (filter.filterName === clickedFilter.filterName) {
-          return { ...filter, isClicked: !filter.isClicked };
-        }
-        return filter;
-      })
-    );
+    if (!activeFilters.includes(clickedFilter)) {
+      setActiveFilters([...activeFilters, clickedFilter]);
+    } else {
+      setActiveFilters(
+        activeFilters.filter((filter) => filter !== clickedFilter)
+      );
+    }
   }
-
-  // create Array containing all active Filters
-  const filterActive = possibleFilters
-    .filter((filter) => filter.isClicked)
-    .map((filter) => filter.filterName);
 
   // test if categories fit to the active filters
   function areCategoriesInFilter(categories) {
     const array = categories.filter((category) => {
-      return filterActive.includes(category);
+      return activeFilters.includes(category);
     });
     sortArray(array); // sort Array alphabetical
-    return array.toString() === filterActive.toString(); // https://www.freecodecamp.org/news/how-to-compare-arrays-in-javascript/
+    sortArray(activeFilters); // sort activeFilters alphabetical
+
+    return array.toString() === activeFilters.toString(); // https://www.freecodecamp.org/news/how-to-compare-arrays-in-javascript/
   }
 
   // create Array with all picture objects compare to the active filters
-  const filteredPictures = initialPictures.filter((picture) => {
+  const filteredPictures = pictures.filter((picture) => {
     return areCategoriesInFilter(picture.categories);
   });
 
@@ -79,16 +71,16 @@ export default function HomePage() {
       {possibleFilters.map((filter) => {
         return (
           <button
-            key={filter.filterName}
+            key={filter}
             onClick={() => {
               handleFilterClick(filter);
             }}
             style={{
-              backgroundColor: filter.isClicked ? "black" : "",
-              color: filter.isClicked ? "white" : "black",
+              backgroundColor: activeFilters.includes(filter) ? "black" : "",
+              color: activeFilters.includes(filter) ? "white" : "black",
             }}
           >
-            {filter.filterName}
+            {filter}
           </button>
         );
       })}

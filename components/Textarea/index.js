@@ -1,4 +1,4 @@
-export default function Textarea({ id, name, label }) {
+export default function Textarea({ id, label }) {
   // didn't write this autoResize function by my own but I don't know anymore where I got this from
   function autoResize(event) {
     event.target.style.height = "auto";
@@ -7,8 +7,8 @@ export default function Textarea({ id, name, label }) {
 
   return (
     <>
-      <label htmlFor={name}>{label}</label>
-      <textarea id={id} name={name} onInput={autoResize} rows={1} />
+      <label htmlFor={id}>{label}</label>
+      <textarea id={id} name={id} onInput={autoResize} rows={1} />
     </>
   );
 }

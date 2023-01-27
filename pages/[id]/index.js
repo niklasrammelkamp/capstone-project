@@ -1,13 +1,12 @@
-import initialPictures from "@/store";
+import { globalPictures } from "@/store";
 import PostingDetails from "@/components/PostingDetails";
 import { useRouter } from "next/router";
 import CommentForm from "@/components/CommentForm";
-import { useState } from "react";
-import { uid } from "uid";
 import CommentList from "@/components/CommentList";
+import { useAtom } from "jotai";
 
 export default function PostDetailsPage() {
-  const [pictures, setPictures] = useState(initialPictures);
+  const [pictures, setPictures] = useAtom(globalPictures);
   const router = useRouter();
   const { id } = router.query;
 
@@ -24,8 +23,8 @@ export default function PostDetailsPage() {
           return {
             ...picture,
             comments: [
+              { commentId: crypto.randomUUID(), commentContent: comment },
               ...picture.comments,
-              { commentId: uid(), commentContent: comment },
             ],
           };
         }
@@ -42,7 +41,7 @@ export default function PostDetailsPage() {
           const filteredComments = picture.comments.filter((comment) => {
             return comment.commentId !== deleteComment.commentId;
           });
-          picture.comments = filteredComments;
+          return { ...picture, comments: filteredComments };
         }
         return picture;
       })
