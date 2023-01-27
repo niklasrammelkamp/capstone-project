@@ -1,7 +1,6 @@
 import PostingList from "@/components/PostingList";
 import { globalPictures, globalActiveFilters } from "@/store";
-import { atom, useAtom } from "jotai";
-import { useState } from "react";
+import { useAtom } from "jotai";
 
 // sort array function from https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort
 function sortArray(array) {
