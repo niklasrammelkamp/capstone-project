@@ -1,3 +1,5 @@
+import { atom } from "jotai";
+
 const initialPictures = [
   {
     id: "1",
@@ -13,6 +15,7 @@ const initialPictures = [
       lens: "50",
       camera: "Canon AE-1",
     },
+    comments: [{ id: "1", content: "voll schön" }],
   },
   {
     id: "4",
@@ -28,6 +31,7 @@ const initialPictures = [
       lens: "50",
       camera: "Canon AE-1",
     },
+    comments: [],
   },
   {
     id: "2",
@@ -43,6 +47,7 @@ const initialPictures = [
       lens: "50",
       camera: "Canon AE-1",
     },
+    comments: [],
   },
   {
     id: "3",
@@ -58,6 +63,7 @@ const initialPictures = [
       lens: "50",
       camera: "Canon AE-1",
     },
+    comments: [],
   },
   {
     id: "5",
@@ -73,7 +79,10 @@ const initialPictures = [
       lens: "50",
       camera: "Canon AE-1",
     },
+    comments: [],
   },
 ];
 
-export default initialPictures;
+export const globalPictures = atom(initialPictures);
+
+export const globalActiveFilters = atom([]);
