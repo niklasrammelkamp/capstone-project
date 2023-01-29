@@ -37,7 +37,7 @@ export default function UploadForm({ initialCategories, onSubmit }) {
     return searchTerm && categoryLower.startsWith(searchTerm);
   });
 
-  // ----------- HANDLESUBMIT ------------------------------
+  // ----------- HANDLESUBMIT ----------------------------------
   async function handleSubmit(event) {
     event.preventDefault();
 
