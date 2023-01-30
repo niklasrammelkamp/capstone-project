@@ -45,7 +45,8 @@ export default function UploadForm({ initialCategories, onSubmit }) {
     const data = Object.fromEntries(formData);
 
     setStatusIcon("... uploading image ⏳");
-    // uploading th image file
+
+    // uploading the image file
     const response = await fetch("/api/upload", {
       method: "POST",
       body: formData,
@@ -53,7 +54,6 @@ export default function UploadForm({ initialCategories, onSubmit }) {
 
     // getting the uplaoded file
     const imageData = await response.json();
-    console.log(imageData);
 
     // getting the actual date
     const currentDate = new Date().toLocaleDateString("us-US", {
@@ -92,7 +92,7 @@ export default function UploadForm({ initialCategories, onSubmit }) {
       <label htmlFor="description">description</label>
       <textarea type="text" id="description" name="description" required />
 
-      {/* ------- serach function + suggestions ------- */}
+      {/* ------- search function + suggestions ------- */}
       <fieldset>
         <h2>Add categories</h2>
         <SVGIcon variant="search" width="13" />
