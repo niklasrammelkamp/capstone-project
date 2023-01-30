@@ -5,7 +5,9 @@ export default function CommentForm({ onAddComment }) {
   function handleSubmit(event) {
     event.preventDefault();
     onAddComment(event.target.elements.comment.value);
+
     event.target.reset();
+    event.target.elements.comment.style.height = "28px";
   }
 
   return (
