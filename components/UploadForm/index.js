@@ -64,7 +64,7 @@ export default function UploadForm({ initialCategories, onSubmit }) {
     const uploadObject = {
       id: crypto.randomUUID(),
       image: imageData.secure_url,
-      describtion: data.describtion,
+      description: data.description,
       date: currentDate,
       categories: selectedCategories,
       settings: {
@@ -89,8 +89,8 @@ export default function UploadForm({ initialCategories, onSubmit }) {
       <label htmlFor="name">upload image</label>
       <input type="file" id="image" name="imageFile" required />
       <br />
-      <label htmlFor="describtion">describtion</label>
-      <textarea type="text" id="describtion" name="describtion" required />
+      <label htmlFor="description">description</label>
+      <textarea type="text" id="description" name="description" required />
 
       {/* ------- serach function + suggestions ------- */}
       <fieldset>

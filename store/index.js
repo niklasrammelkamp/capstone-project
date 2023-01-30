@@ -4,7 +4,7 @@ const initialPictures = [
   {
     id: "1",
     image: "https://source.unsplash.com/random/?forrest",
-    describtion:
+    description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
     date: "2022.05.06",
     categories: ["forest"],
@@ -20,7 +20,7 @@ const initialPictures = [
   {
     id: "4",
     image: "https://source.unsplash.com/random/?portrait,sunset",
-    describtion:
+    description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
     date: "2022.06.06",
     categories: ["portrait", "sunset"],
@@ -36,7 +36,7 @@ const initialPictures = [
   {
     id: "2",
     image: "https://source.unsplash.com/random/?mountain",
-    describtion:
+    description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
     date: "2022.05.26",
     categories: ["landscape", "mountain"],
@@ -52,7 +52,7 @@ const initialPictures = [
   {
     id: "3",
     image: "https://source.unsplash.com/random/?forrest,mountain",
-    describtion:
+    description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
     date: "2022.06.06",
     categories: ["landscape", "portrait", "mountain"],
@@ -68,7 +68,7 @@ const initialPictures = [
   {
     id: "5",
     image: "https://source.unsplash.com/random/?mountain,portrait",
-    describtion:
+    description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
     date: "2022.06.06",
     categories: ["landscape", "portrait", "mountain"],
