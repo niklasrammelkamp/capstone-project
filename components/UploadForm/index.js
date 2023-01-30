@@ -4,18 +4,14 @@ import SVGIcon from "@/components/SVGIcon";
 export default function UploadForm({ initialCategories, onSubmit }) {
   const [categories, setCategories] = useState(initialCategories); // a list of all possible categories depending on users selection
   const [inputCategoryValue, setInputCategoryValue] = useState(""); // using for controlled Inputs
-  const [isCategoryFound, setIsCategoryFound] = useState(false); // for leting the user know if there is no result to the inputValue
   const [selectedCategories, setSelectedCategories] = useState([]); // a list of all selected categories
   const [noCategoriesSelected, setNoCategoriesSelected] = useState(false); // letting the user know that there must be atleast one category selected
+
+  const [statusIcon, setStatusIcon] = useState("");
 
   function onChangeInput(event) {
     setNoCategoriesSelected(false);
     setInputCategoryValue(event.target.value);
-    if (event.target.value < 1) {
-      setIsCategoryFound(false);
-      return;
-    }
-    setIsCategoryFound(true);
   }
 
   function handleAddSelectedCategory(selectedCategory) {
@@ -41,20 +37,34 @@ export default function UploadForm({ initialCategories, onSubmit }) {
     return searchTerm && categoryLower.startsWith(searchTerm);
   });
 
-  function handleSubmit(event) {
+  // ----------- HANDLESUBMIT ----------------------------------
+  async function handleSubmit(event) {
     event.preventDefault();
 
     const formData = new FormData(event.target);
     const data = Object.fromEntries(formData);
 
+    setStatusIcon("... uploading image ⏳");
+
+    // uploading the image file
+    const response = await fetch("/api/upload", {
+      method: "POST",
+      body: formData,
+    });
+
+    // getting the uplaoded file
+    const imageData = await response.json();
+
+    // getting the actual date
     const currentDate = new Date().toLocaleDateString("us-US", {
       dateStyle: "medium",
     });
 
+    // creating the new Picture Object
     const uploadObject = {
       id: crypto.randomUUID(),
-      image: data.image,
-      describtion: data.describtion,
+      image: imageData.secure_url,
+      description: data.description,
       date: currentDate,
       categories: selectedCategories,
       settings: {
@@ -77,12 +87,12 @@ export default function UploadForm({ initialCategories, onSubmit }) {
   return (
     <form onSubmit={handleSubmit}>
       <label htmlFor="name">upload image</label>
-      <input type="text" id="image" name="image" required />
+      <input type="file" id="image" name="imageFile" required />
       <br />
-      <label htmlFor="describtion">describtion</label>
-      <textarea type="text" id="describtion" name="describtion" required />
+      <label htmlFor="description">description</label>
+      <textarea type="text" id="description" name="description" required />
 
-      {/* ------- serach function + suggestions ------- */}
+      {/* ------- search function + suggestions ------- */}
       <fieldset>
         <h2>Add categories</h2>
         <SVGIcon variant="search" width="13" />
@@ -90,27 +100,30 @@ export default function UploadForm({ initialCategories, onSubmit }) {
           type="text"
           value={inputCategoryValue}
           onChange={onChangeInput}
-          onBlur={() => setIsCategoryFound(false)}
           style={{
             outline: noCategoriesSelected && "red 2px solid",
           }}
         />
         {noCategoriesSelected && <span>required</span>}
         <div>
-          {filterdCategories.length >= 1
-            ? filterdCategories.map((category) => {
-                return (
-                  <p
-                    key={category}
-                    onClick={() => {
-                      handleAddSelectedCategory(category);
-                    }}
-                  >
-                    {category}
-                  </p>
-                );
-              })
-            : isCategoryFound && <p>no categories found</p>}
+          {filterdCategories.length >= 1 ? (
+            filterdCategories.map((category) => {
+              return (
+                <p
+                  key={category}
+                  onClick={() => {
+                    handleAddSelectedCategory(category);
+                  }}
+                >
+                  {category}
+                </p>
+              );
+            })
+          ) : inputCategoryValue.length ? (
+            <p>no categories found</p>
+          ) : (
+            <></>
+          )}
         </div>
 
         {/* ------- listing all selected categories ------- */}
@@ -174,6 +187,9 @@ export default function UploadForm({ initialCategories, onSubmit }) {
       ) : (
         <button type="submit">upload</button>
       )}
+      <div>
+        <p>{statusIcon}</p>
+      </div>
     </form>
   );
 }

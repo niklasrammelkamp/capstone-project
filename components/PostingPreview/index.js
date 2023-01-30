@@ -9,10 +9,10 @@ export default function PostingPreview({ picture }) {
           src={picture.image}
           width={200}
           height={200}
-          alt={picture.describtion}
+          alt={picture.description}
         />
         <p>{picture.date}</p>
-        <p>{picture.describtion.substring(0, 100)} …</p>
+        <p>{picture.description.substring(0, 100)} …</p>
         <ul>
           {picture.categories.map((category) => {
             return <li key={category}>{category}</li>;
