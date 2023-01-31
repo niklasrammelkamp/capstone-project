@@ -1,3 +1,5 @@
+import Filter from "@/components/Filter";
+// import { globalActiveNav } from "@/store";
 import PostingList from "@/components/PostingList";
 import { globalPictures, globalActiveFilters } from "@/store";
 import { useAtom } from "jotai";
@@ -24,6 +26,9 @@ function sortArray(array) {
 export default function HomePage() {
   const [pictures] = useAtom(globalPictures);
   const [activeFilters, setActiveFilters] = useAtom(globalActiveFilters);
+  // const [, setActiveNav] = useAtom(globalActiveNav);
+
+  // setActiveNav("home");
 
   // getting all used categories
   const usedCategories = pictures
@@ -67,21 +72,11 @@ export default function HomePage() {
   return (
     <>
       <h1>Foto App</h1>
-      {possibleFilters.map((filter) => {
-        return (
-          <button
-            key={filter}
-            onClick={() => {
-              handleFilterClick(filter);
-            }}
-            style={{
-              backgroundColor: activeFilters.includes(filter) && "hotpink",
-            }}
-          >
-            {filter}
-          </button>
-        );
-      })}
+      <Filter
+        filter={possibleFilters}
+        activeFilters={activeFilters}
+        onFilterClick={handleFilterClick}
+      />
       {filteredPictures.length >= 1 ? (
         <PostingList pictures={filteredPictures} />
       ) : (

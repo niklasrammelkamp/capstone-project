@@ -2,6 +2,7 @@ import UploadForm from "@/components/UploadForm";
 import { globalPictures } from "@/store";
 import { useAtom } from "jotai";
 import { useRouter } from "next/router";
+// import { globalActiveNav } from "@/store";
 
 // For the search function I got inspierd by: https://www.youtube.com/watch?v=Jd7s7egjt30&ab_channel=ReactwithMasoud
 
@@ -22,6 +23,9 @@ const initialCategories = [
 export default function UploadPage() {
   const [pictures, setPictures] = useAtom(globalPictures);
   const router = useRouter();
+  // const [, setActiveNav] = useAtom(globalActiveNav);
+
+  // setActiveNav("upload");
 
   function handleSubmit(picture) {
     setPictures([...pictures, picture]);
