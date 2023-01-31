@@ -57,7 +57,7 @@ const paths = {
   },
 };
 
-export default function SVGIcon({ variant, width, color = "#A6A2A2", isFill }) {
+export default function SVGIcon({ variant, width, color = "#A6A2A2" }) {
   return (
     <svg viewBox={paths[variant].viewbox} width={width} fill={color}>
       <title>{variant}</title>
