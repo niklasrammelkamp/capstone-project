@@ -14,8 +14,11 @@ const StyledButton = styled.button`
         display: flex;
         flex-direction: column;
         align-items: center;
+        justify-content: center;
         gap: 0.5rem;
         margin-top: ${isActive ? "-5px" : "0"};
+        width: 25%;
+        height: 100%;
 
         &::after {
           position: absolute;
