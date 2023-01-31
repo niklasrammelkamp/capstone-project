@@ -4,8 +4,6 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import SVGIcon from "../SVGIcon";
 import StyledButton from "../SytledButton";
-// import { globalActiveNav } from "@/store";
-// import { useAtom } from "jotai";
 
 export default function Navbar() {
   const router = useRouter();
