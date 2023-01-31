@@ -16,13 +16,13 @@ const StyledButton = styled.button`
         align-items: center;
         justify-content: center;
         gap: 0.5rem;
-        margin-top: ${isActive ? "-5px" : "0"};
+        transform: ${isActive ? "translateY(-5px)" : "0"};
         width: 25%;
         height: 100%;
 
         &::after {
           position: absolute;
-          bottom: ${isActive ? "0.7rem" : "0"};
+          transform: ${isActive ? "translateY(19px)" : "translateY(25px)"};
           opacity: ${isActive ? "1" : "0"};
           content: "";
           display: inline-block;
