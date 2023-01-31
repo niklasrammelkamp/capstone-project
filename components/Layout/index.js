@@ -11,5 +11,5 @@ export default function Layout({ children }) {
 }
 
 const StyledMain = styled.main`
-  padding-bottom: 6rem;
+  padding: 0 30px 6rem 30px;
 `;

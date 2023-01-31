@@ -1,5 +1,4 @@
 import Filter from "@/components/Filter";
-// import { globalActiveNav } from "@/store";
 import PostingList from "@/components/PostingList";
 import { globalPictures, globalActiveFilters } from "@/store";
 import { useAtom } from "jotai";
@@ -26,9 +25,6 @@ function sortArray(array) {
 export default function HomePage() {
   const [pictures] = useAtom(globalPictures);
   const [activeFilters, setActiveFilters] = useAtom(globalActiveFilters);
-  // const [, setActiveNav] = useAtom(globalActiveNav);
-
-  // setActiveNav("home");
 
   // getting all used categories
   const usedCategories = pictures
