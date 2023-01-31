@@ -42,11 +42,6 @@ const StyledButton = styled.button`
         display: flex;
         align-items: center;
         justify-content: center;
-
-        /* padding-top: 0;
-        padding-left: 0;
-        padding-bottom: 0;
-        padding-right: 0; */
         padding: 0;
       `;
     }

@@ -49,11 +49,7 @@ export default function Navbar() {
             router.push("/profile");
           }}
         >
-          {activeNav === "profile" ? (
-            <SVGIcon variant="profile_filled" width="20" color="#23222" />
-          ) : (
-            <SVGIcon variant="profile" width="20" color="#23222" />
-          )}
+          <SVGIcon variant="profile" width="20" color="#23222" />
         </StyledButton>
       </div>
 
