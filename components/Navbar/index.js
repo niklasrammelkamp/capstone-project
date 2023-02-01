@@ -2,7 +2,8 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import SVGIcon from "../SVGIcon";
-import StyledButton from "../SytledButton";
+import StyledButton from "../Button";
+import Button from "../Button";
 
 export default function Navbar() {
   const router = useRouter();
@@ -25,45 +26,35 @@ export default function Navbar() {
   return (
     <StyledNav>
       <div>
-        <StyledButton
-          variant="navButton"
-          isActive={activeNav === "home"}
-          onClick={() => {
-            router.push("/");
-          }}
-        >
+        <Button variant="navButton" isActive={activeNav === "home"} href="/">
           {activeNav === "home" ? (
             <SVGIcon variant="home_filled" width="24" color="#23222" />
           ) : (
             <SVGIcon variant="home" width="24" color="#23222" />
           )}
-        </StyledButton>
+        </Button>
 
-        <StyledButton
+        <Button
           variant="navButton"
           isActive={activeNav === "profile"}
-          onClick={() => {
-            router.push("/profile");
-          }}
+          href="/profile"
         >
           {activeNav === "profile" ? (
             <SVGIcon variant="profile_filled" width="20" color="#23222" />
           ) : (
             <SVGIcon variant="profile" width="20" color="#23222" />
           )}
-        </StyledButton>
+        </Button>
       </div>
 
-      <StyledButton
+      <Button
         variant="navButtonUpload"
         isActive={activeNav === "upload"}
         type="button"
-        onClick={() => {
-          router.push("/upload");
-        }}
+        href="/upload"
       >
         <SVGIcon variant="plus" width="20" color="white" />
-      </StyledButton>
+      </Button>
     </StyledNav>
   );
 }

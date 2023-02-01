@@ -1,5 +1,17 @@
 import css from "styled-jsx/css";
 import styled from "styled-components";
+import Link from "next/link";
+
+// Thanks @doemser for this
+export default function Button(props) {
+  // The component decides whether a button or an anchor is rendered,
+  // based on whether an href prop was passed through.
+  return (
+    <StyledButton as={props.href && Link} {...props}>
+      {props.children}
+    </StyledButton>
+  );
+}
 
 const StyledButton = styled.button`
   border: none;
@@ -49,5 +61,3 @@ const StyledButton = styled.button`
     }
   }}
 `;
-
-export default StyledButton;
