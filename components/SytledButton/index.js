@@ -1,6 +1,5 @@
 import css from "styled-jsx/css";
-
-const { default: styled } = require("styled-components");
+import styled from "styled-components";
 
 const StyledButton = styled.button`
   border: none;
