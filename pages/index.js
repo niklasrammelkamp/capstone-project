@@ -1,6 +1,6 @@
 import Filter from "@/components/Filter";
 import PostingList from "@/components/PostingList";
-import { globalPictures, globalActiveFilters } from "@/store";
+import { globalPosts, globalActiveFilters } from "@/store";
 import { useAtom } from "jotai";
 
 // sort array function from https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort
@@ -23,7 +23,7 @@ function sortArray(array) {
 // ###################################################################################################################
 
 export default function HomePage() {
-  const [pictures] = useAtom(globalPictures);
+  const [pictures] = useAtom(globalPosts);
   const [activeFilters, setActiveFilters] = useAtom(globalActiveFilters);
 
   // getting all used categories

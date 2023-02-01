@@ -1,4 +1,4 @@
-import { globalPictures } from "@/store";
+import { globalPosts } from "@/store";
 import PostingDetails from "@/components/PostingDetails";
 import { useRouter } from "next/router";
 import CommentForm from "@/components/CommentForm";
@@ -6,7 +6,7 @@ import CommentList from "@/components/CommentList";
 import { useAtom } from "jotai";
 
 export default function PostDetailsPage() {
-  const [pictures, setPictures] = useAtom(globalPictures);
+  const [pictures, setPictures] = useAtom(globalPosts);
   const router = useRouter();
   const { id } = router.query;
 
