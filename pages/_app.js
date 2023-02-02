@@ -6,10 +6,14 @@ import useLocalStorageState from "use-local-storage-state";
 
 export default function App({ Component, pageProps }) {
   const [loggedInUser, setLoggedInUser] = useLocalStorageState("loggedInUser", {
-    defaultValue: "peterlustig@mail.com",
+    defaultValue: "rainerzufall@mail.com",
   });
 
-  console.log(loggedInUser);
+  if (loggedInUser === "peterlustig@mail.com")
+    setLoggedInUser("rainerzufall@mail.com");
+
+  // if (loggedInUser === "rainerzufall@mail.com")
+  //   setLoggedInUser("peterlustig@mail.com");
 
   return (
     <>

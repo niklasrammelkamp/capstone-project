@@ -1,20 +1,20 @@
 import Image from "next/image";
 import Link from "next/link";
 
-export default function PostingPreview({ picture }) {
+export default function PostingPreview({ post }) {
   return (
-    <Link href={`/${picture.id}`}>
+    <Link href={`/${post.id}`}>
       <article>
         <Image
-          src={picture.image}
+          src={post.image}
           width={200}
           height={200}
-          alt={picture.description}
+          alt={post.description}
         />
-        <p>{picture.date}</p>
-        <p>{picture.description.substring(0, 100)} …</p>
+        <p>{post.date}</p>
+        <p>{post.description.substring(0, 100)} …</p>
         <ul>
-          {picture.categories.map((category) => {
+          {post.categories.map((category) => {
             return <li key={category}>{category}</li>;
           })}
         </ul>

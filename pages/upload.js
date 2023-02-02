@@ -1,69 +1,41 @@
 import UploadForm from "@/components/UploadForm";
-import { globalPictures } from "@/store";
+import { globalPosts, globalUsers } from "@/store";
 import { useAtom } from "jotai";
 import { useRouter } from "next/router";
+import { initialCategories } from "@/store/categories";
+import getItem from "@/store/getItem";
+import { useState, useEffect, use } from "react";
 
 // For the search function I got inspierd by: https://www.youtube.com/watch?v=Jd7s7egjt30&ab_channel=ReactwithMasoud
 
-const initialCategories = [
-  "Landscapes",
-  "Animals",
-  "Portraits",
-  "Architecture",
-  "Food",
-  "Nature",
-  "Sports",
-  "Cars",
-  "People",
-  "Flowers",
-  "Seascapes",
-  "Street photography",
-  "Abstract",
-  "Travel",
-  "Weddings",
-  "Fashion",
-  "Wildlife",
-  "Urban",
-  "Sunsets",
-  "Family",
-  "Black and white",
-  "Beaches",
-  "Night photography",
-  "Performance art",
-  "Clouds",
-  "Children",
-  "Macro photography",
-  "Interiors",
-  "Fireworks",
-  "Festivals",
-  "Still life",
-  "Mountains",
-  "Forests",
-  "Waterfalls",
-  "Cityscapes",
-  "Birds",
-  "Skyscrapers",
-  "Sunrises",
-  "Musical instruments",
-  "Artistic nudes",
-  "Urban exploration",
-  "Deserts",
-  "Reflections",
-  "Nature close-ups",
-  "Cultural events",
-  "Religious ceremonies",
-  "Space and astronomy",
-  "Vintage",
-  "Fantasy and surreal",
-  "Street art",
-];
-
 export default function UploadPage() {
-  const [pictures, setPictures] = useAtom(globalPictures);
+  const [posts, setPosts] = useAtom(globalPosts);
   const router = useRouter();
+  const [users, setUsers] = useAtom(globalUsers);
 
-  function handleSubmit(picture) {
-    setPictures([...pictures, picture]);
+  // got it from https://www.joshwcomeau.com/react/the-perils-of-rehydration/#abstractions
+  const [hasMounted, setHasMounted] = useState(false);
+  useEffect(() => {
+    setHasMounted(true);
+  }, []);
+  if (!hasMounted) {
+    return null;
+  }
+  const loggedInUser = users.find(
+    (user) => user.id === getItem("loggedInUser")
+  );
+
+  function handleSubmit(post) {
+    setPosts([...posts, { ...post, user: loggedInUser.id }]);
+
+    setUsers(
+      users.map((user) => {
+        if (user.id === loggedInUser.id) {
+          return { ...user, uploadedPosts: [...user.uploadedPosts, post.id] };
+        }
+      })
+    );
+
     router.push("/");
   }
   return (

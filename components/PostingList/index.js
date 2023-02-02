@@ -1,10 +1,10 @@
 import PostingPreview from "../PostingPreview";
 
-export default function PostingList({ pictures }) {
+export default function PostingList({ posts }) {
   return (
     <section>
-      {pictures.map((picture) => {
-        return <PostingPreview picture={picture} key={picture.id} />;
+      {posts.map((post) => {
+        return <PostingPreview post={post} key={post.id} />;
       })}
     </section>
   );

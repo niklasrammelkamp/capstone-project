@@ -23,13 +23,13 @@ function sortArray(array) {
 // ###################################################################################################################
 
 export default function HomePage() {
-  const [pictures] = useAtom(globalPosts);
+  const [posts] = useAtom(globalPosts);
   const [activeFilters, setActiveFilters] = useAtom(globalActiveFilters);
 
   // getting all used categories
-  const usedCategories = pictures
-    .map((picture) => {
-      return picture.categories;
+  const usedCategories = posts
+    .map((post) => {
+      return post.categories;
     })
     .flatMap((category) => category); // makes a single array from nested arrays
 
@@ -59,9 +59,9 @@ export default function HomePage() {
     return array.toString() === activeFilters.toString(); // https://www.freecodecamp.org/news/how-to-compare-arrays-in-javascript/
   }
 
-  // create Array with all picture objects compare to the active filters
-  const filteredPictures = pictures.filter((picture) => {
-    return areCategoriesInFilter(picture.categories);
+  // create Array with all post objects compare to the active filters
+  const filteredPosts = posts.filter((post) => {
+    return areCategoriesInFilter(post.categories);
   });
 
   // --------------------------------------------------------------------------------
@@ -73,10 +73,10 @@ export default function HomePage() {
         activeFilters={activeFilters}
         onFilterClick={handleFilterClick}
       />
-      {filteredPictures.length >= 1 ? (
-        <PostingList pictures={filteredPictures} />
+      {filteredPosts.length >= 1 ? (
+        <PostingList posts={filteredPosts} />
       ) : (
-        <p>there are no pictures, fitting to your filters</p>
+        <p>there are no posts, fitting to your filters</p>
       )}
     </>
   );
