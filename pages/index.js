@@ -2,6 +2,7 @@ import Filter from "@/components/Filter";
 import PostingList from "@/components/PostingList";
 import { globalPictures, globalActiveFilters } from "@/store";
 import { useAtom } from "jotai";
+import useSWR from "swr";
 
 // sort array function from https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort
 function sortArray(array) {
@@ -25,6 +26,7 @@ function sortArray(array) {
 export default function HomePage() {
   const [pictures] = useAtom(globalPictures);
   const [activeFilters, setActiveFilters] = useAtom(globalActiveFilters);
+  const { data, isLoading, error } = useSWR("api/posts");
 
   // getting all used categories
   const usedCategories = pictures
