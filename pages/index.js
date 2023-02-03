@@ -1,6 +1,6 @@
 import Filter from "@/components/Filter";
 import PostingList from "@/components/PostingList";
-import { globalPosts, globalActiveFilters } from "@/store";
+import { globalPosts, globalActiveFilters, globalUsers } from "@/store";
 import { useAtom } from "jotai";
 
 // sort array function from https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort
@@ -24,7 +24,13 @@ function sortArray(array) {
 
 export default function HomePage() {
   const [posts] = useAtom(globalPosts);
+  const [users] = useAtom(globalUsers);
   const [activeFilters, setActiveFilters] = useAtom(globalActiveFilters);
+
+  const postsWithUser = posts.map((post) => {
+    const user = users.find((user) => post.user === user.id);
+    return { ...post, userName: user.name, userImage: user.image };
+  });
 
   // getting all used categories
   const usedCategories = posts
@@ -60,7 +66,7 @@ export default function HomePage() {
   }
 
   // create Array with all post objects compare to the active filters
-  const filteredPosts = posts.filter((post) => {
+  const filteredPosts = postsWithUser.filter((post) => {
     return areCategoriesInFilter(post.categories);
   });
 

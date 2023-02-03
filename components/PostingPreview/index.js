@@ -12,6 +12,13 @@ export default function PostingPreview({ post }) {
           alt={post.description}
         />
         <p>{post.date}</p>
+        <Image
+          src={post.userImage}
+          width={30}
+          height={30}
+          alt={`profile picture of ${post.userName}`}
+        />
+        <p>{post.userName}</p>
         <p>{post.description.substring(0, 100)} …</p>
         <ul>
           {post.categories.map((category) => {

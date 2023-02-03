@@ -33,6 +33,7 @@ export default function UploadPage() {
         if (user.id === loggedInUser.id) {
           return { ...user, uploadedPosts: [...user.uploadedPosts, post.id] };
         }
+        return user;
       })
     );
 
