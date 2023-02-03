@@ -118,11 +118,6 @@ export default function PostDetailsPage() {
     );
   }
 
-  console.log("selectedPost", selectedPost);
-  // console.log("comments", comments);
-  console.log("loggedInUser", loggedInUser);
-  // console.log("users", users);
-
   if (selectedPost) {
     return (
       <>
