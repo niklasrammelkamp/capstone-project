@@ -18,7 +18,7 @@ export default function PostingDetails({ post }) {
         alt={`profile picture of ${post.userName}`}
       />
       <p>{post.userName}</p>
-      <p>{post.description.substring(0, 100)} …</p>
+      <p>{post.description}</p>
       <ul>
         {post.categories.map((category) => {
           return <li key={category}>{category}</li>;

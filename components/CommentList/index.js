@@ -32,6 +32,5 @@ export default function CommentList({ comments, onDeleteComment }) {
 }
 
 const StyledComment = styled.article`
-  word-wrap: break-word;
   white-space: pre-line;
 `;
