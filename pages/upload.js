@@ -1,30 +1,42 @@
 import UploadForm from "@/components/UploadForm";
-import { globalPictures } from "@/store";
+import { globalPosts, globalUsers } from "@/store";
 import { useAtom } from "jotai";
 import { useRouter } from "next/router";
+import { initialCategories } from "@/store/categories";
+import getItem from "@/store/getItem";
+import { useState, useEffect, use } from "react";
 
 // For the search function I got inspierd by: https://www.youtube.com/watch?v=Jd7s7egjt30&ab_channel=ReactwithMasoud
 
-const initialCategories = [
-  "mountain",
-  "forest",
-  "sunset",
-  "bw",
-  "landscape",
-  "long exposure",
-  "night",
-  "moon",
-  "portrait",
-  "city",
-  "people",
-];
-
 export default function UploadPage() {
-  const [pictures, setPictures] = useAtom(globalPictures);
+  const [posts, setPosts] = useAtom(globalPosts);
   const router = useRouter();
+  const [users, setUsers] = useAtom(globalUsers);
 
-  function handleSubmit(picture) {
-    setPictures([...pictures, picture]);
+  // got it from https://www.joshwcomeau.com/react/the-perils-of-rehydration/#abstractions
+  const [hasMounted, setHasMounted] = useState(false);
+  useEffect(() => {
+    setHasMounted(true);
+  }, []);
+  if (!hasMounted) {
+    return null;
+  }
+  const loggedInUser = users.find(
+    (user) => user.id === getItem("loggedInUser")
+  );
+
+  function handleSubmit(post) {
+    setPosts([...posts, { ...post, user: loggedInUser.id }]);
+
+    setUsers(
+      users.map((user) => {
+        if (user.id === loggedInUser.id) {
+          return { ...user, uploadedPosts: [...user.uploadedPosts, post.id] };
+        }
+        return user;
+      })
+    );
+
     router.push("/");
   }
   return (

@@ -2,7 +2,6 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import SVGIcon from "../SVGIcon";
-import StyledButton from "../Button";
 import Button from "../Button";
 
 export default function Navbar() {

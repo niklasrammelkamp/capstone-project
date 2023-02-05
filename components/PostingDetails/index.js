@@ -1,25 +1,26 @@
 import styled from "styled-components";
 import Image from "next/image";
-import Link from "next/link";
 import { useRouter } from "next/router";
 import SVGIcon from "../SVGIcon";
 
-export default function PostingDetails({ picture }) {
+export default function PostingDetails({ post }) {
   const router = useRouter();
 
   return (
     <>
       <button onClick={() => router.back()}>back</button>
+      <Image src={post.image} width={200} height={200} alt={post.description} />
+      <p>{post.date}</p>
       <Image
-        src={picture.image}
-        width={200}
-        height={200}
-        alt={picture.description}
+        src={post.userImage}
+        width={30}
+        height={30}
+        alt={`profile picture of ${post.userName}`}
       />
-      <p>{picture.date}</p>
-      <p>{picture.description.substring(0, 100)} …</p>
+      <p>{post.userName}</p>
+      <p>{post.description}</p>
       <ul>
-        {picture.categories.map((category) => {
+        {post.categories.map((category) => {
           return <li key={category}>{category}</li>;
         })}
       </ul>
@@ -30,31 +31,31 @@ export default function PostingDetails({ picture }) {
           <SVGIcon variant="film" width="16" />
           <p>Film</p>
         </div>
-        <p>{picture.settings.film}</p>
+        <p>{post.settings.film}</p>
 
         <div>
           <SVGIcon variant="aperture" width="13" />
           <p>Aperture</p>
         </div>
-        <p>{picture.settings.aperture}</p>
+        <p>{post.settings.aperture}</p>
 
         <div>
           <SVGIcon variant="time" width="13" />
           <p>Time</p>
         </div>
-        <p>{picture.settings.time}</p>
+        <p>{post.settings.time}</p>
 
         <div>
           <SVGIcon variant="lens" width="13" />
           <p>Lens</p>
         </div>
-        <p>{picture.settings.lens}</p>
+        <p>{post.settings.lens}</p>
 
         <div>
           <SVGIcon variant="camera" width="15" />
           <p>Camera</p>
         </div>
-        <p>{picture.settings.camera}</p>
+        <p>{post.settings.camera}</p>
       </StyledSettings>
     </>
   );

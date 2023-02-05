@@ -1,6 +1,6 @@
 import Filter from "@/components/Filter";
 import PostingList from "@/components/PostingList";
-import { globalPictures, globalActiveFilters } from "@/store";
+import { globalPosts, globalActiveFilters, globalUsers } from "@/store";
 import { useAtom } from "jotai";
 
 // sort array function from https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort
@@ -23,13 +23,19 @@ function sortArray(array) {
 // ###################################################################################################################
 
 export default function HomePage() {
-  const [pictures] = useAtom(globalPictures);
+  const [posts] = useAtom(globalPosts);
+  const [users] = useAtom(globalUsers);
   const [activeFilters, setActiveFilters] = useAtom(globalActiveFilters);
 
+  const postsWithUser = posts.map((post) => {
+    const user = users.find((user) => post.user === user.id);
+    return { ...post, userName: user.name, userImage: user.image };
+  });
+
   // getting all used categories
-  const usedCategories = pictures
-    .map((picture) => {
-      return picture.categories;
+  const usedCategories = posts
+    .map((post) => {
+      return post.categories;
     })
     .flatMap((category) => category); // makes a single array from nested arrays
 
@@ -59,9 +65,9 @@ export default function HomePage() {
     return array.toString() === activeFilters.toString(); // https://www.freecodecamp.org/news/how-to-compare-arrays-in-javascript/
   }
 
-  // create Array with all picture objects compare to the active filters
-  const filteredPictures = pictures.filter((picture) => {
-    return areCategoriesInFilter(picture.categories);
+  // create Array with all post objects compare to the active filters
+  const filteredPosts = postsWithUser.filter((post) => {
+    return areCategoriesInFilter(post.categories);
   });
 
   // --------------------------------------------------------------------------------
@@ -73,10 +79,10 @@ export default function HomePage() {
         activeFilters={activeFilters}
         onFilterClick={handleFilterClick}
       />
-      {filteredPictures.length >= 1 ? (
-        <PostingList pictures={filteredPictures} />
+      {filteredPosts.length >= 1 ? (
+        <PostingList posts={filteredPosts} />
       ) : (
-        <p>there are no pictures, fitting to your filters</p>
+        <p>there are no posts, fitting to your filters</p>
       )}
     </>
   );
