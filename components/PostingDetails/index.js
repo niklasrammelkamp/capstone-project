@@ -5,6 +5,7 @@ import SVGIcon from "../SVGIcon";
 
 export default function PostingDetails({ post }) {
   const router = useRouter();
+  console.log("post", post);
 
   return (
     <>

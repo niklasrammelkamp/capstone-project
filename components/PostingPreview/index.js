@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export default function PostingPreview({ post }) {
   return (
-    <Link href={`/${post.id}`}>
+    <Link href={`/posts/${post._id}`}>
       <article>
         <Image
           src={post.image}

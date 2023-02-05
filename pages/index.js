@@ -29,7 +29,11 @@ export default function HomePage() {
   const [activeFilters, setActiveFilters] = useAtom(globalActiveFilters);
   const { data, isLoading, error } = useSWR("api/posts");
 
-  const postsWithUser = posts.map((post) => {
+  if (isLoading) return <p>is loading</p>;
+
+  console.log(data);
+
+  const postsWithUser = data.map((post) => {
     const user = users.find((user) => post.user === user.id);
     return { ...post, userName: user.name, userImage: user.image };
   });
