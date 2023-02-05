@@ -90,7 +90,13 @@ export default function UploadForm({ initialCategories, onSubmit }) {
       <input type="file" id="image" name="imageFile" required />
       <br />
       <label htmlFor="description">description</label>
-      <textarea type="text" id="description" name="description" required />
+      <textarea
+        type="text"
+        id="description"
+        name="description"
+        maxLength={250}
+        required
+      />
 
       {/* ------- search function + suggestions ------- */}
       <fieldset>
@@ -154,26 +160,32 @@ export default function UploadForm({ initialCategories, onSubmit }) {
         <h2>Settings</h2>
         <SVGIcon variant="film" width="16" />
         <label htmlFor="film">film</label>
-        <input type="text" id="film" name="film" />
+        <input type="text" id="film" name="film" maxLength={30} />
         <br />
         <SVGIcon variant="aperture" width="13" />
         <label htmlFor="aperture">aperture</label>
         <span> f1/</span>
-        <input type="number" id="aperture" name="aperture" step=".01" />
+        <input
+          type="number"
+          id="aperture"
+          name="aperture"
+          step=".01"
+          maxLength={5}
+        />
         <br />
         <SVGIcon variant="time" width="13" />
         <label htmlFor="time">time</label>
-        <input type="text" id="time" name="time" />
+        <input type="text" id="time" name="time" maxLength={7} />
         <span>s</span>
         <br />
         <SVGIcon variant="lens" width="13" />
         <label htmlFor="lens">lens</label>
-        <input type="text" id="lens" name="lens" />
+        <input type="text" id="lens" name="lens" maxLength={10} />
         <span>mm</span>
         <br />
         <SVGIcon variant="camera" width="15" />
         <label htmlFor="camera">camera</label>
-        <input type="text" id="camera" name="camera" />
+        <input type="text" id="camera" name="camera" maxLength={10} />
       </fieldset>
       {selectedCategories < 1 ? (
         <button

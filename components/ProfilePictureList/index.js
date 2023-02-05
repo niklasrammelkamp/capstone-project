@@ -1,18 +1,17 @@
 import Link from "next/link";
 import Image from "next/image";
 
-export default function ProfilePictureList({ pictures }) {
+export default function ProfilePostList({ posts }) {
   return (
     <section>
-      <p>uploads</p>
-      {pictures.map((picture) => {
+      {posts.map((post) => {
         return (
-          <Link href={`/${picture.id}`} key={picture.id}>
+          <Link href={`/${post.id}`} key={post.id}>
             <Image
-              src={picture.image}
+              src={post.image}
               width={100}
               height={100}
-              alt={picture.description}
+              alt={post.description}
             />
           </Link>
         );
