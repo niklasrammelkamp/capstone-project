@@ -14,12 +14,17 @@ export default function PostDetailsPage({ loggedInUser }) {
   const router = useRouter();
   const { id } = router.query;
   const [users, setUsers] = useAtom(globalUsers);
-  const { data, isLoading, error } = useSWR(id ? `/api/posts/${id}` : null);
+  const {
+    data: post,
+    isLoading,
+    error,
+  } = useSWR(id ? `/api/posts/${id}` : null);
 
   if (isLoading || !id) return <p>is loading</p>;
   if (error) return <p>error</p>;
 
-  console.log("data", data);
+  // console.log("data", post);
+  // console.log("loggedInUser", loggedInUser);
 
   // // getting the requested post
   // const selectedPost = posts.find((post) => {
@@ -48,83 +53,109 @@ export default function PostDetailsPage({ loggedInUser }) {
   //     return { ...comment, userName: user.name, userImage: user.image };
   //   });
 
-  // // ----------- ADD COMMENT
-  // function handleAddComment(comment) {
-  //   const currentDate = new Date().toLocaleDateString("us-US", {
-  //     dateStyle: "medium",
-  //   });
-  //   const newId = crypto.randomUUID();
+  // ----------- ADD COMMENT
+  async function handleAddComment(comment) {
+    const currentDate = new Date().toLocaleDateString("us-US", {
+      dateStyle: "medium",
+    });
 
-  //   setAllComments([
-  //     ...allComments,
-  //     {
-  //       id: newId,
-  //       post: selectedPost.id,
-  //       user: loggedInUser.id,
-  //       content: comment,
-  //       date: currentDate,
-  //     },
-  //   ]);
+    const newComment = {
+      content: comment,
+      date: currentDate,
+      user: loggedInUser._id,
+      post: post._id,
+    };
 
-  //   setPosts(
-  //     posts.map((post) => {
-  //       if (post.id === selectedPost.id) {
-  //         return { ...post, comments: [...post.comments, newId] };
-  //       }
-  //       return post;
-  //     })
-  //   );
+    try {
+      const response = await fetch(`/api/comments/${id}`, {
+        method: "PUT",
+        body: JSON.stringify(newComment),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
 
-  //   setUsers(
-  //     users.map((user) => {
-  //       if (user.id === loggedInUser.id) {
-  //         return { ...user, comments: [...user.comments, newId] };
-  //       }
-  //       return user;
-  //     })
-  //   );
-  // }
+      if (response.ok) {
+        const data = await response.json();
+      } else {
+        console.error(`Error: ${response.status}`);
+      }
+    } catch (error) {
+      console.error(error.message);
+    }
+  }
 
-  // // ----------- DELETE COMMENT
-  // function handleDeleteComment(id) {
-  //   setAllComments(allComments.filter((comment) => comment.id !== id));
-  //   setPosts(
-  //     posts.map((post) => {
-  //       if (selectedPost.id === post.id) {
-  //         const filteredComments = post.comments.filter((comment) => {
-  //           return comment !== id;
-  //         });
-  //         return { ...post, comments: filteredComments };
-  //       }
-  //       return post;
-  //     })
-  //   );
-
-  //   setUsers(
-  //     users.map((user) => {
-  //       if (loggedInUser.id === user.id) {
-  //         const filteredComments = user.comments.filter((comment) => {
-  //           return comment !== id;
-  //         });
-  //         return { ...user, comments: filteredComments };
-  //       }
-  //       return user;
-  //     })
-  //   );
-  // }
+  // ----------- DELETE COMMENT
+  function handleDeleteComment(id) {
+    fetch(`/api/comments/${id}`, { method: "DELETE" });
+  }
 
   // if (selectedPost) {
   return (
     <>
-      <PostingDetails post={data} />
-      <CommentForm />
+      <PostingDetails post={post} />
+      <CommentForm onAddComment={handleAddComment} />
       <CommentList
-        comments={data.comments}
-        // onDeleteComment={handleDeleteComment}
+        comments={post.comments}
+        onDeleteComment={handleDeleteComment}
       />
     </>
   );
   //}
 }
 
-//onAddComment={handleAddComment}
+// const newId = crypto.randomUUID();
+
+// setAllComments([
+//   ...allComments,
+//   {
+//     id: newId,
+//     post: selectedPost.id,
+//     user: loggedInUser.id,
+//     content: comment,
+//     date: currentDate,
+//   },
+// ]);
+
+// setPosts(
+//   posts.map((post) => {
+//     if (post.id === selectedPost.id) {
+//       return { ...post, comments: [...post.comments, newId] };
+//     }
+//     return post;
+//   })
+// );
+
+// setUsers(
+//   users.map((user) => {
+//     if (user.id === loggedInUser.id) {
+//       return { ...user, comments: [...user.comments, newId] };
+//     }
+//     return user;
+//   })
+// );
+
+// setAllComments(allComments.filter((comment) => comment.id !== id));
+//     setPosts(
+//       posts.map((post) => {
+//         if (selectedPost.id === post.id) {
+//           const filteredComments = post.comments.filter((comment) => {
+//             return comment !== id;
+//           });
+//           return { ...post, comments: filteredComments };
+//         }
+//         return post;
+//       })
+//     );
+
+//     setUsers(
+//       users.map((user) => {
+//         if (loggedInUser.id === user.id) {
+//           const filteredComments = user.comments.filter((comment) => {
+//             return comment !== id;
+//           });
+//           return { ...user, comments: filteredComments };
+//         }
+//         return user;
+//       })
+//     );

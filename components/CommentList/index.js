@@ -8,7 +8,7 @@ export default function CommentList({ comments, onDeleteComment }) {
       {comments.length ? (
         comments.map((comment) => {
           return (
-            <StyledComment key={comment.id}>
+            <StyledComment key={comment._id}>
               <Image
                 src={comment.user.image}
                 width={30}
@@ -18,7 +18,10 @@ export default function CommentList({ comments, onDeleteComment }) {
               <p>{comment.user.name}</p>
               <p>{comment.date}</p>
               <p>{comment.content}</p>
-              <button type="button" onClick={() => onDeleteComment(comment.id)}>
+              <button
+                type="button"
+                onClick={() => onDeleteComment(comment._id)}
+              >
                 <SVGIcon variant="bin" width="13" />
               </button>
             </StyledComment>

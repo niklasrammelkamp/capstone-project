@@ -5,16 +5,19 @@ import ProfilePictureList from "@/components/ProfilePictureList";
 import { useState, useEffect } from "react";
 import getItem from "@/store/getItem";
 import useSWR from "swr";
+import CommentList from "@/components/CommentList";
 
-export default function ProfilePage({ loggedInUser }) {
+export default function ProfilePage({ loggedInUser, reloadUser }) {
   const [allPosts] = useAtom(globalPosts);
   const [users] = useAtom(globalUsers);
-  const { data, isLoading, error } = useSWR(`/api/user/${loggedInUser}`);
+  reloadUser();
+  // const { data: user, isLoading, error } = useSWR(`/api/user/${loggedInUser}`);
 
-  if (isLoading) return <p>is loading</p>;
-  if (error) return <p>error</p>;
+  // if (isLoading) return <p>is loading</p>;
+  // if (error) return <p>error</p>;
 
-  console.log(data);
+  // console.log("user", user);
+  console.log("loggedInUser", loggedInUser);
 
   // got it from https://www.joshwcomeau.com/react/the-perils-of-rehydration/#abstractions
   // const [hasMounted, setHasMounted] = useState(false);
@@ -39,11 +42,13 @@ export default function ProfilePage({ loggedInUser }) {
 
   return (
     <>
-      <ProfileDetails user={data} />
+      <ProfileDetails user={loggedInUser} />
       <p>uploads</p>
-      <ProfilePictureList posts={data.uploadedPosts} />
+      <ProfilePictureList posts={loggedInUser.uploadedPosts} />
       <p>liked</p>
-      <ProfilePictureList posts={data.likedPosts} />
+      <ProfilePictureList posts={loggedInUser.likedPosts} />
+      <p>comments</p>
+      <CommentList comments={loggedInUser.comments} />
     </>
   );
 }

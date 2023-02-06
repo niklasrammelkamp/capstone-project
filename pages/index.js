@@ -1,6 +1,6 @@
 import Filter from "@/components/Filter";
 import PostingList from "@/components/PostingList";
-import { globalPosts, globalActiveFilters, globalUsers } from "@/store";
+import { globalActiveFilters } from "@/store";
 import { useAtom } from "jotai";
 import useSWR from "swr";
 
@@ -24,20 +24,11 @@ function sortArray(array) {
 // ###################################################################################################################
 
 export default function HomePage() {
-  const [posts] = useAtom(globalPosts);
-  const [users] = useAtom(globalUsers);
   const [activeFilters, setActiveFilters] = useAtom(globalActiveFilters);
-  const { data, isLoading, error } = useSWR("api/posts");
+  const { data: posts, isLoading, error } = useSWR("api/posts");
 
   if (isLoading) return <p>is loading</p>;
   if (error) return <p>error</p>;
-
-  console.log(data);
-
-  // const postsWithUser = data.map((post) => {
-  //   const user = users.find((user) => post.user === user.id);
-  //   return { ...post, userName: user.name, userImage: user.image };
-  // });
 
   // getting all used categories
   const usedCategories = posts
@@ -73,7 +64,7 @@ export default function HomePage() {
   }
 
   // create Array with all post objects compare to the active filters
-  const filteredPosts = data.filter((post) => {
+  const filteredPosts = posts.filter((post) => {
     return areCategoriesInFilter(post.categories);
   });
 
@@ -87,7 +78,7 @@ export default function HomePage() {
         onFilterClick={handleFilterClick}
       />
       {filteredPosts.length >= 1 ? (
-        <PostingList posts={data} />
+        <PostingList posts={filteredPosts} />
       ) : (
         <p>there are no posts, fitting to your filters</p>
       )}
