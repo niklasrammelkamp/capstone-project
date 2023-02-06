@@ -23,6 +23,7 @@ export default function App({ Component, pageProps }) {
   if (isLoading) return <p>is loading</p>;
   if (error) return <p>error</p>;
 
+  // for reloading the user
   function reloadUser() {
     mutate();
   }
