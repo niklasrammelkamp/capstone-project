@@ -2,7 +2,6 @@ import Layout from "@/components/Layout";
 import GlobalStyle from "@/styles";
 import Head from "next/head";
 import { SWRConfig } from "swr";
-import { globalUsers } from "@/store";
 import useLocalStorageState from "use-local-storage-state";
 import useSWR from "swr";
 
@@ -28,8 +27,8 @@ export default function App({ Component, pageProps }) {
     mutate();
   }
 
-  // if (loggedInUser === "rainerzufall@mail.com")
-  //   setLoggedInUser("peterlustig@mail.com");
+  if (loggedInUser === "peterlustig@mail.com")
+    setLoggedInUser("rainerzufall@mail.com");
 
   return (
     <SWRConfig
