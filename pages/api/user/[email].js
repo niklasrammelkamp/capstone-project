@@ -5,29 +5,27 @@ import Comment from "@/db/models/Comment";
 
 export default async function handler(request, response) {
   await dbConnect();
-  const { id } = request.query;
-  console.log(id);
+  const { email } = request.query;
 
   if (request.method === "GET") {
-    const post = await Post.findById(id)
+    const user = await User.findOne({ email: email })
       .populate({
-        path: "user",
-        model: "User",
+        path: "uploadedPosts",
+        model: "Post",
+      })
+      .populate({
+        path: "likedPosts",
+        model: "Post",
       })
       .populate({
         path: "comments",
         model: "Comment",
-        populate: {
-          path: "user",
-          model: "User",
-        },
       });
-    console.log(post);
 
-    if (!post) {
+    if (!user) {
       return response.status(404).json({ status: "Not Found" });
     }
 
-    return response.status(200).json(post);
+    return response.status(200).json(user);
   }
 }

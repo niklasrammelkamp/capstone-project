@@ -30,7 +30,7 @@ export default function App({ Component, pageProps }) {
         <title>Foto App</title>
       </Head>
       <Layout>
-        <Component {...pageProps} />
+        <Component {...pageProps} loggedInUser={loggedInUser} />
       </Layout>
     </SWRConfig>
   );

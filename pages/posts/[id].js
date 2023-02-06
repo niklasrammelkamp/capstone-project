@@ -8,7 +8,7 @@ import getItem from "@/store/getItem";
 import { useState, useEffect } from "react";
 import useSWR from "swr";
 
-export default function PostDetailsPage() {
+export default function PostDetailsPage({ loggedInUser }) {
   const [posts, setPosts] = useAtom(globalPosts);
   const [allComments, setAllComments] = useAtom(globalComments);
   const router = useRouter();
@@ -16,19 +16,7 @@ export default function PostDetailsPage() {
   const [users, setUsers] = useAtom(globalUsers);
   const { data, isLoading, error } = useSWR(id ? `/api/posts/${id}` : null);
 
-  // got it from https://www.joshwcomeau.com/react/the-perils-of-rehydration/#abstractions
-  const [hasMounted, setHasMounted] = useState(false);
-  useEffect(() => {
-    setHasMounted(true);
-  }, []);
-  if (!hasMounted) {
-    return null;
-  }
-  const loggedInUser = users.find(
-    (user) => user.id === getItem("loggedInUser")
-  );
-
-  if (isLoading) return <p>is loading</p>;
+  if (isLoading || !id) return <p>is loading</p>;
   if (error) return <p>error</p>;
 
   console.log("data", data);
@@ -129,12 +117,14 @@ export default function PostDetailsPage() {
   return (
     <>
       <PostingDetails post={data} />
-      {/* <CommentForm onAddComment={handleAddComment} />
-        <CommentList
-          comments={comments}
-          onDeleteComment={handleDeleteComment}
-        /> */}
+      <CommentForm />
+      <CommentList
+        comments={data.comments}
+        // onDeleteComment={handleDeleteComment}
+      />
     </>
   );
   //}
 }
+
+//onAddComment={handleAddComment}

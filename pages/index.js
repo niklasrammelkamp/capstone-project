@@ -30,13 +30,14 @@ export default function HomePage() {
   const { data, isLoading, error } = useSWR("api/posts");
 
   if (isLoading) return <p>is loading</p>;
+  if (error) return <p>error</p>;
 
   console.log(data);
 
-  const postsWithUser = data.map((post) => {
-    const user = users.find((user) => post.user === user.id);
-    return { ...post, userName: user.name, userImage: user.image };
-  });
+  // const postsWithUser = data.map((post) => {
+  //   const user = users.find((user) => post.user === user.id);
+  //   return { ...post, userName: user.name, userImage: user.image };
+  // });
 
   // getting all used categories
   const usedCategories = posts
@@ -72,7 +73,7 @@ export default function HomePage() {
   }
 
   // create Array with all post objects compare to the active filters
-  const filteredPosts = postsWithUser.filter((post) => {
+  const filteredPosts = data.filter((post) => {
     return areCategoriesInFilter(post.categories);
   });
 
@@ -86,7 +87,7 @@ export default function HomePage() {
         onFilterClick={handleFilterClick}
       />
       {filteredPosts.length >= 1 ? (
-        <PostingList posts={filteredPosts} />
+        <PostingList posts={data} />
       ) : (
         <p>there are no posts, fitting to your filters</p>
       )}

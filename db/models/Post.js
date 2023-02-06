@@ -3,7 +3,10 @@ import mongoose from "mongoose";
 const { Schema } = mongoose;
 
 const postSchema = new Schema({
-  user: { type: String, required: true },
+  user: {
+    type: Schema.Types.ObjectId,
+    ref: "User",
+  },
   image: { type: String, required: true },
   description: { type: String, required: true },
   date: { type: String, required: true },
@@ -16,7 +19,12 @@ const postSchema = new Schema({
     camera: String,
   },
   likes: [String],
-  comments: [String],
+  comments: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Comment",
+    },
+  ],
 });
 
 const Post = mongoose.models.Post || mongoose.model("Post", postSchema);

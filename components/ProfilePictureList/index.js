@@ -6,7 +6,7 @@ export default function ProfilePostList({ posts }) {
     <section>
       {posts.map((post) => {
         return (
-          <Link href={`/posts/${post.id}`} key={post.id}>
+          <Link href={`/posts/${post._id}`} key={post._id}>
             <Image
               src={post.image}
               width={100}

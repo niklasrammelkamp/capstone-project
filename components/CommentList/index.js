@@ -10,12 +10,12 @@ export default function CommentList({ comments, onDeleteComment }) {
           return (
             <StyledComment key={comment.id}>
               <Image
-                src={comment.userImage}
+                src={comment.user.image}
                 width={30}
                 height={30}
-                alt={`profile picture of ${comment.userName}`}
+                alt={`profile picture of ${comment.user.name}`}
               />
-              <p>{comment.userName}</p>
+              <p>{comment.user.name}</p>
               <p>{comment.date}</p>
               <p>{comment.content}</p>
               <button type="button" onClick={() => onDeleteComment(comment.id)}>
