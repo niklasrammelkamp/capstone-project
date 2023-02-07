@@ -77,6 +77,8 @@ export default function PostDetailsPage({ loggedInUser }) {
         <CommentList
           comments={post.comments}
           onDeleteComment={handleDeleteComment}
+          loggedInUserID={loggedInUser._id}
+          postIsFromUser={post.user._id === loggedInUser._id}
         />
       </>
     </>

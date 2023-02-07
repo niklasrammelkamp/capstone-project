@@ -28,8 +28,11 @@ export default function App({ Component, pageProps }) {
     mutate();
   }
 
-  if (loggedInUser === "peterlustig@mail.com")
-    setLoggedInUser("rainerzufall@mail.com");
+  // if (loggedInUser === "peterlustig@mail.com")
+  //   setLoggedInUser("rainerzufall@mail.com");
+
+  if (loggedInUser === "rainerzufall@mail.com")
+    setLoggedInUser("peterlustig@mail.com");
 
   return (
     <SWRConfig

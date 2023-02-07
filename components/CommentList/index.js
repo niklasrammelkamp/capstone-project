@@ -2,7 +2,12 @@ import SVGIcon from "@/components/SVGIcon";
 import Image from "next/image";
 import styled from "styled-components";
 
-export default function CommentList({ comments, onDeleteComment }) {
+export default function CommentList({
+  comments,
+  onDeleteComment,
+  loggedInUserID,
+  postIsFromUser,
+}) {
   return (
     <section>
       {comments.length ? (
@@ -18,12 +23,14 @@ export default function CommentList({ comments, onDeleteComment }) {
               <p>{comment.user.name}</p>
               <p>{comment.date}</p>
               <p>{comment.content}</p>
-              <button
-                type="button"
-                onClick={() => onDeleteComment(comment._id)}
-              >
-                <SVGIcon variant="bin" width="13" />
-              </button>
+              {(comment.user._id === loggedInUserID || postIsFromUser) && (
+                <button
+                  type="button"
+                  onClick={() => onDeleteComment(comment._id)}
+                >
+                  <SVGIcon variant="bin" width="13" />
+                </button>
+              )}
             </StyledComment>
           );
         })
