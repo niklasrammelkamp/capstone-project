@@ -1,5 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
+import Button from "../Button";
+import SVGIcon from "../SVGIcon";
 
 export default function PostingPreview({ post }) {
   return (
@@ -19,6 +21,9 @@ export default function PostingPreview({ post }) {
           alt={`profile picture of ${post.user.name}`}
         />
         <p>{post.user.name}</p>
+        <Button type="button">
+          <SVGIcon variant="like" color="black" width={24} />
+        </Button>
         {post.description.length > 100 ? (
           <p> {post.description.substring(0, 100)} …</p>
         ) : (
