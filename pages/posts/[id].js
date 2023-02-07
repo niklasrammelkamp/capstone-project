@@ -3,8 +3,11 @@ import { useRouter } from "next/router";
 import CommentForm from "@/components/CommentForm";
 import CommentList from "@/components/CommentList";
 import useSWR from "swr";
+import { useState } from "react";
+import Link from "next/link";
 
 export default function PostDetailsPage({ loggedInUser }) {
+  const [isError, setIsError] = useState(false);
   const router = useRouter();
   const { id } = router.query;
 
@@ -12,6 +15,7 @@ export default function PostDetailsPage({ loggedInUser }) {
     data: post,
     isLoading,
     error,
+    mutate,
   } = useSWR(id ? `/api/posts/${id}` : null);
 
   if (isLoading || !id) return <p>is loading</p>;
@@ -43,25 +47,38 @@ export default function PostDetailsPage({ loggedInUser }) {
         const data = await response.json();
       } else {
         console.error(`Error: ${response.status}`);
+        setIsError(true);
       }
     } catch (error) {
       console.error(error.message);
+      setIsError(true);
     }
+    mutate();
   }
 
   // ----------- DELETE COMMENT
   function handleDeleteComment(id) {
     fetch(`/api/comments/${id}`, { method: "DELETE" });
+    mutate();
   }
 
   return (
     <>
-      <PostingDetails post={post} />
-      <CommentForm onAddComment={handleAddComment} />
-      <CommentList
-        comments={post.comments}
-        onDeleteComment={handleDeleteComment}
-      />
+      <>
+        <PostingDetails post={post} />
+        {isError ? (
+          <>
+            <p>error</p>
+            <button onClick={() => router.reload()}>Try again</button>
+          </>
+        ) : (
+          <CommentForm onAddComment={handleAddComment} />
+        )}
+        <CommentList
+          comments={post.comments}
+          onDeleteComment={handleDeleteComment}
+        />
+      </>
     </>
   );
 }

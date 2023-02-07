@@ -19,7 +19,11 @@ export default function PostingPreview({ post }) {
           alt={`profile picture of ${post.user.name}`}
         />
         <p>{post.user.name}</p>
-        <p>{post.description.substring(0, 100)} …</p>
+        {post.description.length > 100 ? (
+          <p> {post.description.substring(0, 100)} …</p>
+        ) : (
+          <p>{post.description}</p>
+        )}
         <ul>
           {post.categories.map((category) => {
             return <li key={category}>{category}</li>;
