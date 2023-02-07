@@ -35,7 +35,6 @@ export default function App({ Component, pageProps }) {
     <SWRConfig
       value={{
         fetcher,
-        refreshInterval: 1000,
       }}
     >
       <GlobalStyle />
