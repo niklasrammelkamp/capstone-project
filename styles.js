@@ -8,10 +8,11 @@ const GlobalStyle = createGlobalStyle`
   }
 
   :root {
-    --font-size: 14px;
+    --font-size: 13px;
 
     --black: #232222;
     --grey: #A6A2A2;
+    --white: #ffffff;
   }
 
   html {
@@ -21,6 +22,7 @@ const GlobalStyle = createGlobalStyle`
   body {
     margin: 0;
     font-family: system-ui;
+    background-color: #F5F5F3;
   }
 
 `;

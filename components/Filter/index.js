@@ -4,6 +4,7 @@ export default function Filter({ filter, activeFilters, onFilterClick }) {
       {filter.map((filter) => {
         return (
           <button
+            type="button"
             key={filter}
             onClick={() => {
               onFilterClick(filter);
