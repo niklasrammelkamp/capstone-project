@@ -1,32 +1,35 @@
-import ProfileDetails from "@/components/ProfileDetails";
-import ProfilePictureList from "@/components/ProfilePictureList";
-import Button from "@/components/Button";
-import { useState } from "react";
 import SVGIcon from "@/components/SVGIcon";
 import styled, { css } from "styled-components";
-import TabBar from "@/components/TabBar";
+import Button from "@/components/Button";
 
-export default function ProfilePage({ loggedInUser, reloadUser }) {
-  const [activeTab, setActiveTab] = useState("uploads");
-
-  function handleTabBar(state) {
-    setActiveTab(state);
-  }
-
-  reloadUser();
-
+export default function TabBar({ onTabBar, activeTab }) {
   return (
-    <>
-      <ProfileDetails user={loggedInUser} />
+    <StyledTabBar tabState={activeTab}>
+      <Button
+        variant="tabBarButton"
+        type="button"
+        isActive={activeTab === "uploads"}
+        onClick={() => {
+          onTabBar("uploads");
+        }}
+      >
+        <SVGIcon variant="pictures" width={20} color="rgb(255,255,255)" />
+        my pictures
+      </Button>
 
-      <TabBar onTabBar={handleTabBar} activeTab={activeTab} />
-
-      {activeTab === "uploads" ? (
-        <ProfilePictureList posts={loggedInUser.uploadedPosts} />
-      ) : (
-        <ProfilePictureList posts={loggedInUser.likedPosts} />
-      )}
-    </>
+      <Button
+        variant="tabBarButton"
+        type="button"
+        isActive={activeTab === "likes"}
+        onClick={() => {
+          onTabBar("likes");
+        }}
+      >
+        <SVGIcon variant="like" width={17} color="rgb(250,250,250)" />
+        liked pictures
+      </Button>
+      <div></div>
+    </StyledTabBar>
   );
 }
 
