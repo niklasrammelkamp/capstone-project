@@ -62,7 +62,6 @@ export default function UploadForm({ initialCategories, onSubmit }) {
 
     // creating the new Picture Object
     const uploadObject = {
-      id: crypto.randomUUID(),
       image: imageData.secure_url,
       description: data.description,
       date: currentDate,

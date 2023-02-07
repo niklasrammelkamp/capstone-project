@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export default function PostingPreview({ post }) {
   return (
-    <Link href={`/${post.id}`}>
+    <Link href={`/posts/${post._id}`}>
       <article>
         <Image
           src={post.image}
@@ -13,13 +13,17 @@ export default function PostingPreview({ post }) {
         />
         <p>{post.date}</p>
         <Image
-          src={post.userImage}
+          src={post.user.image}
           width={30}
           height={30}
-          alt={`profile picture of ${post.userName}`}
+          alt={`profile picture of ${post.user.name}`}
         />
-        <p>{post.userName}</p>
-        <p>{post.description.substring(0, 100)} …</p>
+        <p>{post.user.name}</p>
+        {post.description.length > 100 ? (
+          <p> {post.description.substring(0, 100)} …</p>
+        ) : (
+          <p>{post.description}</p>
+        )}
         <ul>
           {post.categories.map((category) => {
             return <li key={category}>{category}</li>;

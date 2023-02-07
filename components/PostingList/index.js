@@ -4,7 +4,7 @@ export default function PostingList({ posts }) {
   return (
     <section>
       {posts.map((post) => {
-        return <PostingPreview post={post} key={post.id} />;
+        return <PostingPreview post={post} key={post._id} />;
       })}
     </section>
   );
