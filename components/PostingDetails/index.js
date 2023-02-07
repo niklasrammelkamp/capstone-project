@@ -2,8 +2,9 @@ import styled from "styled-components";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import SVGIcon from "../SVGIcon";
+import ButtonLike from "@/components/ButtonLike";
 
-export default function PostingDetails({ post }) {
+export default function PostingDetails({ post, loggedInUserID, reload }) {
   const router = useRouter();
 
   return (
@@ -18,6 +19,8 @@ export default function PostingDetails({ post }) {
         alt={`profile picture of ${post.user.name}`}
       />
       <p>{post.user.name}</p>
+      <ButtonLike post={post} loggedInUserID={loggedInUserID} reload={reload} />
+
       <p>{post.description}</p>
       <ul>
         {post.categories.map((category) => {

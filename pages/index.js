@@ -23,9 +23,9 @@ function sortArray(array) {
 // ###################################################################################################################
 // ###################################################################################################################
 
-export default function HomePage() {
+export default function HomePage({ loggedInUser }) {
   const [activeFilters, setActiveFilters] = useAtom(globalActiveFilters);
-  const { data: posts, isLoading, error } = useSWR("api/posts");
+  const { data: posts, isLoading, error, mutate } = useSWR("api/posts");
 
   if (isLoading) return <p>is loading</p>;
   if (error) return <p>error</p>;
@@ -78,7 +78,11 @@ export default function HomePage() {
         onFilterClick={handleFilterClick}
       />
       {filteredPosts.length >= 1 ? (
-        <PostingList posts={filteredPosts} />
+        <PostingList
+          posts={filteredPosts}
+          loggedInUserID={loggedInUser._id}
+          reload={mutate}
+        />
       ) : (
         <p>there are no posts, fitting to your filters</p>
       )}

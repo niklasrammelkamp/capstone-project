@@ -18,7 +18,12 @@ const postSchema = new Schema({
     lens: String,
     camera: String,
   },
-  likes: [String],
+  likes: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "User",
+    },
+  ],
   comments: [
     {
       type: Schema.Types.ObjectId,
