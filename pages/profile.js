@@ -23,7 +23,7 @@ export default function ProfilePage({ loggedInUser, reloadUser }) {
             setActiveTab("uploads");
           }}
         >
-          <SVGIcon variant="pictures" width={20} color="var(--white)" />
+          <SVGIcon variant="pictures" width={20} color="rgb(255,255,255)" />
           my pictures
         </Button>
 
@@ -35,7 +35,7 @@ export default function ProfilePage({ loggedInUser, reloadUser }) {
             setActiveTab("likes");
           }}
         >
-          <SVGIcon variant="like" width={17} color="var(--white)" />
+          <SVGIcon variant="like" width={17} color="rgb(250,250,250)" />
           liked pictures
         </Button>
         <div></div>

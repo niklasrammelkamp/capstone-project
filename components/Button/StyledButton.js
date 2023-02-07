@@ -33,6 +33,7 @@ const StyledButton = styled.button`
         }
       `;
     }
+
     if (variant === "navButtonUpload") {
       return css`
         background-color: var(--black);
@@ -49,13 +50,9 @@ const StyledButton = styled.button`
       return css`
         z-index: 10;
         gap: 0.4rem;
-        /* color: ${isActive ? "var(--white)" : "var(--black)"}; */
         color: var(--white);
+        transition: 0, 5s ease;
         mix-blend-mode: difference;
-
-        svg {
-          transition: 0.5s ease;
-        }
       `;
     }
   }}
