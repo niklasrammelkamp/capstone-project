@@ -26,8 +26,6 @@ export default function ProfilePage() {
     setActiveTab(state);
   }
 
-  // reloadUser();
-
   if (session) {
     return (
       <>
