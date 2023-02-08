@@ -3,13 +3,7 @@ import Button from "../Button";
 import SVGIcon from "../SVGIcon";
 
 export default function ButtonLike({ post, loggedInUserID, reload }) {
-  console.log("post", post);
-  console.log("loggedInUserID", loggedInUserID);
-
-  const router = useRouter();
-
   async function like() {
-    console.log("is in NOT likes");
     try {
       const response = await fetch(`/api/posts/${post._id}`, {
         method: "PUT",
@@ -31,7 +25,6 @@ export default function ButtonLike({ post, loggedInUserID, reload }) {
   }
 
   async function disLike() {
-    console.log("is in likes");
     try {
       const response = await fetch(`/api/posts/${post._id}`, {
         method: "DELETE",
