@@ -49,8 +49,8 @@ export default function ButtonLike({ post, loggedInUserID, reload }) {
       <Button
         type="button"
         onClick={() => {
-          disLike();
           setIsLiked(false);
+          disLike();
         }}
       >
         <SVGIcon variant="like_filled" color="black" width={24} />
@@ -62,8 +62,8 @@ export default function ButtonLike({ post, loggedInUserID, reload }) {
       <Button
         type="button"
         onClick={() => {
-          like();
           setIsLiked(true);
+          like();
         }}
       >
         <SVGIcon variant="like" color="black" width={24} />
