@@ -4,22 +4,33 @@ import CommentForm from "@/components/CommentForm";
 import CommentList from "@/components/CommentList";
 import useSWR from "swr";
 import { useState } from "react";
-import Link from "next/link";
+import { useSession } from "next-auth/react";
+import LogIn from "@/components/LogIn";
 
-export default function PostDetailsPage({ loggedInUser }) {
+export default function PostDetailsPage() {
+  const { data: session } = useSession();
   const [isError, setIsError] = useState(false);
   const router = useRouter();
   const { id } = router.query;
 
   const {
     data: post,
-    isLoading,
-    error,
+    isLoading: postIsLoading,
+    error: postError,
     mutate,
   } = useSWR(id ? `/api/posts/${id}` : null);
 
-  if (isLoading || !id) return <p>is loading</p>;
-  if (error) return <p>error</p>;
+  const {
+    data: loggedInUser,
+    isLoading: userIsLoading,
+    error: userError,
+  } = useSWR(session ? `/api/user` : null);
+
+  if (postIsLoading || !id) return <p>Post are loading</p>;
+  if (postError) return <p>error post</p>;
+
+  if (userIsLoading) return <p>User is loading</p>;
+  if (userError) return <p>error user</p>;
 
   // ----------- ADD COMMENT
   async function handleAddComment(comment) {
@@ -61,32 +72,34 @@ export default function PostDetailsPage({ loggedInUser }) {
     fetch(`/api/comments/${id}`, { method: "DELETE" });
     mutate();
   }
-
-  return (
-    <>
+  if (session) {
+    return (
       <>
-        <PostingDetails
-          post={post}
-          reload={mutate}
-          loggedInUserID={loggedInUser._id}
-        />
+        <>
+          <PostingDetails
+            post={post}
+            reload={mutate}
+            loggedInUserID={loggedInUser._id}
+          />
 
-        {isError ? (
-          <>
-            <p>error</p>
-            <button onClick={() => router.reload()}>Try again</button>
-          </>
-        ) : (
-          <CommentForm onAddComment={handleAddComment} />
-        )}
+          {isError ? (
+            <>
+              <p>error</p>
+              <button onClick={() => router.reload()}>Try again</button>
+            </>
+          ) : (
+            <CommentForm onAddComment={handleAddComment} />
+          )}
 
-        <CommentList
-          comments={post.comments}
-          onDeleteComment={handleDeleteComment}
-          loggedInUserID={loggedInUser._id}
-          postIsFromUser={post.user._id === loggedInUser._id}
-        />
+          <CommentList
+            comments={post.comments}
+            onDeleteComment={handleDeleteComment}
+            loggedInUserID={loggedInUser._id}
+            postIsFromUser={post.user._id === loggedInUser._id}
+          />
+        </>
       </>
-    </>
-  );
+    );
+  }
+  return <LogIn />;
 }

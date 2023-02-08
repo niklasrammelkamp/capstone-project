@@ -3,7 +3,6 @@ import Post from "@/db/models/Post";
 import User from "@/db/models/User";
 import Comment from "@/db/models/Comment";
 import { getToken } from "next-auth/jwt";
-import { use } from "react";
 
 export default async function handler(request, response) {
   const conn = await dbConnect();
@@ -20,7 +19,7 @@ export default async function handler(request, response) {
         const userWithSub = await User.findOne({ sub: token.sub });
 
         if (!userWithSub) {
-          const user = new User({
+          const newUser = new User({
             name: token.name,
             email: token.email,
             image: token.picture,
@@ -29,12 +28,12 @@ export default async function handler(request, response) {
             sub: token.sub,
           });
 
-          console.log("USER", user);
+          console.log("USER", newUser);
 
           await user.save();
         }
         if (userWithSub) {
-          userWithSub
+          const user = await User.findOne({ sub: token.sub })
             .populate({
               path: "uploadedPosts",
               model: "Post",

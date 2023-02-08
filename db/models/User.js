@@ -8,6 +8,7 @@ const userSchema = new Schema({
   bio: String,
   image: String,
   email: String,
+  sub: String,
   uploadedPosts: [
     {
       type: Schema.Types.ObjectId,
