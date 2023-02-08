@@ -196,7 +196,12 @@ export default function UploadForm({ initialCategories, onSubmit }) {
           upload
         </button>
       ) : (
-        <button type="submit">upload</button>
+        <button
+          type="submit"
+          disabled={statusIcon === "... uploading image ⏳" ? true : false}
+        >
+          upload
+        </button>
       )}
       <div>
         <p>{statusIcon}</p>
