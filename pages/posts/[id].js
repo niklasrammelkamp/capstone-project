@@ -65,7 +65,12 @@ export default function PostDetailsPage({ loggedInUser }) {
   return (
     <>
       <>
-        <PostingDetails post={post} />
+        <PostingDetails
+          post={post}
+          reload={mutate}
+          loggedInUserID={loggedInUser._id}
+        />
+
         {isError ? (
           <>
             <p>error</p>
@@ -74,6 +79,7 @@ export default function PostDetailsPage({ loggedInUser }) {
         ) : (
           <CommentForm onAddComment={handleAddComment} />
         )}
+
         <CommentList
           comments={post.comments}
           onDeleteComment={handleDeleteComment}
