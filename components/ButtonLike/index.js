@@ -1,6 +1,6 @@
-import { useRouter } from "next/router";
 import Button from "../Button";
 import SVGIcon from "../SVGIcon";
+import useSWR from "swr";
 
 export default function ButtonLike({ post, loggedInUserID, reload }) {
   async function like() {
@@ -13,9 +13,7 @@ export default function ButtonLike({ post, loggedInUserID, reload }) {
         },
       });
 
-      if (response.ok) {
-        const data = await response.json();
-      } else {
+      if (!response.ok) {
         console.error(`Error: ${response.status}`);
       }
     } catch (error) {
@@ -34,9 +32,7 @@ export default function ButtonLike({ post, loggedInUserID, reload }) {
         },
       });
 
-      if (response.ok) {
-        const data = await response.json();
-      } else {
+      if (!response.ok) {
         console.error(`Error: ${response.status}`);
       }
     } catch (error) {

@@ -35,7 +35,6 @@ export default async function handler(request, response) {
     // like post
     if (request.method === "PUT") {
       const userID = request.body;
-      console.log(userID);
       await Post.findByIdAndUpdate({ _id: id }, { $push: { likes: userID } });
       await User.findByIdAndUpdate(
         { _id: userID },
