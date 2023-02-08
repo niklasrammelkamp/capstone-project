@@ -1,13 +1,12 @@
 import ProfileDetails from "@/components/ProfileDetails";
 import ProfilePictureList from "@/components/ProfilePictureList";
-import Button from "@/components/Button";
-import { useState } from "react";
-import SVGIcon from "@/components/SVGIcon";
-import styled, { css } from "styled-components";
 import TabBar from "@/components/TabBar";
+import { atom, useAtom } from "jotai";
+
+const globalActiveTab = atom("uploads");
 
 export default function ProfilePage({ loggedInUser, reloadUser }) {
-  const [activeTab, setActiveTab] = useState("uploads");
+  const [activeTab, setActiveTab] = useAtom(globalActiveTab);
 
   function handleTabBar(state) {
     setActiveTab(state);
