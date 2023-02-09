@@ -4,9 +4,6 @@ import Head from "next/head";
 import { SWRConfig } from "swr";
 import { SessionProvider } from "next-auth/react";
 
-//halli hallo
-//hallohallo
-
 const fetcher = (url) => fetch(url).then((r) => r.json());
 
 export default function App({
