@@ -11,7 +11,7 @@ const StyledButton = styled.button`
   justify-content: center;
   cursor: pointer;
   font-size: 1rem;
-  font-family: "poppins";
+
   -webkit-tap-highlight-color: transparent;
 
   ${({ variant, isActive }) => {
