@@ -137,7 +137,7 @@ export default function PostDetailsPage() {
               >
                 <SVGIcon
                   variant="bin"
-                  width={reallyDelete ? 21 : 15}
+                  width={15}
                   color={reallyDelete ? "white" : "var(--grey)"}
                 />
                 {reallyDelete ? "Are you sure?" : "Delete post"}

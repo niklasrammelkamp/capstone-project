@@ -11,7 +11,7 @@ const StyledButton = styled.button`
   justify-content: center;
   cursor: pointer;
   font-size: 1rem;
-
+  font-family: inherit;
   -webkit-tap-highlight-color: transparent;
 
   ${({ variant, isActive }) => {
@@ -73,6 +73,7 @@ const StyledButton = styled.button`
         gap: 0.5rem;
         svg {
           transition: 0.5s ease;
+          transform: ${isActive ? "scale(1.3)" : "scale(1)"};
         }
       `;
     }
