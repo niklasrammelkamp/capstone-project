@@ -49,14 +49,6 @@ export default async function handler(request, response) {
           return response.status(200).json(user);
         }
       }
-
-      // const user = await User.findOne({ email: email });
-
-      // if (!user) {
-      //   return response.status(404).json({ status: "Not Found" });
-      // }
-
-      // return response.status(200).json(user);
     }
   });
   session.endSession();
