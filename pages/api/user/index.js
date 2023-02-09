@@ -27,9 +27,9 @@ export default async function handler(request, response) {
             sub: token.sub,
           });
 
-          console.log("USER", newUser);
-
           await newUser.save();
+
+          return response.status(200).json(newUser);
         }
         if (userWithSub) {
           const user = await User.findOne({ sub: token.sub })
@@ -45,8 +45,6 @@ export default async function handler(request, response) {
               path: "comments",
               model: "Comment",
             });
-
-          console.log("USERWITHSUB", userWithSub);
 
           return response.status(200).json(user);
         }
