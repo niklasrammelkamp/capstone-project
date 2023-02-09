@@ -13,7 +13,6 @@ export default async function handler(request, response) {
   await session.withTransaction(async () => {
     if (request.method === "GET") {
       const token = await getToken({ req: request });
-      console.log("TOKEN", token);
 
       if (token) {
         const userWithSub = await User.findOne({ sub: token.sub });

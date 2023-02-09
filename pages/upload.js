@@ -6,16 +6,15 @@ import LogIn from "@/components/LogIn";
 
 // For the search function I got inspierd by: https://www.youtube.com/watch?v=Jd7s7egjt30&ab_channel=ReactwithMasoud
 
-export default function UploadPage({ loggedInUser }) {
+export default function UploadPage() {
   const { data: session } = useSession();
   const router = useRouter();
 
   async function handleSubmit(post) {
-    const newPost = { ...post, user: loggedInUser._id };
     try {
       const response = await fetch(`/api/posts`, {
         method: "POST",
-        body: JSON.stringify(newPost),
+        body: JSON.stringify(post),
         headers: {
           "Content-Type": "application/json",
         },

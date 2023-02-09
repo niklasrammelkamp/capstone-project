@@ -17,6 +17,7 @@ export default function Textarea({ id, label, isRequired, maxLength }) {
         rows={1}
         required={isRequired}
         maxLength={maxLength}
+        onBlur={() => console.log("hallo")}
       />
     </>
   );

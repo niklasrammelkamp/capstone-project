@@ -3,7 +3,7 @@ import PostingList from "@/components/PostingList";
 import { globalActiveFilters } from "@/store";
 import { useAtom } from "jotai";
 import useSWR from "swr";
-import { useSession, signIn, signOut } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import LogIn from "@/components/LogIn";
 
 // sort array function from https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort

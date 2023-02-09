@@ -26,7 +26,7 @@ export default function PostDetailsPage() {
     error: userError,
   } = useSWR(session ? `/api/user` : null);
 
-  if (postIsLoading || !id) return <p>Post are loading</p>;
+  if (postIsLoading || !id) return <p>Post is loading</p>;
   if (postError) return <p>error post</p>;
 
   if (userIsLoading) return <p>User is loading</p>;
