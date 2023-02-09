@@ -33,7 +33,7 @@ export default function HomePage() {
     isLoading: postsAreLoading,
     error: postsError,
     mutate,
-  } = useSWR("api/posts");
+  } = useSWR(session ? "api/posts" : null);
 
   const {
     data: loggedInUser,
