@@ -3,6 +3,8 @@ import PostingList from "@/components/PostingList";
 import { globalActiveFilters } from "@/store";
 import { useAtom } from "jotai";
 import useSWR from "swr";
+import { useSession } from "next-auth/react";
+import LogIn from "@/components/LogIn";
 
 // sort array function from https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort
 function sortArray(array) {
@@ -23,12 +25,27 @@ function sortArray(array) {
 // ###################################################################################################################
 // ###################################################################################################################
 
-export default function HomePage({ loggedInUser }) {
+export default function HomePage() {
+  const { data: session } = useSession();
   const [activeFilters, setActiveFilters] = useAtom(globalActiveFilters);
-  const { data: posts, isLoading, error, mutate } = useSWR("api/posts");
+  const {
+    data: posts,
+    isLoading: postsAreLoading,
+    error: postsError,
+    mutate,
+  } = useSWR("api/posts");
 
-  if (isLoading) return <p>is loading</p>;
-  if (error) return <p>error</p>;
+  const {
+    data: loggedInUser,
+    isLoading: userIsLoading,
+    error: userError,
+  } = useSWR(session ? `/api/user` : null);
+
+  if (postsAreLoading) return <p>Posts are loading</p>;
+  if (postsError) return <p>error posts</p>;
+
+  if (userIsLoading) return <p>User is loading</p>;
+  if (userError) return <p>error user</p>;
 
   // getting all used categories
   const usedCategories = posts
@@ -69,23 +86,26 @@ export default function HomePage({ loggedInUser }) {
   });
 
   // --------------------------------------------------------------------------------
-  return (
-    <>
-      <h1>Foto App</h1>
-      <Filter
-        filter={possibleFilters}
-        activeFilters={activeFilters}
-        onFilterClick={handleFilterClick}
-      />
-      {filteredPosts.length >= 1 ? (
-        <PostingList
-          posts={filteredPosts}
-          loggedInUserID={loggedInUser._id}
-          reload={mutate}
+  if (session) {
+    return (
+      <>
+        <h1>Foto App</h1>
+        <Filter
+          filter={possibleFilters}
+          activeFilters={activeFilters}
+          onFilterClick={handleFilterClick}
         />
-      ) : (
-        <p>there are no posts, fitting to your filters</p>
-      )}
-    </>
-  );
+        {filteredPosts.length >= 1 ? (
+          <PostingList
+            posts={filteredPosts}
+            loggedInUserID={loggedInUser._id}
+            reload={mutate}
+          />
+        ) : (
+          <p>there are no posts, fitting to your filters</p>
+        )}
+      </>
+    );
+  }
+  return <LogIn />;
 }

@@ -1,10 +1,12 @@
 import styled from "styled-components";
 import Navbar from "../Navbar";
+import { useSession } from "next-auth/react";
 
 export default function Layout({ children }) {
+  const { data: session } = useSession();
   return (
     <>
-      <Navbar />
+      {session && <Navbar />}
       <StyledMain>{children}</StyledMain>
     </>
   );

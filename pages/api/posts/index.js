@@ -1,6 +1,7 @@
 import dbConnect from "@/db/connect";
 import Post from "@/db/models/Post";
 import User from "@/db/models/User";
+import { getToken } from "next-auth/jwt";
 
 export default async function handler(request, response) {
   const conn = await dbConnect();
@@ -17,21 +18,29 @@ export default async function handler(request, response) {
     // ------------------------------------------------------------------------------------------
 
     if (request.method === "POST") {
-      try {
-        const post = new Post(request.body);
+      const token = await getToken({ req: request });
 
-        await post.save();
+      if (token) {
+        const userWithSub = await User.findOne({ sub: token.sub });
 
-        //add a referece to the user
-        await User.findByIdAndUpdate(
-          { _id: post.user },
-          { $push: { uploadedPosts: post._id } }
-        );
+        try {
+          const newPost = { ...request.body, user: userWithSub._id };
 
-        response.status(201).json({ status: "Succsefully uploaded post." });
-      } catch (error) {
-        console.error(error);
-        response.status(400).json({ error: error.message });
+          const post = new Post(newPost);
+
+          await post.save();
+
+          //add a referece to the user
+          await User.findByIdAndUpdate(
+            { _id: userWithSub._id },
+            { $push: { uploadedPosts: post._id } }
+          );
+
+          response.status(201).json({ status: "Succsefully uploaded post." });
+        } catch (error) {
+          console.error(error);
+          response.status(400).json({ error: error.message });
+        }
       }
     }
   });
