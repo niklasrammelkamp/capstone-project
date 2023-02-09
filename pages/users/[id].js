@@ -5,19 +5,22 @@ import TabBar from "@/components/TabBar";
 import { atom, useAtom } from "jotai";
 import { useSession, signOut } from "next-auth/react";
 import useSWR from "swr";
+import { useRouter } from "next/router";
+import { useState } from "react";
 
-const globalActiveTab = atom("uploads");
+// const globalActiveTab = atom("uploads");
 
 export default function ProfilePage() {
   const { data: session } = useSession();
-  const [activeTab, setActiveTab] = useAtom(globalActiveTab);
+  const router = useRouter();
+  const { id } = router.query;
+  const [activeTab, setActiveTab] = useState("uploads");
 
   const {
-    data: loggedInUser,
+    data: user,
     isLoading,
     error,
-    mutate,
-  } = useSWR(session ? `/api/user` : null);
+  } = useSWR(session && id ? `/api/user/${id}` : null);
 
   if (isLoading) return <p>is loading</p>;
   if (error) return <p>error</p>;
@@ -29,15 +32,15 @@ export default function ProfilePage() {
   if (session) {
     return (
       <>
-        <button onClick={signOut}>logout</button>
-        <ProfileDetails user={loggedInUser} />
+        <button onClick={router.back}>back</button>
+        <ProfileDetails user={user} />
 
         <TabBar onTabBar={handleTabBar} activeTab={activeTab} />
 
         {activeTab === "uploads" ? (
-          <ProfilePictureList posts={loggedInUser.uploadedPosts} />
+          <ProfilePictureList posts={user.uploadedPosts} />
         ) : (
-          <ProfilePictureList posts={loggedInUser.likedPosts} />
+          <ProfilePictureList posts={user.likedPosts} />
         )}
       </>
     );

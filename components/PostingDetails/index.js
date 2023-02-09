@@ -1,24 +1,29 @@
 import styled from "styled-components";
 import Image from "next/image";
-import { useRouter } from "next/router";
 import SVGIcon from "../SVGIcon";
 import ButtonLike from "@/components/ButtonLike";
+import ProfilLink from "../ProfilLink";
 
-export default function PostingDetails({ post, loggedInUserID, reload }) {
-  const router = useRouter();
-
+export default function PostingDetails({
+  post,
+  loggedInUserID,
+  reload,
+  getBack,
+}) {
   return (
     <>
-      <button onClick={() => router.back()}>back</button>
+      <button onClick={getBack}>back</button>
       <Image src={post.image} width={200} height={200} alt={post.description} />
       <p>{post.date}</p>
-      <Image
-        src={post.user.image}
-        width={30}
-        height={30}
-        alt={`profile picture of ${post.user.name}`}
-      />
-      <p>{post.user.name}</p>
+      <ProfilLink href={`/users/${post.user._id}`}>
+        <Image
+          src={post.user.image}
+          width={30}
+          height={30}
+          alt={`profile picture of ${post.user.name}`}
+        />
+        <p>{post.user.name}</p>
+      </ProfilLink>
       <ButtonLike post={post} loggedInUserID={loggedInUserID} reload={reload} />
 
       <p>{post.description}</p>

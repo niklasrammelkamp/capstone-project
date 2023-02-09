@@ -80,6 +80,7 @@ export default function PostDetailsPage() {
             post={post}
             reload={mutate}
             loggedInUserID={loggedInUser._id}
+            getBack={router.back}
           />
 
           {isError ? (
