@@ -30,7 +30,7 @@ export default async function handler(request, response) {
 
           console.log("USER", newUser);
 
-          await user.save();
+          await newUser.save();
         }
         if (userWithSub) {
           const user = await User.findOne({ sub: token.sub })
