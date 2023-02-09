@@ -10,6 +10,9 @@ const StyledButton = styled.button`
   align-items: center;
   justify-content: center;
   cursor: pointer;
+  font-size: 1rem;
+  font-family: "poppins";
+  -webkit-tap-highlight-color: transparent;
 
   ${({ variant, isActive }) => {
     if (variant === "navButton") {
@@ -54,6 +57,34 @@ const StyledButton = styled.button`
         color: var(--white);
         transition: 0, 5s ease;
         mix-blend-mode: difference;
+      `;
+    }
+
+    if (variant === "deletePost") {
+      return css`
+        background-color: ${isActive ? "#dd5328" : "var(--background)"};
+        color: ${isActive ? "white" : "var(--grey)"};
+
+        width: ${isActive ? "70%" : "100%"};
+        /* margin-left: ${isActive ? "-15px" : ""}; */
+        height: 4rem;
+        border-radius: 2rem;
+
+        gap: 0.5rem;
+        svg {
+          transition: 0.5s ease;
+        }
+      `;
+    }
+
+    if (variant === "deleteBack") {
+      return css`
+        background-color: var(--black);
+        color: white;
+        width: ${isActive ? "30%" : "0"};
+        height: ${isActive ? "4rem" : "0"};
+        opacity: ${isActive ? "1" : "0"};
+        border-radius: 2rem;
       `;
     }
   }}

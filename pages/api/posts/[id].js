@@ -46,14 +46,30 @@ export default async function handler(request, response) {
 
     // dislike post
     if (request.method === "DELETE") {
-      const userID = request.body;
-      await Post.findByIdAndUpdate({ _id: id }, { $pull: { likes: userID } });
-      await User.findByIdAndUpdate(
-        { _id: userID },
-        { $pull: { likedPosts: id } }
-      );
+      const { userID } = request.body;
+      if (request.body.about === "disLike") {
+        await Post.findByIdAndUpdate({ _id: id }, { $pull: { likes: userID } });
+        await User.findByIdAndUpdate(
+          { _id: userID },
+          { $pull: { likedPosts: id } }
+        );
 
-      return response.status(200).json({ status: "disliked :)" });
+        return response.status(200).json({ status: "disliked :)" });
+      }
+
+      if (request.body.about === "deletePost") {
+        const post = await Post.findByIdAndDelete(id);
+        await User.updateMany(
+          { $or: [{ uploadedPosts: id }, { likedPosts: id }] },
+          { $pull: { uploadedPosts: id, likedPosts: id } }
+        );
+
+        if (!post) {
+          return response.status(404).json({ status: "Not Found" });
+        }
+
+        return response.status(200).json(post);
+      }
     }
   });
   session.endSession();

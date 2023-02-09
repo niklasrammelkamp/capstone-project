@@ -26,24 +26,26 @@ export default function ProfilePage() {
   }
 
   // reverse the posts so the latest is always on top
-  const uploadedPosts = [...loggedInUser.uploadedPosts].reverse();
-  const likedPosts = [...loggedInUser.likedPosts].reverse();
 
   if (session) {
-    return (
-      <>
-        <button onClick={signOut}>logout</button>
-        <ProfileDetails user={loggedInUser} />
+    if (loggedInUser) {
+      const likedPosts = [...loggedInUser.likedPosts].reverse();
+      const uploadedPosts = [...loggedInUser.uploadedPosts].reverse();
+      return (
+        <>
+          <button onClick={signOut}>logout</button>
+          <ProfileDetails user={loggedInUser} />
 
-        <TabBar onTabBar={handleTabBar} activeTab={activeTab} />
+          <TabBar onTabBar={handleTabBar} activeTab={activeTab} />
 
-        {activeTab === "uploads" ? (
-          <ProfilePictureList posts={uploadedPosts} />
-        ) : (
-          <ProfilePictureList posts={likedPosts} />
-        )}
-      </>
-    );
+          {activeTab === "uploads" ? (
+            <ProfilePictureList posts={uploadedPosts} />
+          ) : (
+            <ProfilePictureList posts={likedPosts} />
+          )}
+        </>
+      );
+    }
   }
   return <LogIn />;
 }
