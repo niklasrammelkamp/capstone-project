@@ -29,7 +29,7 @@ export default function HomePage() {
   const { data: session } = useSession();
   const [activeFilters, setActiveFilters] = useAtom(globalActiveFilters);
   const {
-    data: posts,
+    data,
     isLoading: postsAreLoading,
     error: postsError,
     mutate,
@@ -46,6 +46,9 @@ export default function HomePage() {
 
   if (userIsLoading) return <p>User is loading</p>;
   if (userError) return <p>error user</p>;
+
+  // reverse the posts so the latest is always on top
+  const posts = [...data].reverse();
 
   // getting all used categories
   const usedCategories = posts
