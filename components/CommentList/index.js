@@ -22,9 +22,12 @@ export default function CommentList({
                   height={30}
                   alt={`profile picture of ${comment.user.name}`}
                 />
-                <p>{comment.user.name}</p>
+                <div>
+                  <p>{comment.user.name}</p>
+                  <p>{comment.date}</p>
+                </div>
               </ProfilLink>
-              <p>{comment.date}</p>
+
               <p>{comment.content}</p>
               {(comment.user._id === loggedInUserID || postIsFromUser) && (
                 <button
