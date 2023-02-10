@@ -94,8 +94,6 @@ export default function PostDetailsPage() {
     router.back();
   }
 
-  console.log(reallyDelete);
-
   if (session) {
     return (
       <>
