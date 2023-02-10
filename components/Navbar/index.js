@@ -67,6 +67,7 @@ const StyledNav = styled.nav`
   width: 100%;
   height: 4rem;
   padding: 0 15px;
+  z-index: 200;
 
   div {
     background-color: white;

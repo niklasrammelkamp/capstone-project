@@ -7,7 +7,6 @@ const userSchema = new Schema({
   regestrationYear: String,
   bio: String,
   image: String,
-  email: String,
   sub: String,
   uploadedPosts: [
     {

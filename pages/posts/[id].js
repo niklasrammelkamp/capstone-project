@@ -6,10 +6,14 @@ import useSWR from "swr";
 import { useState } from "react";
 import { useSession } from "next-auth/react";
 import LogIn from "@/components/LogIn";
+import Button from "@/components/Button";
+import styled from "styled-components";
+import SVGIcon from "@/components/SVGIcon";
 
 export default function PostDetailsPage() {
   const { data: session } = useSession();
   const [isError, setIsError] = useState(false);
+  const [reallyDelete, setReallyDelete] = useState(false);
   const router = useRouter();
   const { id } = router.query;
 
@@ -54,9 +58,7 @@ export default function PostDetailsPage() {
         },
       });
 
-      if (response.ok) {
-        const data = await response.json();
-      } else {
+      if (!response.ok) {
         console.error(`Error: ${response.status}`);
         setIsError(true);
       }
@@ -72,35 +74,92 @@ export default function PostDetailsPage() {
     fetch(`/api/comments/${id}`, { method: "DELETE" });
     mutate();
   }
+
+  async function handleDeletePost() {
+    try {
+      const response = await fetch(`/api/posts/${post._id}`, {
+        method: "DELETE",
+        body: JSON.stringify({ about: "deletePost", userID: loggedInUser._id }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (!response.ok) {
+        console.error(`Error: ${response.status}`);
+      }
+    } catch (error) {
+      console.error(error.message);
+    }
+    router.back();
+  }
+
   if (session) {
     return (
       <>
-        <>
-          <PostingDetails
-            post={post}
-            reload={mutate}
-            loggedInUserID={loggedInUser._id}
-            getBack={router.back}
-          />
+        <PostingDetails
+          post={post}
+          reload={mutate}
+          loggedInUserID={loggedInUser._id}
+          getBack={router.back}
+        />
 
-          {isError ? (
-            <>
-              <p>error</p>
-              <button onClick={() => router.reload()}>Try again</button>
-            </>
-          ) : (
-            <CommentForm onAddComment={handleAddComment} />
-          )}
+        {isError ? (
+          <>
+            <p>error</p>
+            <button onClick={() => router.reload()}>Try again</button>
+          </>
+        ) : (
+          <CommentForm onAddComment={handleAddComment} />
+        )}
 
-          <CommentList
-            comments={post.comments}
-            onDeleteComment={handleDeleteComment}
-            loggedInUserID={loggedInUser._id}
-            postIsFromUser={post.user._id === loggedInUser._id}
-          />
-        </>
+        <CommentList
+          comments={post.comments}
+          onDeleteComment={handleDeleteComment}
+          loggedInUserID={loggedInUser._id}
+          postIsFromUser={post.user._id === loggedInUser._id}
+        />
+
+        {post.user._id === loggedInUser._id && (
+          <>
+            <StyledDeleteButtons>
+              <Button
+                variant="deletePost"
+                isActive={reallyDelete}
+                onClick={
+                  reallyDelete
+                    ? handleDeletePost
+                    : () => {
+                        setReallyDelete(true);
+                      }
+                }
+              >
+                <SVGIcon
+                  variant="bin"
+                  width={15}
+                  color={reallyDelete ? "white" : "var(--grey)"}
+                />
+                {reallyDelete ? "Are you sure?" : "Delete post"}
+              </Button>
+
+              <Button
+                variant="deleteBack"
+                isActive={reallyDelete}
+                onClick={() => setReallyDelete(false)}
+              >
+                {reallyDelete && "no"}
+              </Button>
+            </StyledDeleteButtons>
+          </>
+        )}
       </>
     );
   }
   return <LogIn />;
 }
+
+const StyledDeleteButtons = styled.div`
+  display: flex;
+  align-items: center;
+  margin: 2rem 0;
+`;

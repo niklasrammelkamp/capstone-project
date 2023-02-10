@@ -7,8 +7,6 @@ import { getToken } from "next-auth/jwt";
 export default async function handler(request, response) {
   const conn = await dbConnect();
 
-  const { email } = request.query;
-
   const session = await conn.startSession();
   await session.withTransaction(async () => {
     if (request.method === "GET") {
@@ -18,12 +16,13 @@ export default async function handler(request, response) {
         const userWithSub = await User.findOne({ sub: token.sub });
 
         if (!userWithSub) {
+          const thisYear = new Date().getFullYear();
+
           const newUser = new User({
             name: token.name,
-            email: token.email,
             image: token.picture,
             bio: "",
-            regestrationYear: "2022",
+            regestrationYear: thisYear.toString(),
             sub: token.sub,
           });
 
