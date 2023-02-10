@@ -1,6 +1,7 @@
 import SVGIcon from "@/components/SVGIcon";
 import Image from "next/image";
 import styled from "styled-components";
+import ProfilLink from "../ProfilLink";
 
 export default function CommentList({
   comments,
@@ -14,14 +15,19 @@ export default function CommentList({
         comments.map((comment) => {
           return (
             <StyledComment key={comment._id}>
-              <Image
-                src={comment.user.image}
-                width={30}
-                height={30}
-                alt={`profile picture of ${comment.user.name}`}
-              />
-              <p>{comment.user.name}</p>
-              <p>{comment.date}</p>
+              <ProfilLink href={`/users/${comment.user._id}`}>
+                <Image
+                  src={comment.user.image}
+                  width={30}
+                  height={30}
+                  alt={`profile picture of ${comment.user.name}`}
+                />
+                <div>
+                  <p>{comment.user.name}</p>
+                  <p>{comment.date}</p>
+                </div>
+              </ProfilLink>
+
               <p>{comment.content}</p>
               {(comment.user._id === loggedInUserID || postIsFromUser) && (
                 <button

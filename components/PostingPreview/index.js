@@ -3,13 +3,14 @@ import Link from "next/link";
 import styled from "styled-components";
 import Button from "../Button";
 import ButtonLike from "../ButtonLike";
+import ProfilLink from "../ProfilLink";
 import SVGIcon from "../SVGIcon";
 
 export default function PostingPreview({ post, loggedInUserID, reload }) {
   return (
     <StyledPostingPrev>
       <StyledPostingPrevHeader>
-        <StyledProfilLink>
+        <ProfilLink href={`/users/${post.user._id}`}>
           <Image
             src={post.user.image}
             width={30}
@@ -17,7 +18,7 @@ export default function PostingPreview({ post, loggedInUserID, reload }) {
             alt={`profile picture of ${post.user.name}`}
           />
           <p>{post.user.name}</p>
-        </StyledProfilLink>
+        </ProfilLink>
         <ButtonLike
           post={post}
           loggedInUserID={loggedInUserID}
@@ -59,8 +60,4 @@ const StyledPostingPrevHeader = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-`;
-
-const StyledProfilLink = styled.div`
-  display: flex;
 `;
