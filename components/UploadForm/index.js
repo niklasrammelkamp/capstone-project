@@ -1,7 +1,12 @@
 import { Fragment, useState } from "react";
 import SVGIcon from "@/components/SVGIcon";
-import { StyledUpload } from "./StyledUploadForm";
+import { StyledUpload } from "./StyledUpload";
+import { StyledDescription } from "./StyledDescription";
+import { StyledFieldset } from "./StyledFieldset";
 import Button from "../Button";
+import { StyledH2 } from "../StyledHeadlines";
+import Textarea from "../Textarea";
+import Input from "./Input";
 
 export default function UploadForm({ initialCategories, onSubmit }) {
   const [categories, setCategories] = useState(initialCategories); // a list of all possible categories depending on users selection
@@ -9,9 +14,10 @@ export default function UploadForm({ initialCategories, onSubmit }) {
   const [selectedCategories, setSelectedCategories] = useState([]); // a list of all selected categories
   const [noCategoriesSelected, setNoCategoriesSelected] = useState(false); // letting the user know that there must be atleast one category selected
 
-  const [inputVal, setInputVal] = useState("");
+  const [imageUploadValue, setImageUploadValue] = useState("");
+  const [descriptionFocus, setDescriptionFocus] = useState("");
 
-  const [statusIcon, setStatusIcon] = useState("");
+  const [statusIcon, setStatusIcon] = useState(false);
 
   function onChangeInput(event) {
     setNoCategoriesSelected(false);
@@ -89,54 +95,62 @@ export default function UploadForm({ initialCategories, onSubmit }) {
   // --------------------------------------------------------------------------------
   return (
     <form onSubmit={handleSubmit}>
-      <div>
-        {/* {inputVal ? (
-          <Button
-            onClick={() => {
-              setInputVal("");
-            }}
-          >
-            x
-          </Button>
-        ) : (
-          <></>
-        )} */}
-        <StyledUpload htmlFor="image" isActive={inputVal}>
-          <SVGIcon variant="upload" width={31} />
-          {inputVal ? "choose different image" : "upload image"}
-          <input
-            type="file"
-            id="image"
-            name="imageFile"
-            required
-            onChange={(event) => setInputVal(event.target.value)}
-          />
-        </StyledUpload>
-      </div>
-
-      <br />
-      <label htmlFor="description">description</label>
-      <textarea
-        type="text"
-        id="description"
-        name="description"
-        maxLength={250}
-        required
-      />
-
-      {/* ------- search function + suggestions ------- */}
-      <fieldset>
-        <h2>Add categories</h2>
-        <SVGIcon variant="search" width="13" />
+      {/* ------- image upload ------- */}
+      <StyledUpload htmlFor="image" isActive={imageUploadValue}>
+        <SVGIcon variant="upload" width={31} />
+        {imageUploadValue ? "choose different image" : "upload image"}
         <input
+          type="file"
+          id="image"
+          name="imageFile"
+          required
+          onChange={() => setImageUploadValue(true)}
+        />
+      </StyledUpload>
+
+      {/* ------- description ------- */}
+      <StyledH2>Add description</StyledH2>
+      <StyledDescription focus={descriptionFocus}>
+        <label htmlFor="description">write description heres</label>
+        <textarea
           type="text"
-          value={inputCategoryValue}
-          onChange={onChangeInput}
-          style={{
-            outline: noCategoriesSelected && "red 2px solid",
+          id="description"
+          name="description"
+          maxLength={250}
+          required
+          onFocus={() => setDescriptionFocus("top")}
+          onBlur={(event) => {
+            if (event.target.value) {
+              setDescriptionFocus("top");
+            } else {
+              setDescriptionFocus("");
+            }
+          }}
+          onInput={(event) => {
+            if (event.target.scrollHeight > 128) {
+              setDescriptionFocus("leave");
+            } else {
+              setDescriptionFocus("top");
+            }
           }}
         />
-        {noCategoriesSelected && <span>required</span>}
+      </StyledDescription>
+
+      {/* ------- search function + suggestions ------- */}
+      <StyledFieldset>
+        <StyledH2>Add categories</StyledH2>
+
+        {/* ------- Search Input ------- */}
+        <Input
+          name="searchField"
+          value={inputCategoryValue}
+          onChange={onChangeInput}
+          noCategoriesSelected={noCategoriesSelected}
+          svg="search"
+          label={noCategoriesSelected ? "required" : "search for category"}
+        />
+
+        {/* ------- Search Suggestion ------- */}
         <div>
           {filterdCategories.length >= 1 ? (
             filterdCategories.map((category) => {
@@ -180,13 +194,13 @@ export default function UploadForm({ initialCategories, onSubmit }) {
             })
           )}
         </section>
-      </fieldset>
+      </StyledFieldset>
 
-      <fieldset>
-        <h2>Settings</h2>
+      <StyledFieldset>
+        <StyledH2> Add Settings</StyledH2>
         <SVGIcon variant="film" width="16" />
-        <label htmlFor="film">film</label>
-        <input type="text" id="film" name="film" maxLength={30} />
+        <Input name="film" label="film" maxLength={30} />
+
         <br />
         <SVGIcon variant="aperture" width="13" />
         <label htmlFor="aperture">aperture</label>
@@ -212,7 +226,7 @@ export default function UploadForm({ initialCategories, onSubmit }) {
         <SVGIcon variant="camera" width="15" />
         <label htmlFor="camera">camera</label>
         <input type="text" id="camera" name="camera" maxLength={10} />
-      </fieldset>
+      </StyledFieldset>
       {selectedCategories < 1 ? (
         <button
           type="button"

@@ -63,15 +63,13 @@ const StyledButton = styled.button`
 
     if (variant === "deletePost") {
       return css`
-        background-color: ${isActive ? "#F62323" : "var(--background)"};
+        background-color: ${isActive ? "var(--red)" : "var(--background)"};
         color: ${isActive ? "white" : "var(--grey)"};
-
         width: ${isActive ? "70%" : "100%"};
-        /* margin-left: ${isActive ? "-15px" : ""}; */
         height: 4rem;
         border-radius: 2rem;
-
         gap: 0.5rem;
+
         svg {
           transition: 0.5s ease;
           transform: ${isActive ? "scale(1.3)" : "scale(1)"};

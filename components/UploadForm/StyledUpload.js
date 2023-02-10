@@ -1,10 +1,6 @@
 import css from "styled-jsx/css";
 import styled from "styled-components";
 
-export const StyledUploadContainer = styled.div`
-  position: relative;
-`;
-
 export const StyledUpload = styled.label`
   background-color: var(--white);
   display: flex;
@@ -15,11 +11,15 @@ export const StyledUpload = styled.label`
   justify-content: center;
   gap: 0.5rem;
   color: var(--grey);
-  border-radius: 1.5rem;
+  border-radius: var(--border-radius);
   position: relative;
+  transition: 0.2s ease;
+  margin-bottom: 2rem;
 
   input {
-    display: none;
+    /* display: none; */
+    opacity: 0;
+    position: absolute;
   }
 
   ${({ isActive }) => {
