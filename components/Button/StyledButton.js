@@ -13,6 +13,7 @@ const StyledButton = styled.button`
   font-size: 1rem;
   font-family: inherit;
   -webkit-tap-highlight-color: transparent;
+  font-weight: 300;
 
   ${({ variant, isActive }) => {
     if (variant === "navButton") {
@@ -62,7 +63,7 @@ const StyledButton = styled.button`
 
     if (variant === "deletePost") {
       return css`
-        background-color: ${isActive ? "#dd5328" : "var(--background)"};
+        background-color: ${isActive ? "#F62323" : "var(--background)"};
         color: ${isActive ? "white" : "var(--grey)"};
 
         width: ${isActive ? "70%" : "100%"};

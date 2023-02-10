@@ -22,4 +22,5 @@ export default function Layout({ children }) {
 const StyledMain = styled.main`
   padding: 0 30px 6rem 30px;
   word-wrap: break-word;
+  font-weight: 400;
 `;
