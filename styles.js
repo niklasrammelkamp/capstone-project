@@ -13,6 +13,7 @@ const GlobalStyle = createGlobalStyle`
     --black: #232222;
     --grey: #A6A2A2;
     --white: #ffffff;
+    --background: #F5F5F3;
   }
 
   html {
@@ -22,7 +23,7 @@ const GlobalStyle = createGlobalStyle`
   body {
     margin: 0;
     font-family: system-ui;
-    background-color: #F5F5F3;
+    background-color: var(--background);
   }
 
 `;

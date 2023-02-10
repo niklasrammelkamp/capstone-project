@@ -1,6 +1,5 @@
 import Button from "../Button";
 import SVGIcon from "../SVGIcon";
-import useSWR from "swr";
 import { useState } from "react";
 
 export default function ButtonLike({ post, loggedInUserID, reload }) {
@@ -29,7 +28,7 @@ export default function ButtonLike({ post, loggedInUserID, reload }) {
     try {
       const response = await fetch(`/api/posts/${post._id}`, {
         method: "DELETE",
-        body: JSON.stringify(loggedInUserID),
+        body: JSON.stringify({ about: "disLike", userID: loggedInUserID }),
         headers: {
           "Content-Type": "application/json",
         },

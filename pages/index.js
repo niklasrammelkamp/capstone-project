@@ -29,11 +29,11 @@ export default function HomePage() {
   const { data: session } = useSession();
   const [activeFilters, setActiveFilters] = useAtom(globalActiveFilters);
   const {
-    data: posts,
+    data,
     isLoading: postsAreLoading,
     error: postsError,
     mutate,
-  } = useSWR("api/posts");
+  } = useSWR(session ? "api/posts" : null);
 
   const {
     data: loggedInUser,
@@ -47,65 +47,70 @@ export default function HomePage() {
   if (userIsLoading) return <p>User is loading</p>;
   if (userError) return <p>error user</p>;
 
-  // getting all used categories
-  const usedCategories = posts
-    .map((post) => {
-      return post.categories;
-    })
-    .flatMap((category) => category); // makes a single array from nested arrays
+  if (data) {
+    // reverse the posts so the latest is always on top
+    const posts = [...data].reverse();
 
-  //removing duplicates
-  const possibleFilters = [...new Set(usedCategories)]; // https://dev.to/soyleninjs/3-ways-to-remove-duplicates-in-an-array-in-javascript-259o
-  sortArray(possibleFilters);
+    // getting all used categories
+    const usedCategories = posts
+      .map((post) => {
+        return post.categories;
+      })
+      .flatMap((category) => category); // makes a single array from nested arrays
 
-  // adding or removing filters from activteFilters
-  function handleFilterClick(clickedFilter) {
-    if (!activeFilters.includes(clickedFilter)) {
-      setActiveFilters([...activeFilters, clickedFilter]);
-    } else {
-      setActiveFilters(
-        activeFilters.filter((filter) => filter !== clickedFilter)
+    //removing duplicates
+    const possibleFilters = [...new Set(usedCategories)]; // https://dev.to/soyleninjs/3-ways-to-remove-duplicates-in-an-array-in-javascript-259o
+    sortArray(possibleFilters);
+
+    // adding or removing filters from activteFilters
+    function handleFilterClick(clickedFilter) {
+      if (!activeFilters.includes(clickedFilter)) {
+        setActiveFilters([...activeFilters, clickedFilter]);
+      } else {
+        setActiveFilters(
+          activeFilters.filter((filter) => filter !== clickedFilter)
+        );
+      }
+    }
+
+    // test if categories fit to the active filters
+    function areCategoriesInFilter(categories) {
+      const array = categories.filter((category) => {
+        return activeFilters.includes(category);
+      });
+      sortArray(array); // sort Array alphabetical
+      sortArray(activeFilters); // sort activeFilters alphabetical
+
+      return array.toString() === activeFilters.toString(); // https://www.freecodecamp.org/news/how-to-compare-arrays-in-javascript/
+    }
+
+    // create Array with all post objects compare to the active filters
+    const filteredPosts = posts.filter((post) => {
+      return areCategoriesInFilter(post.categories);
+    });
+
+    // --------------------------------------------------------------------------------
+    if (session) {
+      return (
+        <>
+          <h1>Foto App</h1>
+          <Filter
+            filter={possibleFilters}
+            activeFilters={activeFilters}
+            onFilterClick={handleFilterClick}
+          />
+          {filteredPosts.length >= 1 ? (
+            <PostingList
+              posts={filteredPosts}
+              loggedInUserID={loggedInUser._id}
+              reload={mutate}
+            />
+          ) : (
+            <p>there are no posts, fitting to your filters</p>
+          )}
+        </>
       );
     }
-  }
-
-  // test if categories fit to the active filters
-  function areCategoriesInFilter(categories) {
-    const array = categories.filter((category) => {
-      return activeFilters.includes(category);
-    });
-    sortArray(array); // sort Array alphabetical
-    sortArray(activeFilters); // sort activeFilters alphabetical
-
-    return array.toString() === activeFilters.toString(); // https://www.freecodecamp.org/news/how-to-compare-arrays-in-javascript/
-  }
-
-  // create Array with all post objects compare to the active filters
-  const filteredPosts = posts.filter((post) => {
-    return areCategoriesInFilter(post.categories);
-  });
-
-  // --------------------------------------------------------------------------------
-  if (session) {
-    return (
-      <>
-        <h1>Foto App</h1>
-        <Filter
-          filter={possibleFilters}
-          activeFilters={activeFilters}
-          onFilterClick={handleFilterClick}
-        />
-        {filteredPosts.length >= 1 ? (
-          <PostingList
-            posts={filteredPosts}
-            loggedInUserID={loggedInUser._id}
-            reload={mutate}
-          />
-        ) : (
-          <p>there are no posts, fitting to your filters</p>
-        )}
-      </>
-    );
   }
   return <LogIn />;
 }

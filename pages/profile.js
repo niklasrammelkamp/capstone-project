@@ -16,7 +16,6 @@ export default function ProfilePage() {
     data: loggedInUser,
     isLoading,
     error,
-    mutate,
   } = useSWR(session ? `/api/user` : null);
 
   if (isLoading) return <p>is loading</p>;
@@ -26,21 +25,27 @@ export default function ProfilePage() {
     setActiveTab(state);
   }
 
+  // reverse the posts so the latest is always on top
+
   if (session) {
-    return (
-      <>
-        <button onClick={signOut}>logout</button>
-        <ProfileDetails user={loggedInUser} />
+    if (loggedInUser) {
+      const likedPosts = [...loggedInUser.likedPosts].reverse();
+      const uploadedPosts = [...loggedInUser.uploadedPosts].reverse();
+      return (
+        <>
+          <button onClick={signOut}>logout</button>
+          <ProfileDetails user={loggedInUser} />
 
-        <TabBar onTabBar={handleTabBar} activeTab={activeTab} />
+          <TabBar onTabBar={handleTabBar} activeTab={activeTab} />
 
-        {activeTab === "uploads" ? (
-          <ProfilePictureList posts={loggedInUser.uploadedPosts} />
-        ) : (
-          <ProfilePictureList posts={loggedInUser.likedPosts} />
-        )}
-      </>
-    );
+          {activeTab === "uploads" ? (
+            <ProfilePictureList posts={uploadedPosts} />
+          ) : (
+            <ProfilePictureList posts={likedPosts} />
+          )}
+        </>
+      );
+    }
   }
   return <LogIn />;
 }
