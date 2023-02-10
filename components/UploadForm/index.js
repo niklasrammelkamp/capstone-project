@@ -1,11 +1,15 @@
 import { Fragment, useState } from "react";
 import SVGIcon from "@/components/SVGIcon";
+import { StyledUpload } from "./StyledUploadForm";
+import Button from "../Button";
 
 export default function UploadForm({ initialCategories, onSubmit }) {
   const [categories, setCategories] = useState(initialCategories); // a list of all possible categories depending on users selection
   const [inputCategoryValue, setInputCategoryValue] = useState(""); // using for controlled Inputs
   const [selectedCategories, setSelectedCategories] = useState([]); // a list of all selected categories
   const [noCategoriesSelected, setNoCategoriesSelected] = useState(false); // letting the user know that there must be atleast one category selected
+
+  const [inputVal, setInputVal] = useState("");
 
   const [statusIcon, setStatusIcon] = useState("");
 
@@ -85,8 +89,31 @@ export default function UploadForm({ initialCategories, onSubmit }) {
   // --------------------------------------------------------------------------------
   return (
     <form onSubmit={handleSubmit}>
-      <label htmlFor="name">upload image</label>
-      <input type="file" id="image" name="imageFile" required />
+      <div>
+        {/* {inputVal ? (
+          <Button
+            onClick={() => {
+              setInputVal("");
+            }}
+          >
+            x
+          </Button>
+        ) : (
+          <></>
+        )} */}
+        <StyledUpload htmlFor="image" isActive={inputVal}>
+          <SVGIcon variant="upload" width={31} />
+          {inputVal ? "choose different image" : "upload image"}
+          <input
+            type="file"
+            id="image"
+            name="imageFile"
+            required
+            onChange={(event) => setInputVal(event.target.value)}
+          />
+        </StyledUpload>
+      </div>
+
       <br />
       <label htmlFor="description">description</label>
       <textarea
