@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 
 export default function Input({
   name,
-  value = null,
+  value,
   onChange = null,
   noCategoriesSelected = null,
   required = false,

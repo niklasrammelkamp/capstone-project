@@ -20,6 +20,10 @@ export default function App({
         <GlobalStyle />
         <Head>
           <title>Foto App</title>
+          <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1, maximum-scale=1"
+          ></meta>
         </Head>
         <Layout>
           <Component {...pageProps} />
