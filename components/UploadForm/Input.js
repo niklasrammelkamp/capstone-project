@@ -12,9 +12,11 @@ export default function Input({
   svg,
   label,
   maxLength = null,
+  pattern,
+  title,
 }) {
   const [inputFocus, setInputFocus] = useState(false);
-  console.log("hier", value);
+  console.log("hier", title);
 
   useEffect(() => {
     if (!value) setInputFocus(false);
@@ -27,6 +29,8 @@ export default function Input({
         {label}
       </StyledLabel>
       <StyledInput
+        pattern={pattern}
+        title={title}
         type="text"
         id={name}
         name={name}

@@ -5,6 +5,7 @@ import { StyledDescription } from "./StyledDescription";
 import { StyledFieldset } from "./StyledFieldset";
 import { StyledSuggestions } from "./StyledSuggestions";
 import { StyledParagraphWrapper } from "./StyledParagraphWrapper";
+import { StyledSetting } from "./StyledSetting";
 import Button from "../Button";
 import { StyledH2 } from "../StyledHeadlines";
 import Textarea from "../Textarea";
@@ -216,55 +217,75 @@ export default function UploadForm({ initialCategories, onSubmit }) {
 
       <StyledFieldset>
         <StyledH2> Add Settings</StyledH2>
-        <SVGIcon variant="film" width="16" />
-        <Input name="film" label="film" maxLength={30} />
+        <Button>+</Button>
 
-        <br />
-        <SVGIcon variant="aperture" width="13" />
-        <Input name="aperture" label="aperture" maxLength={30} />
-        {/* <label htmlFor="aperture">aperture</label> */}
-        <span> f1/</span>
-        {/* <input
-          type="number"
-          id="aperture"
-          name="aperture"
-          step=".01"
-          maxLength={5}
-        /> */}
-        <br />
-        <SVGIcon variant="time" width="13" />
-        <Input name="time" label="time" maxLength={30} />
-        {/* <label htmlFor="time">time</label>
-        <input type="text" id="time" name="time" maxLength={7} /> */}
-        <span>s</span>
-        <br />
-        <SVGIcon variant="lens" width="13" />
-        <Input name="lens" label="lens" maxLength={30} />
-        {/* <label htmlFor="lens">lens</label>
-        <input type="text" id="lens" name="lens" maxLength={10} /> */}
-        <span>mm</span>
-        <br />
-        <SVGIcon variant="camera" width="15" />
-        <Input name="camera" label="camera" maxLength={30} />
-        {/* <label htmlFor="camera">camera</label>
-        <input type="text" id="camera" name="camera" maxLength={10} /> */}
+        <StyledSetting>
+          <SVGIcon variant="film" width="16" />
+          <Input name="film" label="film e.g. Gold 200 …" maxLength={30} />
+        </StyledSetting>
+
+        <StyledSetting>
+          <SVGIcon variant="aperture" width="13" />
+
+          <Input
+            name="aperture"
+            label="aperture e.g. f/1,4, f/8 …"
+            maxLength={5}
+            pattern="[0-9.,]+"
+            title="Only numbers, dots, and commas are allowed."
+          />
+        </StyledSetting>
+
+        <StyledSetting>
+          <SVGIcon variant="time" width="13" />
+          <Input
+            name="time"
+            label="time e.g. 1/200, 3 …"
+            maxLength={7}
+            pattern="[0-9/]+"
+            title="Only numbers and slash are allowed."
+          />
+        </StyledSetting>
+
+        <StyledSetting>
+          <SVGIcon variant="lens" width="13" />
+          <Input
+            name="lens"
+            label="lens e.g. 20, 30-50 …"
+            maxLength={10}
+            pattern="[0-9-]+"
+            title="Only numbers and minus are allowed."
+          />
+        </StyledSetting>
+
+        <StyledSetting>
+          <SVGIcon variant="camera" width="15" />
+          <Input
+            name="camera"
+            label="camera e.g. Fujifilm XT100 …"
+            maxLength={30}
+          />
+        </StyledSetting>
       </StyledFieldset>
+
       {selectedCategories < 1 ? (
-        <button
+        <Button
+          variant="submit"
           type="button"
           onClick={() => {
             setNoCategoriesSelected(true);
           }}
         >
           upload
-        </button>
+        </Button>
       ) : (
-        <button
+        <Button
+          variant="submit"
           type="submit"
           disabled={statusIcon === "... uploading image ⏳" ? true : false}
         >
           upload
-        </button>
+        </Button>
       )}
       <div>
         <p>{statusIcon}</p>
