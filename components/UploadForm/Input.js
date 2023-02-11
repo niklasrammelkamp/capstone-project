@@ -16,7 +16,6 @@ export default function Input({
   title,
 }) {
   const [inputFocus, setInputFocus] = useState(false);
-  console.log("hier", title);
 
   useEffect(() => {
     if (!value) setInputFocus(false);
@@ -43,7 +42,6 @@ export default function Input({
         onFocus={() => setInputFocus(true)}
         onBlur={(event) => {
           if (event.target.value) {
-            console.log("hallo", event.target.value);
             setInputFocus(true);
           } else {
             setInputFocus(false);

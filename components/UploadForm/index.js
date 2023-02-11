@@ -5,7 +5,11 @@ import { StyledDescription } from "./StyledDescription";
 import { StyledFieldset } from "./StyledFieldset";
 import { StyledSuggestions } from "./StyledSuggestions";
 import { StyledParagraphWrapper } from "./StyledParagraphWrapper";
-import { StyledSetting } from "./StyledSetting";
+import {
+  StyledSettings,
+  StyledSetting,
+  StyledSettingsHeadline,
+} from "./StyledSettings";
 import Button from "../Button";
 import { StyledH2 } from "../StyledHeadlines";
 import Textarea from "../Textarea";
@@ -19,6 +23,7 @@ export default function UploadForm({ initialCategories, onSubmit }) {
 
   const [imageUploadValue, setImageUploadValue] = useState(""); // for upload field
   const [descriptionFocus, setDescriptionFocus] = useState(""); // for description field
+  const [showSettings, setShowSettings] = useState(false);
 
   const [statusIcon, setStatusIcon] = useState(false);
 
@@ -94,8 +99,6 @@ export default function UploadForm({ initialCategories, onSubmit }) {
 
     onSubmit(uploadObject);
   }
-
-  console.log(inputCategoryValue);
 
   // --------------------------------------------------------------------------------
   return (
@@ -215,57 +218,71 @@ export default function UploadForm({ initialCategories, onSubmit }) {
         </section>
       </StyledFieldset>
 
+      {/* ------- Settings ------- */}
       <StyledFieldset>
-        <StyledH2> Add Settings</StyledH2>
-        <Button>+</Button>
+        <StyledSettingsHeadline>
+          <StyledH2> Add Settings</StyledH2>
+          <Button
+            variant="suggestion"
+            isActive={true}
+            type="button"
+            onClick={() => {
+              setShowSettings(!showSettings);
+            }}
+          >
+            {showSettings ? "show" : "hide"}
+          </Button>
+        </StyledSettingsHeadline>
 
-        <StyledSetting>
-          <SVGIcon variant="film" width="16" />
-          <Input name="film" label="film e.g. Gold 200 …" maxLength={30} />
-        </StyledSetting>
+        <StyledSettings show={showSettings}>
+          <StyledSetting>
+            <SVGIcon variant="film" width="16" />
+            <Input name="film" label="film e.g. Gold 200 …" maxLength={30} />
+          </StyledSetting>
 
-        <StyledSetting>
-          <SVGIcon variant="aperture" width="13" />
+          <StyledSetting>
+            <SVGIcon variant="aperture" width="13" />
 
-          <Input
-            name="aperture"
-            label="aperture e.g. f/1,4, f/8 …"
-            maxLength={5}
-            pattern="[0-9.,]+"
-            title="Only numbers, dots, and commas are allowed."
-          />
-        </StyledSetting>
+            <Input
+              name="aperture"
+              label="aperture e.g. f/1,4, f/8 …"
+              maxLength={5}
+              pattern="[0-9.,]+"
+              title="Only numbers, dots, and commas are allowed."
+            />
+          </StyledSetting>
 
-        <StyledSetting>
-          <SVGIcon variant="time" width="13" />
-          <Input
-            name="time"
-            label="time e.g. 1/200, 3 …"
-            maxLength={7}
-            pattern="[0-9/]+"
-            title="Only numbers and slash are allowed."
-          />
-        </StyledSetting>
+          <StyledSetting>
+            <SVGIcon variant="time" width="13" />
+            <Input
+              name="time"
+              label="time e.g. 1/200, 3 …"
+              maxLength={7}
+              pattern="[0-9/]+"
+              title="Only numbers and slash are allowed."
+            />
+          </StyledSetting>
 
-        <StyledSetting>
-          <SVGIcon variant="lens" width="13" />
-          <Input
-            name="lens"
-            label="lens e.g. 20, 30-50 …"
-            maxLength={10}
-            pattern="[0-9-]+"
-            title="Only numbers and minus are allowed."
-          />
-        </StyledSetting>
+          <StyledSetting>
+            <SVGIcon variant="lens" width="13" />
+            <Input
+              name="lens"
+              label="lens e.g. 20, 30-50 …"
+              maxLength={10}
+              pattern="[0-9-]+"
+              title="Only numbers and minus are allowed."
+            />
+          </StyledSetting>
 
-        <StyledSetting>
-          <SVGIcon variant="camera" width="15" />
-          <Input
-            name="camera"
-            label="camera e.g. Fujifilm XT100 …"
-            maxLength={30}
-          />
-        </StyledSetting>
+          <StyledSetting>
+            <SVGIcon variant="camera" width="15" />
+            <Input
+              name="camera"
+              label="camera e.g. Fujifilm XT100 …"
+              maxLength={30}
+            />
+          </StyledSetting>
+        </StyledSettings>
       </StyledFieldset>
 
       {selectedCategories < 1 ? (
@@ -276,7 +293,8 @@ export default function UploadForm({ initialCategories, onSubmit }) {
             setNoCategoriesSelected(true);
           }}
         >
-          upload
+          <SVGIcon variant="send" width={24} color="var(--white)" />
+          Upload
         </Button>
       ) : (
         <Button
@@ -284,7 +302,8 @@ export default function UploadForm({ initialCategories, onSubmit }) {
           type="submit"
           disabled={statusIcon === "... uploading image ⏳" ? true : false}
         >
-          upload
+          <SVGIcon variant="send" width={24} color="var(--white)" />
+          Upload
         </Button>
       )}
       <div>

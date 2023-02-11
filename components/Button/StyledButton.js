@@ -102,6 +102,17 @@ const StyledButton = styled.button`
         border-radius: 8rem;
       `;
     }
+
+    if (variant === "submit") {
+      return css`
+        background-color: var(--black);
+        color: var(--white);
+        width: 100%;
+        border-radius: 8rem;
+        height: 4rem;
+        gap: 0.7rem;
+      `;
+    }
   }}
 `;
 
