@@ -77,6 +77,6 @@ const StyledNav = styled.nav`
     justify-content: space-evenly;
     height: 100%;
     border-radius: 10rem;
-    box-shadow: 0 0 2rem rgba(0, 0, 0, 0.15);
+    box-shadow: var(--box-shadow);
   }
 `;

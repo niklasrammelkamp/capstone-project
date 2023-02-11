@@ -89,6 +89,15 @@ const StyledButton = styled.button`
         border-radius: 2rem;
       `;
     }
+
+    if (variant === "settings") {
+      return css`
+        position: absolute;
+        top: 30px;
+        right: 30px;
+        z-index: 20;
+      `;
+    }
   }}
 `;
 

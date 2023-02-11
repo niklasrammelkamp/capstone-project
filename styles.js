@@ -9,11 +9,15 @@ const GlobalStyle = createGlobalStyle`
 
   :root {
     --font-size: 13px;
+    --box-shadow: 0 0 2rem rgba(0, 0, 0, 0.15);
 
     --black: #232222;
     --grey: #A6A2A2;
     --white: #ffffff;
     --background: #F5F5F3;
+    --green: #86E211;
+    --red: #F62323;
+    --border-radius: 1.5rem;
   }
 
   html {
@@ -25,6 +29,7 @@ const GlobalStyle = createGlobalStyle`
     font-family: system-ui;
     background-color: var(--background);
   }
+
 
 `;
 
