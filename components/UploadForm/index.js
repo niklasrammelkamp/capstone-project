@@ -114,7 +114,17 @@ export default function UploadForm({ initialCategories, onSubmit }) {
           id="image"
           name="imageFile"
           required
-          onChange={() => setImageUploadValue(true)}
+          onChange={(event) => {
+            const file = event.target.files[0];
+
+            if (file.size > 7340032) {
+              alert(
+                "File size is too large, please select a file less than 7 MB."
+              );
+              return;
+            }
+            setImageUploadValue(true);
+          }}
         />
       </StyledUpload>
 
