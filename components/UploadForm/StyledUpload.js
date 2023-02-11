@@ -17,7 +17,6 @@ export const StyledUpload = styled.label`
   margin-bottom: 2rem;
 
   input {
-    /* display: none; */
     opacity: 0;
     position: absolute;
   }

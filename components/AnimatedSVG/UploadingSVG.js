@@ -17,12 +17,7 @@ class UploadingSVG extends React.Component {
   }
 
   render() {
-    return (
-      <div
-        ref={(el) => (this.animationContainer = el)}
-        // style={{ width: "100%", height: "100%" }}
-      />
-    );
+    return <div ref={(el) => (this.animationContainer = el)} />;
   }
 }
 
