@@ -3,6 +3,7 @@ import SVGIcon from "@/components/SVGIcon";
 import { StyledUpload } from "./StyledUpload";
 import { StyledDescription } from "./StyledDescription";
 import { StyledFieldset } from "./StyledFieldset";
+import { StyledSuggestions } from "./StyledSuggestions";
 import Button from "../Button";
 import { StyledH2 } from "../StyledHeadlines";
 import Textarea from "../Textarea";
@@ -14,8 +15,8 @@ export default function UploadForm({ initialCategories, onSubmit }) {
   const [selectedCategories, setSelectedCategories] = useState([]); // a list of all selected categories
   const [noCategoriesSelected, setNoCategoriesSelected] = useState(false); // letting the user know that there must be atleast one category selected
 
-  const [imageUploadValue, setImageUploadValue] = useState("");
-  const [descriptionFocus, setDescriptionFocus] = useState("");
+  const [imageUploadValue, setImageUploadValue] = useState(""); // for upload field
+  const [descriptionFocus, setDescriptionFocus] = useState(""); // for description field
 
   const [statusIcon, setStatusIcon] = useState(false);
 
@@ -44,7 +45,7 @@ export default function UploadForm({ initialCategories, onSubmit }) {
     const searchTerm = inputCategoryValue.toLowerCase();
     const categoryLower = category.toLowerCase();
 
-    return searchTerm && categoryLower.startsWith(searchTerm);
+    return searchTerm && categoryLower.includes(searchTerm);
   });
 
   // ----------- HANDLESUBMIT ----------------------------------
@@ -91,6 +92,8 @@ export default function UploadForm({ initialCategories, onSubmit }) {
 
     onSubmit(uploadObject);
   }
+
+  console.log(inputCategoryValue);
 
   // --------------------------------------------------------------------------------
   return (
@@ -151,18 +154,29 @@ export default function UploadForm({ initialCategories, onSubmit }) {
         />
 
         {/* ------- Search Suggestion ------- */}
-        <div>
+        <StyledSuggestions>
           {filterdCategories.length >= 1 ? (
             filterdCategories.map((category) => {
               return (
-                <p
-                  key={category}
-                  onClick={() => {
-                    handleAddSelectedCategory(category);
-                  }}
-                >
-                  {category}
-                </p>
+                <div key={category}>
+                  <Button
+                    variant="suggestion"
+                    onClick={() => {
+                      handleAddSelectedCategory(category);
+                    }}
+                  >
+                    {category}
+                  </Button>
+                  <Button
+                    variant="suggestion"
+                    isActive={true}
+                    onClick={() => {
+                      handleAddSelectedCategory(category);
+                    }}
+                  >
+                    add +
+                  </Button>
+                </div>
               );
             })
           ) : inputCategoryValue.length ? (
@@ -170,14 +184,11 @@ export default function UploadForm({ initialCategories, onSubmit }) {
           ) : (
             <></>
           )}
-        </div>
+        </StyledSuggestions>
 
         {/* ------- listing all selected categories ------- */}
         <section>
-          <h3>selected categories</h3>
-          {selectedCategories < 1 ? (
-            <p>no categories selected</p>
-          ) : (
+          {selectedCategories &&
             selectedCategories.map((category) => {
               return (
                 <Fragment key={category}>
@@ -191,8 +202,7 @@ export default function UploadForm({ initialCategories, onSubmit }) {
                   </button>
                 </Fragment>
               );
-            })
-          )}
+            })}
         </section>
       </StyledFieldset>
 

@@ -1,7 +1,7 @@
 import css from "styled-jsx/css";
 import styled from "styled-components";
 import SVGIcon from "../SVGIcon";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function Input({
   name,
@@ -14,6 +14,11 @@ export default function Input({
   maxLength = null,
 }) {
   const [inputFocus, setInputFocus] = useState(false);
+  console.log("hier", value);
+
+  useEffect(() => {
+    if (!value) setInputFocus(false);
+  }, [value]);
 
   return (
     <StyledInputWrapper>
@@ -34,6 +39,7 @@ export default function Input({
         onFocus={() => setInputFocus(true)}
         onBlur={(event) => {
           if (event.target.value) {
+            console.log("hallo", event.target.value);
             setInputFocus(true);
           } else {
             setInputFocus(false);
