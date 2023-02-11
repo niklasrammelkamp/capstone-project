@@ -21,7 +21,7 @@ export default function App({
         <Head>
           <title>Foto App</title>
           <meta
-            name="viewport"
+            name="disable mobile zoom in"
             content="width=device-width, initial-scale=1, maximum-scale=1"
           ></meta>
         </Head>

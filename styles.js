@@ -29,9 +29,6 @@ const GlobalStyle = createGlobalStyle`
     background-color: var(--background);
   }
 
-  input {
-    font-family: inherit;
-  }
 
 `;
 
