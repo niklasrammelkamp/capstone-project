@@ -14,6 +14,8 @@ import Button from "../Button";
 import { StyledH2 } from "../StyledHeadlines";
 import Textarea from "../Textarea";
 import Input from "./Input";
+import UploadingSVG from "../AnimatedSVG/UploadingSVG";
+import dotsloading from "@/public/icons/dots-loading.json";
 
 export default function UploadForm({ initialCategories, onSubmit }) {
   const [categories, setCategories] = useState(initialCategories); // a list of all possible categories depending on users selection
@@ -25,7 +27,7 @@ export default function UploadForm({ initialCategories, onSubmit }) {
   const [descriptionFocus, setDescriptionFocus] = useState(""); // for description field
   const [showSettings, setShowSettings] = useState(false);
 
-  const [statusIcon, setStatusIcon] = useState(false);
+  const [uploading, setUploading] = useState(false);
 
   function onChangeInput(event) {
     setNoCategoriesSelected(false);
@@ -62,7 +64,7 @@ export default function UploadForm({ initialCategories, onSubmit }) {
     const formData = new FormData(event.target);
     const data = Object.fromEntries(formData);
 
-    setStatusIcon("... uploading image ⏳");
+    setUploading(true);
 
     // uploading the image file
     const response = await fetch("/api/upload", {
@@ -300,15 +302,20 @@ export default function UploadForm({ initialCategories, onSubmit }) {
         <Button
           variant="submit"
           type="submit"
-          disabled={statusIcon === "... uploading image ⏳" ? true : false}
+          disabled={uploading ? true : false}
         >
-          <SVGIcon variant="send" width={24} color="var(--white)" />
-          Upload
+          {uploading ? (
+            <>
+              <UploadingSVG animationData={dotsloading} />
+            </>
+          ) : (
+            <>
+              <SVGIcon variant="send" width={24} color="var(--white)" />
+              Upload
+            </>
+          )}
         </Button>
       )}
-      <div>
-        <p>{statusIcon}</p>
-      </div>
     </form>
   );
 }

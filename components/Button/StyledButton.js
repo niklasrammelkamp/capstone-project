@@ -111,6 +111,12 @@ const StyledButton = styled.button`
         border-radius: 8rem;
         height: 4rem;
         gap: 0.7rem;
+
+        div > svg {
+          width: 10rem !important;
+          height: 10rem !important;
+          display: block;
+        }
       `;
     }
   }}
