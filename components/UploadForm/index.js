@@ -25,7 +25,7 @@ export default function UploadForm({ initialCategories, onSubmit }) {
 
   const [imageUploadValue, setImageUploadValue] = useState(""); // for upload field
   const [descriptionFocus, setDescriptionFocus] = useState(""); // for description field
-  const [showSettings, setShowSettings] = useState(false);
+  const [showSettings, setShowSettings] = useState(true);
 
   const [uploading, setUploading] = useState(false);
 
@@ -128,9 +128,16 @@ export default function UploadForm({ initialCategories, onSubmit }) {
           name="description"
           maxLength={250}
           required
-          onFocus={() => setDescriptionFocus("top")}
+          onFocus={(event) => {
+            event.target.scrollHeight > 128
+              ? setDescriptionFocus("leave")
+              : setDescriptionFocus("top");
+          }}
           onBlur={(event) => {
-            if (event.target.value) {
+            if (event.target.scrollHeight > 128) {
+              console.log("hallo");
+              setDescriptionFocus("leave");
+            } else if (event.target.value) {
               setDescriptionFocus("top");
             } else {
               setDescriptionFocus("");
