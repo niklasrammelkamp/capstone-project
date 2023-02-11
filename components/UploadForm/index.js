@@ -4,6 +4,7 @@ import { StyledUpload } from "./StyledUpload";
 import { StyledDescription } from "./StyledDescription";
 import { StyledFieldset } from "./StyledFieldset";
 import { StyledSuggestions } from "./StyledSuggestions";
+import { StyledParagraphWrapper } from "./StyledParagraphWrapper";
 import Button from "../Button";
 import { StyledH2 } from "../StyledHeadlines";
 import Textarea from "../Textarea";
@@ -144,14 +145,20 @@ export default function UploadForm({ initialCategories, onSubmit }) {
         <StyledH2>Add categories</StyledH2>
 
         {/* ------- Search Input ------- */}
-        <Input
-          name="searchField"
-          value={inputCategoryValue}
-          onChange={onChangeInput}
-          noCategoriesSelected={noCategoriesSelected}
-          svg="search"
-          label={noCategoriesSelected ? "required" : "search for category"}
-        />
+        {selectedCategories.length === 3 ? (
+          <StyledParagraphWrapper>
+            <p>You reached the maximum of 3</p>
+          </StyledParagraphWrapper>
+        ) : (
+          <Input
+            name="searchField"
+            value={inputCategoryValue}
+            onChange={onChangeInput}
+            noCategoriesSelected={noCategoriesSelected}
+            svg="search"
+            label={noCategoriesSelected ? "required" : "search for category"}
+          />
+        )}
 
         {/* ------- Search Suggestion ------- */}
         <StyledSuggestions>
@@ -191,16 +198,17 @@ export default function UploadForm({ initialCategories, onSubmit }) {
           {selectedCategories &&
             selectedCategories.map((category) => {
               return (
-                <Fragment key={category}>
+                <StyledParagraphWrapper key={category} green={true}>
                   <p>{category}</p>
-                  <button
+                  <Button
+                    variant="navButtonUpload"
                     onClick={() => {
                       handleDeleteSelectedCategory(category);
                     }}
                   >
-                    delete
-                  </button>
-                </Fragment>
+                    <SVGIcon variant="minus" width={20} color="var(--white)" />
+                  </Button>
+                </StyledParagraphWrapper>
               );
             })}
         </section>
@@ -213,29 +221,33 @@ export default function UploadForm({ initialCategories, onSubmit }) {
 
         <br />
         <SVGIcon variant="aperture" width="13" />
-        <label htmlFor="aperture">aperture</label>
+        <Input name="aperture" label="aperture" maxLength={30} />
+        {/* <label htmlFor="aperture">aperture</label> */}
         <span> f1/</span>
-        <input
+        {/* <input
           type="number"
           id="aperture"
           name="aperture"
           step=".01"
           maxLength={5}
-        />
+        /> */}
         <br />
         <SVGIcon variant="time" width="13" />
-        <label htmlFor="time">time</label>
-        <input type="text" id="time" name="time" maxLength={7} />
+        <Input name="time" label="time" maxLength={30} />
+        {/* <label htmlFor="time">time</label>
+        <input type="text" id="time" name="time" maxLength={7} /> */}
         <span>s</span>
         <br />
         <SVGIcon variant="lens" width="13" />
-        <label htmlFor="lens">lens</label>
-        <input type="text" id="lens" name="lens" maxLength={10} />
+        <Input name="lens" label="lens" maxLength={30} />
+        {/* <label htmlFor="lens">lens</label>
+        <input type="text" id="lens" name="lens" maxLength={10} /> */}
         <span>mm</span>
         <br />
         <SVGIcon variant="camera" width="15" />
-        <label htmlFor="camera">camera</label>
-        <input type="text" id="camera" name="camera" maxLength={10} />
+        <Input name="camera" label="camera" maxLength={30} />
+        {/* <label htmlFor="camera">camera</label>
+        <input type="text" id="camera" name="camera" maxLength={10} /> */}
       </StyledFieldset>
       {selectedCategories < 1 ? (
         <button
