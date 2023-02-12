@@ -12,7 +12,7 @@ export default function UploadPage() {
 
   async function handleSubmit(post) {
     try {
-      const response = await fetch(`/api/posts`, {
+      const response = await fetch(`/aspi/posts`, {
         method: "POST",
         body: JSON.stringify(post),
         headers: {
@@ -24,9 +24,13 @@ export default function UploadPage() {
         router.push("/");
       } else {
         console.error(`Error: ${response.status}`);
+        alert("something went wrong. Please try again.");
+        router.reload();
       }
     } catch (error) {
       console.error(error.message);
+      alert("something went wrong. Please try again.");
+      router.reload();
     }
   }
 

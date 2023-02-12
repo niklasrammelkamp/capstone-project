@@ -96,10 +96,9 @@ export default function UploadForm({ initialCategories, onSubmit }) {
       comments: [],
     };
 
+    onSubmit(uploadObject);
     event.target.reset();
     setSelectedCategories([]);
-
-    onSubmit(uploadObject);
   }
 
   // --------------------------------------------------------------------------------
@@ -114,17 +113,21 @@ export default function UploadForm({ initialCategories, onSubmit }) {
           id="image"
           name="imageFile"
           required
-          onChange={(event) => {
-            const file = event.target.files[0];
+          onChange={
+            !uploading
+              ? (event) => {
+                  const file = event.target.files[0];
 
-            if (file.size > 7340032) {
-              alert(
-                "File size is too large, please select a file less than 7 MB."
-              );
-              return;
-            }
-            setImageUploadValue(true);
-          }}
+                  if (file.size > 7340032) {
+                    alert(
+                      "File size is too large, please select a file less than 7 MB."
+                    );
+                    return;
+                  }
+                  setImageUploadValue(true);
+                }
+              : undefined
+          }
         />
       </StyledUpload>
 
