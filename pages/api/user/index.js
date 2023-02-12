@@ -32,7 +32,7 @@ export default async function handler(request, response) {
             return response.status(200).json(newUser);
           }
           if (userWithSub) {
-            const user = await User.findOne({ sub: token.sub })
+            const user = await User.findOne({ userID: token.sub })
               .populate({
                 path: "uploadedPosts",
                 model: "Post",
