@@ -12,7 +12,7 @@ export default function UploadPage() {
 
   async function handleSubmit(post) {
     try {
-      const response = await fetch(`/aspi/posts`, {
+      const response = await fetch(`/api/posts`, {
         method: "POST",
         body: JSON.stringify(post),
         headers: {
