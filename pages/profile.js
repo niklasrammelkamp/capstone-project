@@ -1,6 +1,7 @@
 import Button from "@/components/Button";
 import LogIn from "@/components/LogIn";
 import ProfileDetails from "@/components/ProfileDetails";
+import ProfileEditForm from "@/components/ProfileEditForm";
 import ProfilePictureList from "@/components/ProfilePictureList";
 import ProfileSettings from "@/components/ProfileSettings";
 import SVGIcon from "@/components/SVGIcon";
@@ -22,6 +23,7 @@ export default function ProfilePage() {
     data: loggedInUser,
     isLoading,
     error,
+    mutate,
   } = useSWR(session ? `/api/user` : null);
 
   if (isLoading) return <p>is loading</p>;
@@ -31,12 +33,34 @@ export default function ProfilePage() {
     setActiveTab(state);
   }
 
-  function handleEditProfile() {}
-
-  // reverse the posts so the latest is always on top
+  async function handleEditProfile(newUser) {
+    if (
+      newUser.name === loggedInUser.name &&
+      newUser.bio === loggedInUser.bio &&
+      newUser.image === loggedInUser.image
+    ) {
+      setEditProfile(false);
+      return;
+    }
+    try {
+      const response = await fetch(`/api/user`, {
+        method: "PUT",
+        body: JSON.stringify(newUser),
+        headers: { "Content-type": "application/json" },
+      });
+      if (!response.ok) {
+        console.error(`Error: ${response.status}`);
+      }
+      mutate();
+    } catch (error) {
+      console.error(error);
+    }
+    setEditProfile(false);
+  }
 
   if (session) {
     if (loggedInUser) {
+      // reverse the posts so the latest is always on top
       const likedPosts = [...loggedInUser.likedPosts].reverse();
       const uploadedPosts = [...loggedInUser.uploadedPosts].reverse();
       return (
@@ -52,9 +76,19 @@ export default function ProfilePage() {
             <SVGIcon variant="settings" width={16} />
           </Button>
 
-          {showSettings && <ProfileSettings signOut={signOut} />}
+          {showSettings && (
+            <ProfileSettings
+              signOut={signOut}
+              onEdit={setEditProfile}
+              showSettings={setShowSettings}
+            />
+          )}
 
-          <ProfileDetails user={loggedInUser} />
+          {editProfile ? (
+            <ProfileEditForm onSubmit={handleEditProfile} user={loggedInUser} />
+          ) : (
+            <ProfileDetails user={loggedInUser} />
+          )}
 
           <TabBar onTabBar={handleTabBar} activeTab={activeTab} />
 

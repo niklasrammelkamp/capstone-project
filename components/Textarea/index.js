@@ -1,6 +1,12 @@
 import styled from "styled-components";
 
-export default function Textarea({ id, label, isRequired, maxLength }) {
+export default function Textarea({
+  id,
+  label,
+  isRequired = false,
+  maxLength,
+  defaultValue,
+}) {
   // didn't write this autoResize function by my own but I don't know anymore where I got this from
   function autoResize(event) {
     event.target.style.height = "auto";
@@ -17,7 +23,7 @@ export default function Textarea({ id, label, isRequired, maxLength }) {
         rows={1}
         required={isRequired}
         maxLength={maxLength}
-        onBlur={() => console.log("hallo")}
+        defaultValue={defaultValue}
       />
     </>
   );

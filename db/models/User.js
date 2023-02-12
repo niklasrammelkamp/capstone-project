@@ -7,7 +7,7 @@ const userSchema = new Schema({
   regestrationYear: String,
   bio: String,
   image: String,
-  sub: String,
+  userID: String,
   uploadedPosts: [
     {
       type: Schema.Types.ObjectId,
