@@ -14,26 +14,27 @@ export default function PostingPreview({ post, loggedInUserID, reload }) {
   return (
     <StyledPostingPrev>
       <BackgroundGradient />
+
+      <StyledPostingPrevHeader>
+        <ProfilLink href={`/users/${post.user._id}`}>
+          <Image
+            src={post.user.image}
+            width={30}
+            height={30}
+            alt={`profile picture of ${post.user.name}`}
+          />
+          <p>{post.user.name}</p>
+        </ProfilLink>
+        <ButtonLike
+          post={post}
+          loggedInUserID={loggedInUserID}
+          reload={reload}
+          color="var(--white)"
+        />
+      </StyledPostingPrevHeader>
+
       <Link href={`/posts/${post._id}`}>
         <Image src={post.image} fill alt={post.description} />
-
-        <StyledPostingPrevHeader>
-          <ProfilLink href={`/users/${post.user._id}`}>
-            <Image
-              src={post.user.image}
-              width={30}
-              height={30}
-              alt={`profile picture of ${post.user.name}`}
-            />
-            <p>{post.user.name}</p>
-          </ProfilLink>
-          <ButtonLike
-            post={post}
-            loggedInUserID={loggedInUserID}
-            reload={reload}
-            color="var(--white)"
-          />
-        </StyledPostingPrevHeader>
 
         <StyledPostingPrevDetails>
           <p>{post.date}</p>
