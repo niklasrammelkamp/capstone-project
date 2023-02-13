@@ -1,8 +1,9 @@
+import styled from "styled-components";
 import PostingPreview from "../PostingPreview";
 
 export default function PostingList({ posts, loggedInUserID, reload }) {
   return (
-    <section>
+    <StyledPostingList>
       {posts.map((post) => {
         return (
           <PostingPreview
@@ -13,6 +14,14 @@ export default function PostingList({ posts, loggedInUserID, reload }) {
           />
         );
       })}
-    </section>
+    </StyledPostingList>
   );
 }
+
+const StyledPostingList = styled.section`
+  width: calc(100% + 60px);
+  margin-left: -30px;
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+`;

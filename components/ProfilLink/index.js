@@ -9,8 +9,7 @@ const StyledProfilLink = styled(Link)`
   align-items: center;
   gap: 0.5rem;
   text-decoration: none;
-  color: var(--black);
-
+  color: inherit;
   img {
     border-radius: 50%;
   }

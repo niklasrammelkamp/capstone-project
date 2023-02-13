@@ -2,7 +2,12 @@ import Button from "../Button";
 import SVGIcon from "../SVGIcon";
 import { useState } from "react";
 
-export default function ButtonLike({ post, loggedInUserID, reload }) {
+export default function ButtonLike({
+  post,
+  loggedInUserID,
+  reload,
+  color = "var(--black)",
+}) {
   const [isLiked, setIsLiked] = useState(false);
 
   async function like() {
@@ -52,7 +57,7 @@ export default function ButtonLike({ post, loggedInUserID, reload }) {
           disLike();
         }}
       >
-        <SVGIcon variant="like_filled" color="black" width={24} />
+        <SVGIcon variant="like_filled" color={color} width={24} />
       </Button>
     );
   }
@@ -65,7 +70,7 @@ export default function ButtonLike({ post, loggedInUserID, reload }) {
           like();
         }}
       >
-        <SVGIcon variant="like" color="black" width={24} />
+        <SVGIcon variant="like" color={color} width={24} />
       </Button>
     );
   }
