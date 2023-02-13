@@ -32,7 +32,7 @@ const StyledLogIn = styled.section`
   padding-top: 5rem;
 
   img {
-    width: 18rem;
+    width: 17rem;
     height: auto;
     margin: 0 auto;
     margin-bottom: 4rem;
