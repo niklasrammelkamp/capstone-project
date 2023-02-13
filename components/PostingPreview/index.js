@@ -10,7 +10,7 @@ export default function PostingPreview({ post, loggedInUserID, reload }) {
   return (
     <StyledPostingPrev>
       <StyledPostingPrevHeader>
-        <ProfilLink href={`/user/${post.user._id}`}>
+        <ProfilLink href={`/users/${post.user._id}`}>
           <Image
             src={post.user.image}
             width={30}
