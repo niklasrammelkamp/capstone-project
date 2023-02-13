@@ -4,7 +4,6 @@ import styled from "styled-components";
 export const StyledDescription = styled.div`
   width: 100;
   position: relative;
-  margin-bottom: 2rem;
 
   label {
     transition: 0.5s ease;
@@ -26,7 +25,8 @@ export const StyledDescription = styled.div`
     resize: none;
     height: 8rem;
     border-radius: var(--border-radius);
-    padding: 2.3rem 1.5rem 1.5rem 1.5rem;
+    padding: ${({ noLabel }) =>
+      noLabel ? "1rem 1.5rem 1.5rem 1.5rem" : "2.3rem 1.5rem 1.5rem 1.5rem"};
     border: ${({ focus }) =>
       focus === "top" || focus === "leave" ? "2px solid var(--green)" : "none"};
   }

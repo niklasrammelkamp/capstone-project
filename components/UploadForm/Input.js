@@ -14,6 +14,7 @@ export default function Input({
   maxLength = null,
   pattern,
   title,
+  defaultValue,
 }) {
   const [inputFocus, setInputFocus] = useState(false);
 
@@ -28,6 +29,8 @@ export default function Input({
         {label}
       </StyledLabel>
       <StyledInput
+        label={label}
+        defaultValue={defaultValue}
         pattern={pattern}
         title={title}
         type="text"
@@ -80,7 +83,8 @@ const StyledInput = styled.input`
   border: none;
   border-radius: 8rem;
   font-family: "Poppins";
-  padding: 0.8rem 5rem 0 1.5rem;
+  padding: ${({ label }) =>
+    label ? "0.8rem 5rem 0 1.5rem" : "0rem 5rem 0 1.5rem"};
   height: 4rem;
 
   ${({ focus, noCategoriesSelected }) => {

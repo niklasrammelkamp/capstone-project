@@ -65,8 +65,6 @@ export default function ProfilePage() {
       const uploadedPosts = [...loggedInUser.uploadedPosts].reverse();
       return (
         <>
-          <button onClick={signOut}>logout</button>
-
           <Button
             type="button"
             aria-label="settings"
@@ -87,15 +85,16 @@ export default function ProfilePage() {
           {editProfile ? (
             <ProfileEditForm onSubmit={handleEditProfile} user={loggedInUser} />
           ) : (
-            <ProfileDetails user={loggedInUser} />
-          )}
+            <>
+              <ProfileDetails user={loggedInUser} />
+              <TabBar onTabBar={handleTabBar} activeTab={activeTab} />
 
-          <TabBar onTabBar={handleTabBar} activeTab={activeTab} />
-
-          {activeTab === "uploads" ? (
-            <ProfilePictureList posts={uploadedPosts} />
-          ) : (
-            <ProfilePictureList posts={likedPosts} />
+              {activeTab === "uploads" ? (
+                <ProfilePictureList posts={uploadedPosts} />
+              ) : (
+                <ProfilePictureList posts={likedPosts} />
+              )}
+            </>
           )}
         </>
       );

@@ -101,7 +101,6 @@ const StyledButton = styled.button`
       return css`
         padding: 0.5rem 0;
         justify-content: ${isActive ? "" : "flex-start"};
-
         text-align: left;
         width: ${isActive ? "6rem" : "90%"};
         background-color: ${isActive ? "var(--black)" : ""};
