@@ -4,5 +4,5 @@ import styled from "styled-components";
 export const StyledFieldset = styled.fieldset`
   border: none;
   padding: 0;
-  margin-bottom: 1.4rem;
+  margin: 1.4rem 0;
 `;

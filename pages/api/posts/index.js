@@ -12,12 +12,13 @@ export default async function handler(request, response) {
     const session = await conn.startSession();
     await session.withTransaction(async () => {
       switch (request.method) {
-        case "GET":
+        case "GET": {
           const posts = await Post.find().populate("user");
           return response.status(200).json(posts);
+        }
 
-        case "POST":
-          const userWithSub = await User.findOne({ sub: token.sub });
+        case "POST": {
+          const userWithSub = await User.findOne({ userID: token.sub });
 
           try {
             const newPost = { ...request.body, user: userWithSub._id };
@@ -37,6 +38,7 @@ export default async function handler(request, response) {
             console.error(error);
             response.status(400).json({ error: error.message });
           }
+        }
       }
     });
     session.endSession();

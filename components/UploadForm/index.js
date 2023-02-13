@@ -134,7 +134,7 @@ export default function UploadForm({ initialCategories, onSubmit }) {
       {/* ------- description ------- */}
       <StyledH2>Add description</StyledH2>
       <StyledDescription focus={descriptionFocus}>
-        <label htmlFor="description">write description heres</label>
+        <label htmlFor="description">write description here</label>
         <textarea
           type="text"
           id="description"
@@ -148,7 +148,6 @@ export default function UploadForm({ initialCategories, onSubmit }) {
           }}
           onBlur={(event) => {
             if (event.target.scrollHeight > 128) {
-              console.log("hallo");
               setDescriptionFocus("leave");
             } else if (event.target.value) {
               setDescriptionFocus("top");

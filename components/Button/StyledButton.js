@@ -88,11 +88,19 @@ const StyledButton = styled.button`
       `;
     }
 
+    if (variant === "settings") {
+      return css`
+        position: absolute;
+        top: 30px;
+        right: 30px;
+        z-index: 20;
+      `;
+    }
+
     if (variant === "suggestion") {
       return css`
         padding: 0.5rem 0;
         justify-content: ${isActive ? "" : "flex-start"};
-
         text-align: left;
         width: ${isActive ? "6rem" : "90%"};
         background-color: ${isActive ? "var(--black)" : ""};

@@ -9,6 +9,7 @@ const GlobalStyle = createGlobalStyle`
 
   :root {
     --font-size: 13px;
+    --box-shadow: 0 0 2rem rgba(0, 0, 0, 0.15);
 
     --black: #232222;
     --grey: #A6A2A2;
