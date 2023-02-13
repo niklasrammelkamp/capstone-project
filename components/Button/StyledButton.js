@@ -13,7 +13,7 @@ const StyledButton = styled.button`
   font-size: 1rem;
   font-family: inherit;
   -webkit-tap-highlight-color: transparent;
-  font-weight: 300;
+  font-weight: 400;
 
   ${({ variant, isActive }) => {
     if (variant === "navButton") {
@@ -63,15 +63,13 @@ const StyledButton = styled.button`
 
     if (variant === "deletePost") {
       return css`
-        background-color: ${isActive ? "#F62323" : "var(--background)"};
+        background-color: ${isActive ? "var(--red)" : "var(--background)"};
         color: ${isActive ? "white" : "var(--grey)"};
-
         width: ${isActive ? "70%" : "100%"};
-        /* margin-left: ${isActive ? "-15px" : ""}; */
         height: 4rem;
         border-radius: 2rem;
-
         gap: 0.5rem;
+
         svg {
           transition: 0.5s ease;
           transform: ${isActive ? "scale(1.3)" : "scale(1)"};
@@ -87,6 +85,38 @@ const StyledButton = styled.button`
         height: ${isActive ? "4rem" : "0"};
         opacity: ${isActive ? "1" : "0"};
         border-radius: 2rem;
+      `;
+    }
+
+    if (variant === "suggestion") {
+      return css`
+        padding: 0.5rem 0;
+        justify-content: ${isActive ? "" : "flex-start"};
+
+        text-align: left;
+        width: ${isActive ? "6rem" : "90%"};
+        background-color: ${isActive ? "var(--black)" : ""};
+        color: ${isActive ? "var(--white)" : "var(--black)"};
+        padding: ${isActive ? "0.5rem 1rem" : "none"};
+        height: ${isActive ? "2.5rem" : "none"};
+        border-radius: 8rem;
+      `;
+    }
+
+    if (variant === "submit") {
+      return css`
+        background-color: var(--black);
+        color: var(--white);
+        width: 100%;
+        border-radius: 8rem;
+        height: 4rem;
+        gap: 0.7rem;
+
+        div > svg {
+          width: 10rem !important;
+          height: 10rem !important;
+          display: block;
+        }
       `;
     }
   }}

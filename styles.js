@@ -14,6 +14,9 @@ const GlobalStyle = createGlobalStyle`
     --grey: #A6A2A2;
     --white: #ffffff;
     --background: #F5F5F3;
+    --green: #86E211;
+    --red: #F62323;
+    --border-radius: 1.5rem;
   }
 
   html {
@@ -25,6 +28,7 @@ const GlobalStyle = createGlobalStyle`
     font-family: system-ui;
     background-color: var(--background);
   }
+
 
 `;
 
