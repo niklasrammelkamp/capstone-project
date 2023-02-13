@@ -1,5 +1,21 @@
 import { Fragment, useState } from "react";
 import SVGIcon from "@/components/SVGIcon";
+import { StyledUpload } from "./StyledUpload";
+import { StyledDescription } from "./StyledDescription";
+import { StyledFieldset } from "./StyledFieldset";
+import { StyledSuggestions } from "./StyledSuggestions";
+import { StyledParagraphWrapper } from "./StyledParagraphWrapper";
+import {
+  StyledSettings,
+  StyledSetting,
+  StyledSettingsHeadline,
+} from "./StyledSettings";
+import Button from "../Button";
+import { StyledH2 } from "../StyledHeadlines";
+import Textarea from "../Textarea";
+import Input from "./Input";
+import UploadingSVG from "../AnimatedSVG/UploadingSVG";
+import dotsloading from "@/public/icons/dots-loading.json";
 
 export default function UploadForm({ initialCategories, onSubmit }) {
   const [categories, setCategories] = useState(initialCategories); // a list of all possible categories depending on users selection
@@ -7,7 +23,11 @@ export default function UploadForm({ initialCategories, onSubmit }) {
   const [selectedCategories, setSelectedCategories] = useState([]); // a list of all selected categories
   const [noCategoriesSelected, setNoCategoriesSelected] = useState(false); // letting the user know that there must be atleast one category selected
 
-  const [statusIcon, setStatusIcon] = useState("");
+  const [imageUploadValue, setImageUploadValue] = useState(""); // for upload field
+  const [descriptionFocus, setDescriptionFocus] = useState(""); // for description field
+  const [showSettings, setShowSettings] = useState(true);
+
+  const [uploading, setUploading] = useState(false);
 
   function onChangeInput(event) {
     setNoCategoriesSelected(false);
@@ -34,7 +54,7 @@ export default function UploadForm({ initialCategories, onSubmit }) {
     const searchTerm = inputCategoryValue.toLowerCase();
     const categoryLower = category.toLowerCase();
 
-    return searchTerm && categoryLower.startsWith(searchTerm);
+    return searchTerm && categoryLower.includes(searchTerm);
   });
 
   // ----------- HANDLESUBMIT ----------------------------------
@@ -44,7 +64,7 @@ export default function UploadForm({ initialCategories, onSubmit }) {
     const formData = new FormData(event.target);
     const data = Object.fromEntries(formData);
 
-    setStatusIcon("... uploading image ⏳");
+    setUploading(true);
 
     // uploading the image file
     const response = await fetch("/api/upload", {
@@ -76,52 +96,120 @@ export default function UploadForm({ initialCategories, onSubmit }) {
       comments: [],
     };
 
+    onSubmit(uploadObject);
     event.target.reset();
     setSelectedCategories([]);
-
-    onSubmit(uploadObject);
   }
 
   // --------------------------------------------------------------------------------
   return (
     <form onSubmit={handleSubmit}>
-      <label htmlFor="name">upload image</label>
-      <input type="file" id="image" name="imageFile" required />
-      <br />
-      <label htmlFor="description">description</label>
-      <textarea
-        type="text"
-        id="description"
-        name="description"
-        maxLength={250}
-        required
-      />
-
-      {/* ------- search function + suggestions ------- */}
-      <fieldset>
-        <h2>Add categories</h2>
-        <SVGIcon variant="search" width="13" />
+      {/* ------- image upload ------- */}
+      <StyledUpload htmlFor="image" isActive={imageUploadValue}>
+        <SVGIcon variant="upload" width={31} />
+        {imageUploadValue ? "choose different image" : "upload image"}
         <input
+          type="file"
+          id="image"
+          name="imageFile"
+          required
+          onChange={
+            !uploading
+              ? (event) => {
+                  const file = event.target.files[0];
+
+                  if (file.size > 7340032) {
+                    alert(
+                      "File size is too large, please select a file less than 7 MB."
+                    );
+                    return;
+                  }
+                  setImageUploadValue(true);
+                }
+              : undefined
+          }
+        />
+      </StyledUpload>
+
+      {/* ------- description ------- */}
+      <StyledH2>Add description</StyledH2>
+      <StyledDescription focus={descriptionFocus}>
+        <label htmlFor="description">write description heres</label>
+        <textarea
           type="text"
-          value={inputCategoryValue}
-          onChange={onChangeInput}
-          style={{
-            outline: noCategoriesSelected && "red 2px solid",
+          id="description"
+          name="description"
+          maxLength={250}
+          required
+          onFocus={(event) => {
+            event.target.scrollHeight > 128
+              ? setDescriptionFocus("leave")
+              : setDescriptionFocus("top");
+          }}
+          onBlur={(event) => {
+            if (event.target.scrollHeight > 128) {
+              console.log("hallo");
+              setDescriptionFocus("leave");
+            } else if (event.target.value) {
+              setDescriptionFocus("top");
+            } else {
+              setDescriptionFocus("");
+            }
+          }}
+          onInput={(event) => {
+            if (event.target.scrollHeight > 128) {
+              setDescriptionFocus("leave");
+            } else {
+              setDescriptionFocus("top");
+            }
           }}
         />
-        {noCategoriesSelected && <span>required</span>}
-        <div>
+      </StyledDescription>
+
+      {/* ------- search function + suggestions ------- */}
+      <StyledFieldset>
+        <StyledH2>Add categories</StyledH2>
+
+        {/* ------- Search Input ------- */}
+        {selectedCategories.length === 3 ? (
+          <StyledParagraphWrapper>
+            <p>You reached the maximum of 3</p>
+          </StyledParagraphWrapper>
+        ) : (
+          <Input
+            name="searchField"
+            value={inputCategoryValue}
+            onChange={onChangeInput}
+            noCategoriesSelected={noCategoriesSelected}
+            svg="search"
+            label={noCategoriesSelected ? "required" : "search for category"}
+          />
+        )}
+
+        {/* ------- Search Suggestion ------- */}
+        <StyledSuggestions>
           {filterdCategories.length >= 1 ? (
             filterdCategories.map((category) => {
               return (
-                <p
-                  key={category}
-                  onClick={() => {
-                    handleAddSelectedCategory(category);
-                  }}
-                >
-                  {category}
-                </p>
+                <div key={category}>
+                  <Button
+                    variant="suggestion"
+                    onClick={() => {
+                      handleAddSelectedCategory(category);
+                    }}
+                  >
+                    {category}
+                  </Button>
+                  <Button
+                    variant="suggestion"
+                    isActive={true}
+                    onClick={() => {
+                      handleAddSelectedCategory(category);
+                    }}
+                  >
+                    add +
+                  </Button>
+                </div>
               );
             })
           ) : inputCategoryValue.length ? (
@@ -129,83 +217,125 @@ export default function UploadForm({ initialCategories, onSubmit }) {
           ) : (
             <></>
           )}
-        </div>
+        </StyledSuggestions>
 
         {/* ------- listing all selected categories ------- */}
         <section>
-          <h3>selected categories</h3>
-          {selectedCategories < 1 ? (
-            <p>no categories selected</p>
-          ) : (
+          {selectedCategories &&
             selectedCategories.map((category) => {
               return (
-                <Fragment key={category}>
+                <StyledParagraphWrapper key={category} green={true}>
                   <p>{category}</p>
-                  <button
+                  <Button
+                    variant="navButtonUpload"
                     onClick={() => {
                       handleDeleteSelectedCategory(category);
                     }}
                   >
-                    delete
-                  </button>
-                </Fragment>
+                    <SVGIcon variant="minus" width={20} color="var(--white)" />
+                  </Button>
+                </StyledParagraphWrapper>
               );
-            })
-          )}
+            })}
         </section>
-      </fieldset>
+      </StyledFieldset>
 
-      <fieldset>
-        <h2>Settings</h2>
-        <SVGIcon variant="film" width="16" />
-        <label htmlFor="film">film</label>
-        <input type="text" id="film" name="film" maxLength={30} />
-        <br />
-        <SVGIcon variant="aperture" width="13" />
-        <label htmlFor="aperture">aperture</label>
-        <span> f1/</span>
-        <input
-          type="number"
-          id="aperture"
-          name="aperture"
-          step=".01"
-          maxLength={5}
-        />
-        <br />
-        <SVGIcon variant="time" width="13" />
-        <label htmlFor="time">time</label>
-        <input type="text" id="time" name="time" maxLength={7} />
-        <span>s</span>
-        <br />
-        <SVGIcon variant="lens" width="13" />
-        <label htmlFor="lens">lens</label>
-        <input type="text" id="lens" name="lens" maxLength={10} />
-        <span>mm</span>
-        <br />
-        <SVGIcon variant="camera" width="15" />
-        <label htmlFor="camera">camera</label>
-        <input type="text" id="camera" name="camera" maxLength={10} />
-      </fieldset>
+      {/* ------- Settings ------- */}
+      <StyledFieldset>
+        <StyledSettingsHeadline>
+          <StyledH2> Add Settings</StyledH2>
+          <Button
+            variant="suggestion"
+            isActive={true}
+            type="button"
+            onClick={() => {
+              setShowSettings(!showSettings);
+            }}
+          >
+            {showSettings ? "show" : "hide"}
+          </Button>
+        </StyledSettingsHeadline>
+
+        <StyledSettings show={showSettings}>
+          <StyledSetting>
+            <SVGIcon variant="film" width="16" />
+            <Input name="film" label="film e.g. Gold 200 …" maxLength={30} />
+          </StyledSetting>
+
+          <StyledSetting>
+            <SVGIcon variant="aperture" width="13" />
+
+            <Input
+              name="aperture"
+              label="aperture e.g. f/1,4, f/8 …"
+              maxLength={5}
+              pattern="[0-9.,]+"
+              title="Only numbers, dots, and commas are allowed."
+            />
+          </StyledSetting>
+
+          <StyledSetting>
+            <SVGIcon variant="time" width="13" />
+            <Input
+              name="time"
+              label="time e.g. 1/200, 3 …"
+              maxLength={7}
+              pattern="[0-9/]+"
+              title="Only numbers and slash are allowed."
+            />
+          </StyledSetting>
+
+          <StyledSetting>
+            <SVGIcon variant="lens" width="13" />
+            <Input
+              name="lens"
+              label="lens e.g. 20, 30-50 …"
+              maxLength={10}
+              pattern="[0-9-]+"
+              title="Only numbers and minus are allowed."
+            />
+          </StyledSetting>
+
+          <StyledSetting>
+            <SVGIcon variant="camera" width="15" />
+            <Input
+              name="camera"
+              label="camera e.g. Fujifilm XT100 …"
+              maxLength={30}
+            />
+          </StyledSetting>
+        </StyledSettings>
+      </StyledFieldset>
+
       {selectedCategories < 1 ? (
-        <button
+        <Button
+          variant="submit"
           type="button"
           onClick={() => {
             setNoCategoriesSelected(true);
           }}
         >
-          upload
-        </button>
+          <SVGIcon variant="send" width={24} color="var(--white)" />
+          Upload
+        </Button>
       ) : (
-        <button
+        <Button
+          variant="submit"
           type="submit"
-          disabled={statusIcon === "... uploading image ⏳" ? true : false}
+          disabled={uploading ? true : false}
         >
-          upload
-        </button>
+          {uploading ? (
+            <>
+              <UploadingSVG animationData={dotsloading} />
+            </>
+          ) : (
+            <>
+              <SVGIcon variant="send" width={24} color="var(--white)" />
+              Upload
+            </>
+          )}
+        </Button>
       )}
-      <div>
-        <p>{statusIcon}</p>
-      </div>
     </form>
   );
 }

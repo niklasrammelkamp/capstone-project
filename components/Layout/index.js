@@ -20,7 +20,14 @@ export default function Layout({ children }) {
 }
 
 const StyledMain = styled.main`
-  padding: 0 30px 6rem 30px;
+  padding: 3rem 30px 6rem 30px;
   word-wrap: break-word;
   font-weight: 400;
+
+  input,
+  textarea {
+    font-family: "poppins";
+    font-family: inherit;
+    font-size: 16px;
+  }
 `;

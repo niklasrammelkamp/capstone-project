@@ -24,9 +24,13 @@ export default function UploadPage() {
         router.push("/");
       } else {
         console.error(`Error: ${response.status}`);
+        alert("something went wrong. Please try again.");
+        router.reload();
       }
     } catch (error) {
       console.error(error.message);
+      alert("something went wrong. Please try again.");
+      router.reload();
     }
   }
 
