@@ -9,7 +9,7 @@ export default async function handler(request, response) {
 
   const session = await conn.startSession();
   await session.withTransaction(async () => {
-    switch (request) {
+    switch (request.method) {
       case "PUT": {
         // adding a new comment
         const comment = await Comment.create(request.body);
