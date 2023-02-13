@@ -65,27 +65,26 @@ export default function ProfilePage() {
       const uploadedPosts = [...loggedInUser.uploadedPosts].reverse();
       return (
         <>
-          <Button
-            type="button"
-            aria-label="settings"
-            variant="settings"
-            onClick={() => setShowSettings(!showSettings)}
-          >
-            <SVGIcon variant="settings" width={16} />
-          </Button>
-
-          {showSettings && (
-            <ProfileSettings
-              signOut={signOut}
-              onEdit={setEditProfile}
-              showSettings={setShowSettings}
-            />
-          )}
-
           {editProfile ? (
             <ProfileEditForm onSubmit={handleEditProfile} user={loggedInUser} />
           ) : (
             <>
+              <Button
+                type="button"
+                aria-label="settings"
+                variant="settings"
+                onClick={() => setShowSettings(!showSettings)}
+              >
+                <SVGIcon variant="settings" width={16} />
+              </Button>
+
+              {showSettings && (
+                <ProfileSettings
+                  signOut={signOut}
+                  onEdit={setEditProfile}
+                  showSettings={setShowSettings}
+                />
+              )}
               <ProfileDetails user={loggedInUser} />
               <TabBar onTabBar={handleTabBar} activeTab={activeTab} />
 

@@ -13,7 +13,7 @@ export default async function handler(request, response) {
 
     if (token) {
       switch (request.method) {
-        case "GET":
+        case "GET": {
           const userWithSub = await User.findOne({ userID: token.sub });
 
           if (!userWithSub) {
@@ -52,8 +52,8 @@ export default async function handler(request, response) {
 
             return response.status(200).json(user);
           }
-
-        case "PUT":
+        }
+        case "PUT": {
           await User.findOneAndUpdate(
             { userID: token.sub },
             {
@@ -62,6 +62,7 @@ export default async function handler(request, response) {
           );
 
           return response.status(200).json({ status: "User updated" });
+        }
       }
     }
   });
