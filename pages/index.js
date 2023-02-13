@@ -93,7 +93,6 @@ export default function HomePage() {
     if (session) {
       return (
         <>
-          <h1>Foto App</h1>
           <Filter
             filter={possibleFilters}
             activeFilters={activeFilters}

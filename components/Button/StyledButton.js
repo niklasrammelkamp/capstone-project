@@ -4,7 +4,7 @@ import styled from "styled-components";
 const StyledButton = styled.button`
   border: none;
   transition: 0.5s;
-  padding: 0;
+  /* padding: 0; */
   background: none;
   display: flex;
   align-items: center;
@@ -125,6 +125,17 @@ const StyledButton = styled.button`
           height: 10rem !important;
           display: block;
         }
+      `;
+    }
+
+    if (variant === "filter") {
+      return css`
+        min-width: fit-content;
+        margin-bottom: 0.8rem;
+        background-color: ${isActive ? "var(--black)" : "var(--white)"};
+        color: ${isActive ? "var(--white)" : "var(--black)"};
+        padding: 0.5rem 1.5rem;
+        border-radius: 10rem;
       `;
     }
   }}
