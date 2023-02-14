@@ -2,7 +2,7 @@ import { signIn } from "next-auth/react";
 import Button from "../Button";
 import SVGIcon from "../SVGIcon";
 import { StyledH1 } from "../StyledHeadlines";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import Image from "next/image";
 import logo from "@/public/icons/logo.png";
 
@@ -11,11 +11,26 @@ export default function LogIn() {
   return (
     <>
       <StyledLogIn>
-        <Image src={logo} width={200} height={200} alt="hallo" />
+        <StyledLogo
+          src={logo}
+          width={200}
+          height={200}
+          alt="hallo"
+          style={{ "--delay": `0s` }}
+        />
 
-        <StyledH1>Welcome</StyledH1>
-        <p>Please select a provider to log in</p>
-        <Button variant="submit" type="button" onClick={signIn}>
+        <StyledLogInHeadline style={{ "--delay": `0.2s` }}>
+          Welcome
+        </StyledLogInHeadline>
+        <StyledLogInText style={{ "--delay": `0.4s` }}>
+          Please select a provider to log in
+        </StyledLogInText>
+        <Button
+          variant="submit"
+          type="button"
+          onClick={signIn}
+          style={{ "--delay": `0.5s` }}
+        >
           <SVGIcon variant="github" color="var(--white)" width={28} />
           GitHub
         </Button>
@@ -25,111 +40,53 @@ export default function LogIn() {
   );
 }
 
+const appear = keyframes`
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+`;
+
+const StyledLogo = styled(Image)`
+  width: 17rem;
+  height: auto;
+  margin: 0 auto;
+  margin-bottom: 4rem;
+  opacity: 0;
+  animation: ${appear} 1s var(--delay) forwards;
+  transform: scale(0.8);
+`;
+
+const StyledLogInHeadline = styled.h1`
+  font-weight: 600;
+  margin: 0;
+  margin-bottom: 0.6rem;
+  font-size: 1.5rem;
+  text-align: center;
+  opacity: 0;
+  animation: ${appear} 1s var(--delay) forwards;
+  transform: scale(0.8);
+`;
+
+const StyledLogInText = styled.p`
+  margin-top: 0;
+  margin-bottom: 4rem;
+  opacity: 0;
+  animation: ${appear} 1s var(--delay) forwards;
+  transform: scale(0.8);
+`;
+
 const StyledLogIn = styled.section`
   position: relative;
   display: flex;
   flex-direction: column;
   padding-top: 5rem;
-
-  img {
-    width: 17rem;
-    height: auto;
-    margin: 0 auto;
-    margin-bottom: 4rem;
-    animation-name: fadeIn01;
-    animation-duration: 2s;
-    animation-timing-function: cubic-bezier(0.03, 0.38, 0.33, 0.94);
-  }
-
-  h1 {
-    animation-name: fadeIn02;
-    animation-duration: 2s;
-    animation-timing-function: cubic-bezier(0.03, 0.38, 0.33, 0.94);
-  }
-
-  p {
-    text-align: center;
-    color: var(--grey);
-    margin-top: 0;
-    margin-bottom: 4rem;
-    animation-name: fadeIn03;
-    animation-duration: 2s;
-    animation-timing-function: cubic-bezier(0.03, 0.38, 0.33, 0.94);
-  }
+  text-align: center;
 
   button {
-    animation-name: fadeIn04;
-    animation-duration: 2s;
-    animation-timing-function: cubic-bezier(0.03, 0.38, 0.33, 0.94);
-  }
-  @keyframes fadeIn01 {
-    0% {
-      opacity: 0;
-      transform: scale(0.7);
-    }
-    60% {
-      opacity: 1;
-      transform: scale(1);
-    }
-  }
-
-  @keyframes fadeIn01 {
-    0% {
-      opacity: 0;
-      transform: scale(0.7);
-    }
-    10% {
-      opacity: 0;
-      transform: scale(0.7);
-    }
-    70% {
-      opacity: 1;
-      transform: scale(1);
-    }
-  }
-
-  @keyframes fadeIn02 {
-    0% {
-      opacity: 0;
-      transform: scale(0.7);
-    }
-    20% {
-      opacity: 0;
-      transform: scale(0.7);
-    }
-    80% {
-      opacity: 1;
-      transform: scale(1);
-    }
-  }
-
-  @keyframes fadeIn03 {
-    0% {
-      opacity: 0;
-      transform: scale(0.7);
-    }
-    30% {
-      opacity: 0;
-      transform: scale(0.7);
-    }
-    90% {
-      opacity: 1;
-      transform: scale(1);
-    }
-  }
-  @keyframes fadeIn04 {
-    0% {
-      opacity: 0;
-      transform: scale(0.7);
-    }
-    40% {
-      opacity: 0;
-      transform: scale(0.7);
-    }
-    100% {
-      opacity: 1;
-      transform: scale(1);
-    }
+    opacity: 0;
+    animation: ${appear} 1s var(--delay) forwards;
+    transform: scale(0.8);
   }
 `;
 
