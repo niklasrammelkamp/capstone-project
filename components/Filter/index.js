@@ -1,22 +1,24 @@
+import { StyledFilter } from "./StyledFilter";
+import Button from "../Button";
+
 export default function Filter({ filter, activeFilters, onFilterClick }) {
   return (
-    <section>
+    <StyledFilter>
       {filter.map((filter) => {
         return (
-          <button
+          <Button
+            variant="filter"
+            isActive={activeFilters.includes(filter)}
             type="button"
             key={filter}
             onClick={() => {
               onFilterClick(filter);
             }}
-            style={{
-              backgroundColor: activeFilters.includes(filter) && "hotpink",
-            }}
           >
             {filter}
-          </button>
+          </Button>
         );
       })}
-    </section>
+    </StyledFilter>
   );
 }
