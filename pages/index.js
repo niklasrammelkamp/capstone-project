@@ -5,6 +5,11 @@ import { useAtom } from "jotai";
 import useSWR from "swr";
 import { useSession } from "next-auth/react";
 import LogIn from "@/components/LogIn";
+import SVGIcon from "@/components/SVGIcon";
+import Button from "@/components/Button";
+import logo from "@/public/icons/logo_circle.png";
+import Image from "next/image";
+import StyledHeader from "@/components/Header/StyledHeader";
 
 // sort array function from https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort
 function sortArray(array) {
@@ -93,7 +98,12 @@ export default function HomePage() {
     if (session) {
       return (
         <>
-          <h1>Foto App</h1>
+          <StyledHeader>
+            <Image src={logo} width={100} height={20} alt="hallo" />
+            <Button href="/upload">
+              <SVGIcon variant="plus" color="var(--black)" width={20} />
+            </Button>
+          </StyledHeader>
           <Filter
             filter={possibleFilters}
             activeFilters={activeFilters}
