@@ -68,6 +68,7 @@ const StyledLogInHeadline = styled.h1`
 `;
 
 const StyledLogInText = styled.p`
+  color: var(--grey);
   margin-top: 0;
   margin-bottom: 4rem;
   opacity: 0;
