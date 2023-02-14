@@ -7,7 +7,6 @@ import Image from "next/image";
 import logo from "@/public/icons/logo.png";
 
 export default function LogIn() {
-  console.log(logo);
   return (
     <>
       <StyledLogIn>
@@ -32,7 +31,7 @@ export default function LogIn() {
           style={{ "--delay": `0.5s` }}
         >
           <SVGIcon variant="github" color="var(--white)" width={28} />
-          GitHub
+          Login with GitHub
         </Button>
       </StyledLogIn>
       <StyledCopywrite>© Click photo app | 2023</StyledCopywrite>

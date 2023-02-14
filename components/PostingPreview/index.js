@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import ButtonLike from "../ButtonLike";
+import ProfileImage from "../ProfileDetails/ProfileImage";
 import ProfilLink from "../ProfilLink";
 import {
   StyledPostingPrev,
@@ -17,11 +18,10 @@ export default function PostingPreview({ post, loggedInUserID, reload }) {
 
       <StyledPostingPrevHeader>
         <ProfilLink href={`/users/${post.user._id}`}>
-          <Image
-            src={post.user.image}
+          <ProfileImage
+            userName={post.user.name}
+            image={post.user.image}
             width={30}
-            height={30}
-            alt={`profile picture of ${post.user.name}`}
           />
           <p>{post.user.name}</p>
         </ProfilLink>
