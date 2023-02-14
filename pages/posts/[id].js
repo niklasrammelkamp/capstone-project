@@ -9,6 +9,8 @@ import LogIn from "@/components/LogIn";
 import Button from "@/components/Button";
 import styled from "styled-components";
 import SVGIcon from "@/components/SVGIcon";
+import Loading from "@/components/Loading";
+import Error from "@/components/Error";
 
 export default function PostDetailsPage() {
   const { data: session } = useSession();
@@ -30,11 +32,11 @@ export default function PostDetailsPage() {
     error: userError,
   } = useSWR(session ? `/api/user` : null);
 
-  if (postIsLoading || !id) return <p>Post is loading</p>;
-  if (postError) return <p>error post</p>;
+  if (postIsLoading || !id) return <Loading />;
+  if (postError) return <Error />;
 
-  if (userIsLoading) return <p>User is loading</p>;
-  if (userError) return <p>error user</p>;
+  if (userIsLoading) return <Loading />;
+  if (userError) return <Error />;
 
   // ----------- ADD COMMENT
   async function handleAddComment(comment) {

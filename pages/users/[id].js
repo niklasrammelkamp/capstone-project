@@ -2,11 +2,12 @@ import LogIn from "@/components/LogIn";
 import ProfileDetails from "@/components/ProfileDetails";
 import ProfilePictureList from "@/components/ProfilePictureList";
 import TabBar from "@/components/TabBar";
-import { atom, useAtom } from "jotai";
-import { useSession, signOut } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import useSWR from "swr";
 import { useRouter } from "next/router";
 import { useState } from "react";
+import Loading from "@/components/Loading";
+import Error from "@/components/Error";
 
 // const globalActiveTab = atom("uploads");
 
@@ -22,8 +23,8 @@ export default function ProfilePage() {
     error,
   } = useSWR(session && id ? `/api/user/${id}` : null);
 
-  if (isLoading) return <p>is loading</p>;
-  if (error) return <p>error</p>;
+  if (isLoading) return <Loading />;
+  if (error) return <Error />;
 
   function handleTabBar(state) {
     setActiveTab(state);

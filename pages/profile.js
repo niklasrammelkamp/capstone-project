@@ -10,6 +10,8 @@ import { atom, useAtom } from "jotai";
 import { useSession, signOut } from "next-auth/react";
 import { useState } from "react";
 import useSWR from "swr";
+import Loading from "@/components/Loading";
+import Error from "@/components/Error";
 
 const globalActiveTab = atom("uploads");
 
@@ -26,8 +28,8 @@ export default function ProfilePage() {
     mutate,
   } = useSWR(session ? `/api/user` : null);
 
-  if (isLoading) return <p>is loading</p>;
-  if (error) return <p>error</p>;
+  if (isLoading) return <Loading />;
+  if (error) return <Error />;
 
   function handleTabBar(state) {
     setActiveTab(state);

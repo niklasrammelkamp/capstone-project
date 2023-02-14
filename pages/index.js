@@ -10,6 +10,8 @@ import Button from "@/components/Button";
 import logo from "@/public/icons/logo_circle.png";
 import Image from "next/image";
 import StyledHeader from "@/components/Header/StyledHeader";
+import Loading from "@/components/Loading";
+import Error from "@/components/Error";
 
 // sort array function from https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort
 function sortArray(array) {
@@ -46,11 +48,11 @@ export default function HomePage() {
     error: userError,
   } = useSWR(session ? `/api/user` : null);
 
-  if (postsAreLoading) return <p>Posts are loading</p>;
-  if (postsError) return <p>error posts</p>;
+  if (postsAreLoading) return <Loading />;
+  if (postsError) return <Error />;
 
-  if (userIsLoading) return <p>User is loading</p>;
-  if (userError) return <p>error user</p>;
+  if (userIsLoading) return <Loading />;
+  if (userError) return <Error />;
 
   if (data) {
     // reverse the posts so the latest is always on top
@@ -99,7 +101,7 @@ export default function HomePage() {
       return (
         <>
           <StyledHeader>
-            <Image src={logo} width={100} height={20} alt="hallo" />
+            <Image src={logo} width={100} height={20} alt="click logo" />
             <Button href="/upload">
               <SVGIcon variant="plus" color="var(--black)" width={20} />
             </Button>
