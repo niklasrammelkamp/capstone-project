@@ -1,7 +1,9 @@
 import SVGIcon from "@/components/SVGIcon";
 import Image from "next/image";
 import styled from "styled-components";
+import { StyledDate } from "../PostingDetails/StyledPostingDetails";
 import ProfilLink from "../ProfilLink";
+import ProfileImage from "../ProfileDetails/ProfileImage";
 
 export default function CommentList({
   comments,
@@ -16,15 +18,14 @@ export default function CommentList({
           return (
             <StyledComment key={comment._id}>
               <ProfilLink href={`/users/${comment.user._id}`}>
-                <Image
-                  src={comment.user.image}
+                <ProfileImage
+                  userName={comment.user.name}
+                  image={comment.user.image}
                   width={30}
-                  height={30}
-                  alt={`profile picture of ${comment.user.name}`}
                 />
                 <div>
                   <p>{comment.user.name}</p>
-                  <p>{comment.date}</p>
+                  <StyledDate>{comment.date}</StyledDate>
                 </div>
               </ProfilLink>
 

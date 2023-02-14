@@ -17,15 +17,9 @@ const StyledProfilLink = styled(Link)`
   div {
     display: flex;
     flex-direction: column;
-    gap: 3px;
   }
 
   div p {
     margin: 0;
-  }
-
-  div p:last-child {
-    color: var(--grey);
-    font-size: 0.76rem;
   }
 `;

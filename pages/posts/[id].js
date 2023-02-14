@@ -11,6 +11,7 @@ import styled from "styled-components";
 import SVGIcon from "@/components/SVGIcon";
 import Loading from "@/components/Loading";
 import Error from "@/components/Error";
+import { StyledH2 } from "@/components/StyledHeadlines";
 
 export default function PostDetailsPage() {
   const { data: session } = useSession();
@@ -106,10 +107,11 @@ export default function PostDetailsPage() {
           getBack={router.back}
         />
 
+        <StyledH2>Comments</StyledH2>
+
         {isError ? (
           <>
-            <p>error</p>
-            <button onClick={() => router.reload()}>Try again</button>
+            <Error />
           </>
         ) : (
           <CommentForm onAddComment={handleAddComment} />

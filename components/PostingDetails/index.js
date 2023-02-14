@@ -3,6 +3,13 @@ import Image from "next/image";
 import SVGIcon from "../SVGIcon";
 import ButtonLike from "@/components/ButtonLike";
 import ProfilLink from "../ProfilLink";
+import { StyledDate, StyledPostImage } from "./StyledPostingDetails";
+import {
+  StyledCategories,
+  StyledPostingPrevHeader,
+} from "../PostingPreview/StyledPostingPreview";
+import ProfileImage from "../ProfileDetails/ProfileImage";
+import { StyledH2 } from "../StyledHeadlines";
 
 export default function PostingDetails({
   post,
@@ -10,61 +17,102 @@ export default function PostingDetails({
   reload,
   getBack,
 }) {
+  const hasAllSettingsValues = Object.entries(post.settings).filter(
+    ([, value]) => {
+      return value;
+    }
+  );
+
   return (
     <>
-      <button onClick={getBack}>back</button>
-      <Image src={post.image} width={200} height={200} alt={post.description} />
-      <p>{post.date}</p>
-      <ProfilLink href={`/users/${post.user._id}`}>
-        <Image
-          src={post.user.image}
-          width={30}
-          height={30}
-          alt={`profile picture of ${post.user.name}`}
+      {/* <button onClick={getBack}>back</button> */}
+      <StyledPostImage
+        src={post.image}
+        width={200}
+        height={200}
+        alt={post.description}
+      />
+      <StyledDate>{post.date}</StyledDate>
+      <StyledPostingPrevHeader>
+        <ProfilLink href={`/users/${post.user._id}`}>
+          <ProfileImage
+            userName={post.user.name}
+            image={post.user.image}
+            width={30}
+          />
+          <p>{post.user.name}</p>
+        </ProfilLink>
+
+        <ButtonLike
+          post={post}
+          loggedInUserID={loggedInUserID}
+          reload={reload}
         />
-        <p>{post.user.name}</p>
-      </ProfilLink>
-      <ButtonLike post={post} loggedInUserID={loggedInUserID} reload={reload} />
+      </StyledPostingPrevHeader>
 
       <p>{post.description}</p>
-      <ul>
+      <StyledCategories variant="white">
         {post.categories.map((category) => {
           return <li key={category}>{category}</li>;
         })}
-      </ul>
+      </StyledCategories>
 
-      <h2>Settings</h2>
-      <StyledSettings>
-        <div>
-          <SVGIcon variant="film" width="16" />
-          <p>Film</p>
-        </div>
-        <p>{post.settings.film}</p>
+      {hasAllSettingsValues.length > 0 && (
+        <>
+          <StyledH2>Settings</StyledH2>{" "}
+          <StyledSettings>
+            {post.settings.film && (
+              <>
+                <div>
+                  <SVGIcon variant="film" width="16" />
+                  <p>Film</p>
+                </div>
+                <p>{post.settings.film}</p>
+              </>
+            )}
 
-        <div>
-          <SVGIcon variant="aperture" width="13" />
-          <p>Aperture</p>
-        </div>
-        <p>{post.settings.aperture}</p>
+            {post.settings.aperture && (
+              <>
+                <div>
+                  <SVGIcon variant="aperture" width="13" />
+                  <p>Aperture</p>
+                </div>
+                <p>f/{post.settings.aperture}</p>
+              </>
+            )}
 
-        <div>
-          <SVGIcon variant="time" width="13" />
-          <p>Time</p>
-        </div>
-        <p>{post.settings.time}</p>
+            {post.settings.time && (
+              <>
+                <div>
+                  <SVGIcon variant="time" width="13" />
+                  <p>Time</p>
+                </div>
+                <p>{post.settings.time} s</p>
+              </>
+            )}
 
-        <div>
-          <SVGIcon variant="lens" width="13" />
-          <p>Lens</p>
-        </div>
-        <p>{post.settings.lens}</p>
+            {post.settings.lens && (
+              <>
+                <div>
+                  <SVGIcon variant="lens" width="13" />
+                  <p>Lens</p>
+                </div>
+                <p>{post.settings.lens} mm</p>
+              </>
+            )}
 
-        <div>
-          <SVGIcon variant="camera" width="15" />
-          <p>Camera</p>
-        </div>
-        <p>{post.settings.camera}</p>
-      </StyledSettings>
+            {post.settings.camera && (
+              <>
+                <div>
+                  <SVGIcon variant="camera" width="15" />
+                  <p>Camera</p>
+                </div>
+                <p>{post.settings.camera}</p>
+              </>
+            )}
+          </StyledSettings>
+        </>
+      )}
     </>
   );
 }
@@ -73,9 +121,13 @@ const StyledSettings = styled.section`
   display: grid;
   grid-template-columns: 1fr 1fr;
   padding: 0;
+  margin-bottom: 4rem;
 
   *:nth-child(even) {
     text-align: right;
+  }
+  *:nth-child(odd) {
+    color: var(--grey);
   }
 
   div {

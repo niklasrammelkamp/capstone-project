@@ -11,8 +11,6 @@ export const StyledFilter = styled.section`
   padding: 0 30px;
 
   &::-webkit-scrollbar {
-    width: 12px;
-
     height: 2px;
   }
 

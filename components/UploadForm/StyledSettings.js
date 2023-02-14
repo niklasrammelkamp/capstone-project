@@ -2,7 +2,7 @@ import css from "styled-jsx/css";
 import styled from "styled-components";
 
 export const StyledSettings = styled.section`
-  max-height: ${({ show }) => (show ? "0px" : "100rem")};
+  max-height: ${({ show }) => (show ? "0px" : "23rem")};
   overflow: hidden;
   transition: 1s;
 `;
