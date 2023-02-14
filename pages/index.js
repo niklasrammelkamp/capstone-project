@@ -48,6 +48,8 @@ export default function HomePage() {
     error: userError,
   } = useSWR(session ? `/api/user` : null);
 
+  return <Loading />;
+
   if (postsAreLoading) return <Loading />;
   if (postsError) return <Error />;
 
