@@ -8,13 +8,13 @@ export default function Loading() {
       <StyledLoadingImage
         src={logo}
         fit
-        alt="click logo"
+        alt="logo of click app"
         style={{ "--delay": `0s` }}
       />
       <StyledLoadingImage
         src={logo}
         fit
-        alt="click logo"
+        alt="logo of click app"
         style={{ "--delay": `1.5s` }}
       />
     </StyledLoading>

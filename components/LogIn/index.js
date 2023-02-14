@@ -14,7 +14,7 @@ export default function LogIn() {
           src={logo}
           width={200}
           height={200}
-          alt="hallo"
+          alt="logo of click app"
           style={{ "--delay": `0s` }}
         />
 
