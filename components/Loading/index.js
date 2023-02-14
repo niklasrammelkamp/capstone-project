@@ -23,7 +23,6 @@ export default function Loading() {
 
 const appear = keyframes`
   0% {
-    
     opacity: 0;
     transform: scale(0) rotate(0);
   } 50%{
@@ -50,5 +49,6 @@ const StyledLoadingImage = styled(Image)`
   position: absolute;
   width: 10rem;
   height: auto;
+  opacity: 0;
   animation: ${appear} 3s var(--delay) infinite ease-in-out;
 `;
