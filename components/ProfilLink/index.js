@@ -10,6 +10,8 @@ const StyledProfilLink = styled(Link)`
   gap: 0.5rem;
   text-decoration: none;
   color: inherit;
+  justify-content: space-between;
+
   img {
     border-radius: 50%;
   }
