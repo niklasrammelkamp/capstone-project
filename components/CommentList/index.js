@@ -50,18 +50,14 @@ export default function CommentList({
             </StyledComment>
           );
         })}
-      {comments.length > 5 ? (
-        reverseComments.length >= commentCount && (
-          <Button
-            variant="filter"
-            type="button"
-            onClick={() => setCommentCount(commentCount + 5)}
-          >
-            load more comments
-          </Button>
-        )
-      ) : (
-        <></>
+      {comments.length > 5 && reverseComments.length >= commentCount && (
+        <Button
+          variant="filter"
+          type="button"
+          onClick={() => setCommentCount(commentCount + 5)}
+        >
+          load more comments
+        </Button>
       )}
     </StyledCommentList>
   );
