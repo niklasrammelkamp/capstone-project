@@ -47,7 +47,7 @@ export default function Navbar() {
       </div>
 
       <Button
-        variant="navButtonUpload"
+        variant="roundButton"
         isActive={activeNav === "upload"}
         type="button"
         href="/upload"

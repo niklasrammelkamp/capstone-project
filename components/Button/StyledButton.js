@@ -39,7 +39,7 @@ const StyledButton = styled.button`
       `;
     }
 
-    if (variant === "navButtonUpload") {
+    if (variant === "roundButton") {
       return css`
         background-color: var(--black);
         height: 4rem;
@@ -142,14 +142,12 @@ const StyledButton = styled.button`
     if (variant === "back") {
       return css`
         position: absolute;
-        min-width: fit-content;
-        margin-bottom: 0.8rem;
         background-color: rgba(255, 255, 255, 0.3);
         gap: 0.5rem;
         top: 2rem;
         left: 30px;
         backdrop-filter: blur(7.5px);
-        color: ${isActive ? "var(--white)" : "var(--black)"};
+        color: var(--black);
         padding: 0.5rem 1.5rem;
         border-radius: 10rem;
       `;

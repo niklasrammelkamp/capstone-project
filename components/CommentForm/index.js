@@ -22,7 +22,7 @@ export default function CommentForm({ onAddComment }) {
           isRequired={true}
           maxLength={100}
         />
-        <Button variant="navButtonUpload" type="submit">
+        <Button variant="roundButton" type="submit">
           <SVGIcon variant="send" color="var(--white)" width="24" />
         </Button>
       </StyledCommentForm>
