@@ -71,7 +71,7 @@ export default function ProfilePage() {
             <>
               <Button
                 type="button"
-                aria-label="close edit form"
+                aria-label="close edit-form"
                 variant="settings"
                 onClick={() => setEditProfile(!editProfile)}
               >
