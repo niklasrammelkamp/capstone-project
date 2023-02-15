@@ -24,6 +24,10 @@ const GlobalStyle = createGlobalStyle`
       font-size: var(--font-size);
   }
 
+  button {
+    color: var(--black);
+  }
+
   body {
     margin: 0;
     font-family: system-ui;
