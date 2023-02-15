@@ -11,12 +11,7 @@ import {
 import ProfileImage from "../ProfileDetails/ProfileImage";
 import { StyledH2 } from "../StyledHeadlines";
 
-export default function PostingDetails({
-  post,
-  loggedInUserID,
-  reload,
-  getBack,
-}) {
+export default function PostingDetails({ post, loggedInUserID, reload }) {
   const hasAllSettingsValues = Object.entries(post.settings).filter(
     ([, value]) => {
       return value;
@@ -25,7 +20,6 @@ export default function PostingDetails({
 
   return (
     <>
-      {/* <button onClick={getBack}>back</button> */}
       <StyledPostImage
         src={post.image}
         width={200}

@@ -100,11 +100,14 @@ export default function PostDetailsPage() {
   if (session) {
     return (
       <>
+        <Button variant="back" onClick={router.back}>
+          <SVGIcon variant="left" width={10} color="var(--black)" />
+          back
+        </Button>
         <PostingDetails
           post={post}
           reload={mutate}
           loggedInUserID={loggedInUser._id}
-          getBack={router.back}
         />
 
         <StyledH2>Comments</StyledH2>
