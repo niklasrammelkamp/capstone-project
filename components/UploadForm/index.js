@@ -226,7 +226,7 @@ export default function UploadForm({ initialCategories, onSubmit }) {
                 <StyledParagraphWrapper key={category} green={true}>
                   <p>{category}</p>
                   <Button
-                    variant="navButtonUpload"
+                    variant="roundButton"
                     onClick={() => {
                       handleDeleteSelectedCategory(category);
                     }}

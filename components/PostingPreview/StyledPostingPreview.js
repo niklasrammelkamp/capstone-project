@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 export const StyledPostingPrev = styled.div`
   position: relative;
@@ -22,11 +22,18 @@ export const StyledPostingPrevHeader = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  position: absolute;
-  padding: 0 30px;
-  top: 20px;
-  z-index: 10;
-  color: var(--white);
+
+  ${({ variant }) => {
+    if (variant === "feed") {
+      return css`
+        position: absolute;
+        padding: 0 30px;
+        top: 20px;
+        z-index: 10;
+        color: var(--white);
+      `;
+    }
+  }}
 `;
 
 export const BackgroundGradient = styled.div`
@@ -54,17 +61,6 @@ export const StyledPostingPrevDetails = styled.div`
   backdrop-filter: blur(7.5px);
   padding: 1.5rem 30px;
   color: var(--white);
-
-  p {
-    margin: 0;
-  }
-
-  p:first-child {
-    font-size: 0.85rem;
-    font-weight: 200;
-    opacity: 0.8;
-    margin-bottom: 0.8rem;
-  }
 `;
 
 export const StyledCategories = styled.ul`
@@ -74,12 +70,23 @@ export const StyledCategories = styled.ul`
   flex-wrap: wrap;
   list-style: none;
   padding: 0;
+  font-size: 0.8rem;
 
   li {
     min-width: fit-content;
     padding: 0.4rem 1.3rem;
-    background-color: red;
     border-radius: 8rem;
-    background: rgba(255, 255, 255, 0.16);
+    background-color: rgba(255, 255, 255, 0.16);
   }
+
+  ${({ variant }) => {
+    if (variant === "white") {
+      return css`
+        margin-bottom: 4rem;
+        li {
+          background-color: var(--white);
+        }
+      `;
+    }
+  }}
 `;

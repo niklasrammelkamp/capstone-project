@@ -11,6 +11,7 @@ import styled from "styled-components";
 import SVGIcon from "@/components/SVGIcon";
 import Loading from "@/components/Loading";
 import Error from "@/components/Error";
+import { StyledH2 } from "@/components/StyledHeadlines";
 
 export default function PostDetailsPage() {
   const { data: session } = useSession();
@@ -99,17 +100,21 @@ export default function PostDetailsPage() {
   if (session) {
     return (
       <>
+        <Button variant="back" onClick={router.back}>
+          <SVGIcon variant="left" width={10} color="var(--black)" />
+          back
+        </Button>
         <PostingDetails
           post={post}
           reload={mutate}
           loggedInUserID={loggedInUser._id}
-          getBack={router.back}
         />
+
+        <StyledH2>Comments</StyledH2>
 
         {isError ? (
           <>
-            <p>error</p>
-            <button onClick={() => router.reload()}>Try again</button>
+            <Error />
           </>
         ) : (
           <CommentForm onAddComment={handleAddComment} />

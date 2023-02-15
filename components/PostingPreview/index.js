@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import ButtonLike from "../ButtonLike";
+import { StyledDate } from "../PostingDetails/StyledPostingDetails";
 import ProfileImage from "../ProfileDetails/ProfileImage";
 import ProfilLink from "../ProfilLink";
 import {
@@ -16,7 +17,7 @@ export default function PostingPreview({ post, loggedInUserID, reload }) {
     <StyledPostingPrev>
       <BackgroundGradient />
 
-      <StyledPostingPrevHeader>
+      <StyledPostingPrevHeader variant="feed">
         <ProfilLink href={`/users/${post.user._id}`}>
           <ProfileImage
             userName={post.user.name}
@@ -37,7 +38,7 @@ export default function PostingPreview({ post, loggedInUserID, reload }) {
         <Image src={post.image} fill alt={post.description} />
 
         <StyledPostingPrevDetails>
-          <p>{post.date}</p>
+          <StyledDate variant="feed">{post.date}</StyledDate>
 
           {post.description.length > 50 ? (
             <p> {post.description.substring(0, 50)} …</p>

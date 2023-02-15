@@ -10,6 +10,8 @@ const StyledProfilLink = styled(Link)`
   gap: 0.5rem;
   text-decoration: none;
   color: inherit;
+  justify-content: space-between;
+
   img {
     border-radius: 50%;
   }
@@ -17,15 +19,9 @@ const StyledProfilLink = styled(Link)`
   div {
     display: flex;
     flex-direction: column;
-    gap: 3px;
   }
 
   div p {
     margin: 0;
-  }
-
-  div p:last-child {
-    color: var(--grey);
-    font-size: 0.76rem;
   }
 `;

@@ -19,7 +19,7 @@ export default function App({
       >
         <GlobalStyle />
         <Head>
-          <title>Foto App</title>
+          <title>Click</title>
         </Head>
         <Layout>
           <Component {...pageProps} />
