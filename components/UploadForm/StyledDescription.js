@@ -2,7 +2,7 @@ import css from "styled-jsx/css";
 import styled from "styled-components";
 
 export const StyledDescription = styled.div`
-  width: 100;
+  width: 100%;
   position: relative;
 
   label {

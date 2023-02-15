@@ -10,6 +10,7 @@ export default function CommentForm({ onAddComment }) {
 
     event.target.reset();
     event.target.elements.comment.focus();
+    event.target.elements.comment.style.height = "4rem";
   }
 
   return (

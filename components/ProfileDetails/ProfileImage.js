@@ -6,8 +6,9 @@ export default function ProfileImage({ image, userName, width }) {
     <StyledProfileImage width={width}>
       <Image
         src={image}
-        width={30}
-        height={30}
+        width={width}
+        height={width}
+        priority
         alt={`profile picture of ${userName}`}
       />
     </StyledProfileImage>
@@ -21,6 +22,9 @@ const StyledProfileImage = styled.div`
   }};
 
   img {
+    width: auto;
+    aspect-ratio: 1/1;
+    border-radius: 50%;
     position: absolute;
     height: 100%;
     object-fit: cover;

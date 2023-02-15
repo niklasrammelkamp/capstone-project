@@ -58,6 +58,7 @@ export default function Input({
 
 const StyledInputWrapper = styled.div`
   position: relative;
+  width: 100%;
 `;
 
 const StyledLabel = styled.label`

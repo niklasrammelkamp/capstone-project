@@ -13,6 +13,8 @@ const StyledProfileSettings = styled.div`
   border-radius: var(--border-radius);
   box-shadow: var(--box-shadow);
   transition: 0.5s ease;
+  z-index: 50;
+  color: var(--black);
 
   button {
     gap: 0.5rem;

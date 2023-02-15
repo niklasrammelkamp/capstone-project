@@ -8,6 +8,8 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import Loading from "@/components/Loading";
 import Error from "@/components/Error";
+import Button from "@/components/Button";
+import SVGIcon from "@/components/SVGIcon";
 
 // const globalActiveTab = atom("uploads");
 
@@ -33,7 +35,10 @@ export default function ProfilePage() {
   if (session) {
     return (
       <>
-        <button onClick={router.back}>back</button>
+        <Button variant="back" onClick={router.back}>
+          <SVGIcon variant="left" width={10} color="var(--black)" />
+          back
+        </Button>
         <ProfileDetails user={user} />
 
         <TabBar onTabBar={handleTabBar} activeTab={activeTab} />

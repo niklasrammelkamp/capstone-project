@@ -91,9 +91,9 @@ const StyledButton = styled.button`
     if (variant === "settings") {
       return css`
         position: absolute;
-        top: 30px;
+        top: 3rem;
         right: 30px;
-        z-index: 20;
+        z-index: 100;
       `;
     }
 

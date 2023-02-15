@@ -12,10 +12,6 @@ const StyledProfilLink = styled(Link)`
   color: inherit;
   justify-content: space-between;
 
-  img {
-    border-radius: 50%;
-  }
-
   div {
     display: flex;
     flex-direction: column;

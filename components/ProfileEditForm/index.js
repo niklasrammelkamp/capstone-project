@@ -10,11 +10,12 @@ import { StyledUpload } from "../UploadForm/StyledUpload";
 import SVGIcon from "../SVGIcon";
 import UploadingSVG from "../AnimatedSVG/UploadingSVG";
 import dotsloading from "@/public/icons/dots-loading.json";
+import ProfileImage from "../ProfileDetails/ProfileImage";
 
 export default function ProfileEditForm({ onSubmit, user }) {
   const [descriptionFocus, setDescriptionFocus] = useState(""); // for description field
-  const [imageUploadValue, setImageUploadValue] = useState(""); // for upload field
   const [uploading, setUploading] = useState(false);
+  const [imageUploadValue, setImageUploadValue] = useState(""); // for upload field
 
   async function uploadImage(data) {
     // uploading the image file
@@ -134,5 +135,26 @@ export default function ProfileEditForm({ onSubmit, user }) {
 const StyledEditForm = styled.form`
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 1rem;
+  margin-top: 3rem;
+`;
+
+const StyledUploadProfile = styled.label`
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background-color: rgba(0, 0, 0, 0.3);
+  z-index: 100;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  /* backdrop-filter: blur(1px); */
+
+  input {
+    opacity: 0;
+    width: 100%;
+  }
 `;
