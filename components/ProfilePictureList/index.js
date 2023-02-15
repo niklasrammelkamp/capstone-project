@@ -26,7 +26,7 @@ export default function ProfilePostList({ posts }) {
 const StyledProfilePostList = styled.section`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  gap: 0.7rem;
+  gap: 0.5rem;
 `;
 
 const StyledPostThumb = styled.div`
