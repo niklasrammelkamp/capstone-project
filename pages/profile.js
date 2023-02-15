@@ -68,7 +68,20 @@ export default function ProfilePage() {
       return (
         <>
           {editProfile ? (
-            <ProfileEditForm onSubmit={handleEditProfile} user={loggedInUser} />
+            <>
+              <Button
+                type="button"
+                aria-label="close edit form"
+                variant="settings"
+                onClick={() => setEditProfile(!editProfile)}
+              >
+                <SVGIcon variant="close" width={14} />
+              </Button>
+              <ProfileEditForm
+                onSubmit={handleEditProfile}
+                user={loggedInUser}
+              />
+            </>
           ) : (
             <>
               <Button

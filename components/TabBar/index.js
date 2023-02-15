@@ -36,6 +36,7 @@ export default function TabBar({ onTabBar, activeTab }) {
 const StyledTabBar = styled.div`
   background-color: var(--white);
   margin-bottom: 20px;
+  margin-top: 2rem;
   width: 90%;
   height: 38px;
   position: relative;

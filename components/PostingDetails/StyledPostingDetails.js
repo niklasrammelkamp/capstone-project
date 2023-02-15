@@ -26,5 +26,13 @@ export const StyledDate = styled.p`
         padding-bottom: 0;
       `;
     }
+
+    if (variant === "profile") {
+      return css`
+        font-size: 1rem;
+        margin-top: 0.5rem;
+        margin-bottom: 1.5rem;
+      `;
+    }
   }}
 `;
