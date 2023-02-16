@@ -48,10 +48,6 @@ export default function HomePage() {
     error: userError,
   } = useSWR(session ? `/api/user` : null);
 
-  console.log(session);
-  console.log("loggedInUser", loggedInUser);
-  console.log(data);
-
   if (postsAreLoading) return <Loading />;
   if (postsError) return <Error />;
 

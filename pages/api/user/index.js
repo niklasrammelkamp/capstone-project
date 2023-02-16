@@ -14,7 +14,6 @@ export default async function handler(request, response) {
     if (token) {
       switch (request.method) {
         case "GET": {
-          console.log("token", token);
           const userWithSub = await User.findOne({ userID: token.sub });
 
           if (!userWithSub) {
