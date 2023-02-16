@@ -119,6 +119,7 @@ const StyledButton = styled.button`
         border-radius: 8rem;
         height: 4rem;
         gap: 0.7rem;
+        margin-bottom: 1rem;
 
         div > svg {
           width: 10rem !important;

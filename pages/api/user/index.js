@@ -64,6 +64,8 @@ export default async function handler(request, response) {
           return response.status(200).json({ status: "User updated" });
         }
       }
+    } else {
+      return response.status(403).json({ status: "forbidden" });
     }
   });
   session.endSession();

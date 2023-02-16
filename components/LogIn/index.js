@@ -24,14 +24,25 @@ export default function LogIn() {
         <StyledLogInText style={{ "--delay": `0.4s` }}>
           Please select a provider to log in
         </StyledLogInText>
+
         <Button
           variant="submit"
           type="button"
-          onClick={signIn}
-          style={{ "--delay": `0.5s` }}
+          onClick={() => signIn("github")}
+          style={{ "--delay": `0.6s` }}
         >
           <SVGIcon variant="github" color="var(--white)" width={28} />
           Login with GitHub
+        </Button>
+
+        <Button
+          variant="submit"
+          type="button"
+          onClick={() => signIn("google")}
+          style={{ "--delay": `0.8s` }}
+        >
+          <SVGIcon variant="google" color="var(--white)" width={27} />
+          Login with Google
         </Button>
       </StyledLogIn>
       <StyledCopywrite>© Click photo app | 2023</StyledCopywrite>
@@ -80,7 +91,7 @@ const StyledLogIn = styled.section`
   position: relative;
   display: flex;
   flex-direction: column;
-  padding-top: 5rem;
+  padding-top: 4rem;
   text-align: center;
 
   button {
