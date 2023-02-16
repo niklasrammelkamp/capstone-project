@@ -14,6 +14,7 @@ export default async function handler(request, response) {
     if (token) {
       switch (request.method) {
         case "GET": {
+          console.log("token", token);
           const userWithSub = await User.findOne({ userID: token.sub });
 
           if (!userWithSub) {
@@ -64,6 +65,8 @@ export default async function handler(request, response) {
           return response.status(200).json({ status: "User updated" });
         }
       }
+    } else {
+      return response.status(403).json({ status: "forbidden" });
     }
   });
   session.endSession();
