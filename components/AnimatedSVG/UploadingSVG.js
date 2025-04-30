@@ -1,19 +1,22 @@
 import React from "react";
-import lottie from "lottie-web";
 
 class UploadingSVG extends React.Component {
   componentDidMount() {
-    lottie.loadAnimation({
-      container: this.animationContainer,
-      renderer: "svg",
-      loop: true,
-      autoplay: true,
-      animationData: this.props.animationData,
+    import("lottie-web").then((lottie) => {
+      this.lottieInstance = lottie.loadAnimation({
+        container: this.animationContainer,
+        renderer: "svg",
+        loop: true,
+        autoplay: true,
+        animationData: this.props.animationData,
+      });
     });
   }
 
   componentWillUnmount() {
-    lottie.destroy();
+    if (this.lottieInstance) {
+      this.lottieInstance.destroy();
+    }
   }
 
   render() {
